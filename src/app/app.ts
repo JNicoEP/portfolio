@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, AfterViewInit, HostListener, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, signal, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface Project {
@@ -23,7 +23,6 @@ export interface TechItem {
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -31,39 +30,39 @@ export class App implements OnInit, AfterViewInit {
   isDarkMode = signal<boolean>(false);
   copied = signal<boolean>(false);
   scrollProgress = signal<number>(0);
-  modelOrbit = signal<string>('0deg 75deg 2.8m');
-  show3DCompanion = signal<boolean>(true);
+  isScrolling = signal<boolean>(false);
+  private scrollTimeout: any;
 
-  // Información personal actualizada
+  // Información personal
   name = 'José Nicolás Espinoza Perillo';
   shortName = 'Nicolás Espinoza';
   titleDegree = 'Ingeniero en Informática';
   role = 'Ingeniero en Informática & Full Stack Developer';
-  graduationStatus = 'Graduado 2026 · Universidad del Norte Santo Tomás de Aquino (UNSTA)';
+  graduationStatus = 'Egresado 2026 · Universidad del Norte Santo Tomás de Aquino (UNSTA)';
   location = 'Monteros, Tucumán, Argentina';
   githubUrl = 'https://github.com/JNicoEP';
   email = 'nespinoza912@gmail.com';
   phone = '+54 9 3863567732';
   whatsappUrl = 'https://wa.me/5493863567732?text=Hola%20Nicolas,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar.';
 
-  // Proyectos con capturas de pantalla reales (side-by-side)
+  // Proyectos destacados con las nuevas imágenes de alta fidelidad
   projects: Project[] = [
     {
       id: '01',
       title: 'Luvanna',
       subtitle: 'Plataforma Web de Streaming de Películas',
-      description: 'Plataforma audiovisual moderna para explorar y reproducir películas con diseño cinematográfico inmersivo. Desarrollada con React y TypeScript, incluye catálogo dinámico clasificado por géneros, buscador en tiempo real y reproductor multimedia responsivo.',
+      description: 'Plataforma audiovisual moderna para explorar y reproducir películas con diseño cinematográfico inmersivo. Desarrollada con React y TypeScript, incluye catálogo interactivo clasificado por géneros y tendencias, buscador en tiempo real y reproductor multimedia fluido.',
       link: 'https://luvanna.netlify.app/',
       screenshot: 'projects/luvanna.png',
       tags: ['React', 'TypeScript', 'Tailwind CSS', 'Streaming API', 'SPA'],
-      status: 'EN VIVO',
+      status: 'EN LÍNEA',
       category: 'Multimedia & Streaming'
     },
     {
       id: '02',
       title: 'Escuela Mariano Ariza',
       subtitle: 'Sistema Institucional con BD & Aula Virtual con Roles',
-      description: 'Sistema web integral para digitalizar la gestión escolar de la institución. Cuenta con arquitectura de base de datos relacional y autenticación con control de roles (directivos, docentes y alumnos), infografía escolar interactiva y repositorio descargable de documentación.',
+      description: 'Sistema web integral para digitalizar la gestión escolar de la institución. Cuenta con arquitectura de base de datos relacional y autenticación con control de roles (directivos, docentes y alumnos), infografía escolar interactiva, proyectos estudiantiles y repositorio descargable de documentación.',
       link: 'https://escuela-mariano-ariza-rust.vercel.app/',
       screenshot: 'projects/mariano-ariza.png',
       tags: ['JavaScript', 'PostgreSQL', 'Supabase', 'Vercel', 'RBAC'],
@@ -78,7 +77,7 @@ export class App implements OnInit, AfterViewInit {
       link: 'https://lumiiere.vercel.app/',
       screenshot: 'projects/lumiiere.png',
       tags: ['Angular', 'TypeScript', 'Tailwind CSS', 'Booking Engine', 'Responsive UI'],
-      status: 'EN VIVO',
+      status: 'EN LÍNEA',
       category: 'Turnos Online & Estética'
     }
   ];
@@ -170,10 +169,11 @@ export class App implements OnInit, AfterViewInit {
       const progress = Math.min(Math.max(window.scrollY / docHeight, 0), 1);
       this.scrollProgress.set(progress);
       
-      // Rotación suave del modelo 3D según el avance del scroll
-      const deg = Math.round(progress * 360 * 1.5);
-      const elevation = Math.round(60 + Math.sin(progress * Math.PI) * 20);
-      this.modelOrbit.set(`${deg}deg ${elevation}deg 2.7m`);
+      this.isScrolling.set(true);
+      clearTimeout(this.scrollTimeout);
+      this.scrollTimeout = setTimeout(() => {
+        this.isScrolling.set(false);
+      }, 150);
     }
   }
 
@@ -187,14 +187,13 @@ export class App implements OnInit, AfterViewInit {
             }
           });
         },
-        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
       );
 
       document.querySelectorAll('.fade-in-up').forEach((el) => {
         observer.observe(el);
       });
     } else {
-      // Fallback
       document.querySelectorAll('.fade-in-up').forEach((el) => {
         el.classList.add('visible');
       });
@@ -208,10 +207,6 @@ export class App implements OnInit, AfterViewInit {
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }
-
-  toggle3D() {
-    this.show3DCompanion.update((v) => !v);
   }
 
   copyEmail() {

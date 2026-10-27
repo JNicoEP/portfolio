@@ -1,173 +1,287 @@
-<div class="min-h-screen bg-[#FAFAFA] text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100 font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-300 relative overflow-x-hidden">
+<div class="min-h-screen bg-[#F3F4F6] text-zinc-900 dark:bg-[#070809] dark:text-zinc-100 font-sans selection:bg-[#FF9E1B] selection:text-white transition-colors duration-300 relative overflow-x-hidden">
 
   <!-- ================= TOP READING PROGRESS BAR ================= -->
-  <div class="fixed top-0 left-0 right-0 h-[3px] bg-transparent z-[60]">
+  <div class="fixed top-0 left-0 right-0 h-[4px] bg-transparent z-[70]">
     <div 
-      class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 transition-all duration-100 ease-out"
+      class="h-full bg-gradient-to-r from-[#FF9E1B] via-amber-400 to-[#FF7A00] transition-all duration-100 ease-out"
       [style.width.%]="scrollProgress() * 100">
     </div>
   </div>
 
-  <!-- ================= IMMERSIVE HEADER (GLASSMORPHISM) ================= -->
-  <header class="sticky top-0 z-50 glass bg-white/75 dark:bg-[#09090B]/75 border-b border-zinc-200/60 dark:border-zinc-800/60 transition-all">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      
-      <!-- Brand & Title -->
-      <a href="#" class="flex items-center gap-2.5 group">
-        <span class="w-9 h-9 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 flex items-center justify-center font-mono font-bold text-xs tracking-wider shadow-sm group-hover:scale-105 group-hover:rotate-3 transition-transform">
-          JN
-        </span>
-        <div class="flex flex-col">
-          <span class="text-sm font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-            Nicolás Espinoza
-            <span class="text-xs">☕</span>
-          </span>
-          <span class="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium -mt-0.5">
-            {{ titleDegree }}
-          </span>
-        </div>
-      </a>
+  <!-- ================= SCROLL-DRIVEN 2D COMPANION (YOUTUBE SHORT CONCEPT) ================= -->
+  <!-- A dynamic 2D character that travels along the screen as you scroll, walking and then sitting at his desk -->
+  <div 
+    class="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-3 select-none pointer-events-none transition-all duration-300">
+    
+    <!-- Speech bubble based on scroll position -->
+    <div class="pointer-events-auto glass bg-white/90 dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800/80 px-3 py-1.5 rounded-2xl shadow-card text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5 animate-float">
+      <span *ngIf="scrollProgress() < 0.2">👋 ¡Hola! Scrollea para ver más</span>
+      <span *ngIf="scrollProgress() >= 0.2 && scrollProgress() < 0.55">💻 Revisando proyectos...</span>
+      <span *ngIf="scrollProgress() >= 0.55 && scrollProgress() < 0.85">⚙️ Stack & Tecnologías</span>
+      <span *ngIf="scrollProgress() >= 0.85">☕ ¡Programando en mi escritorio!</span>
+    </div>
 
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
-        <a href="#proyectos" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Proyectos</a>
-        <a href="#competencias" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Tecnologías</a>
-        <a href="#formacion" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Educación</a>
-        <a href="#contacto" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Contacto</a>
+    <!-- Mini 2D Character Walking / Seated Widget -->
+    <div class="pointer-events-auto w-16 h-16 sm:w-20 sm:h-20 rounded-2xl glass bg-white/80 dark:bg-zinc-900/80 border border-amber-300/60 dark:border-amber-700/50 shadow-card flex items-center justify-center relative overflow-hidden group">
+      
+      <!-- Character Walking (Scroll < 85%) -->
+      <div *ngIf="scrollProgress() < 0.85" [class.animate-walk]="isScrolling()" class="w-12 h-14 relative transition-transform">
+        <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <!-- Head / Hair -->
+          <circle cx="50" cy="30" r="16" fill="#FCD34D" />
+          <path d="M34 26C34 17.1634 41.1634 10 50 10C58.8366 10 66 17.1634 66 26C66 28 62 25 58 26C54 27 50 25 46 26C40 27 34 29 34 26Z" fill="#78350F" />
+          <!-- Glasses -->
+          <circle cx="43" cy="30" r="5" stroke="#1F2937" stroke-width="2.5" fill="#E0F2FE" fill-opacity="0.5" />
+          <circle cx="57" cy="30" r="5" stroke="#1F2937" stroke-width="2.5" fill="#E0F2FE" fill-opacity="0.5" />
+          <line x1="48" y1="30" x2="52" y2="30" stroke="#1F2937" stroke-width="2.5" />
+          <!-- Smile -->
+          <path d="M47 38C49 40 51 40 53 38" stroke="#1F2937" stroke-width="2" stroke-linecap="round" />
+          <!-- Body / Hoodie (Amber) -->
+          <path d="M30 52C30 46 36 44 50 44C64 44 70 46 70 52L68 85H32L30 52Z" fill="#FF9E1B" />
+          <!-- Coffee Mug in hand -->
+          <rect x="65" y="60" width="10" height="12" rx="2" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5" />
+          <path d="M75 63C78 63 78 69 75 69" stroke="#D97706" stroke-width="1.5" />
+          <path d="M68 56C69 54 71 54 72 56" stroke="#92400E" stroke-width="1" class="animate-steam" />
+          <!-- Legs (Walking) -->
+          <line x1="42" y1="85" x2="40" y2="108" stroke="#1F2937" stroke-width="5" stroke-linecap="round" />
+          <line x1="58" y1="85" x2="60" y2="108" stroke="#1F2937" stroke-width="5" stroke-linecap="round" />
+          <!-- Shoes -->
+          <rect x="33" y="105" width="12" height="6" rx="3" fill="#FFFFFF" />
+          <rect x="55" y="105" width="12" height="6" rx="3" fill="#FFFFFF" />
+        </svg>
+      </div>
+
+      <!-- Character Seated at Desk Programming with Coffee (Scroll >= 85%) -->
+      <div *ngIf="scrollProgress() >= 0.85" class="w-14 h-14 relative">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <!-- Desk -->
+          <rect x="10" y="65" width="80" height="6" rx="2" fill="#D97706" />
+          <rect x="18" y="71" width="5" height="25" fill="#92400E" />
+          <rect x="77" y="71" width="5" height="25" fill="#92400E" />
+          <!-- Laptop with code glow -->
+          <polygon points="32,65 68,65 64,48 36,48" fill="#1E293B" />
+          <rect x="38" y="50" width="24" height="13" rx="1" fill="#0284C7" />
+          <line x1="40" y1="53" x2="52" y2="53" stroke="#38BDF8" stroke-width="1" />
+          <line x1="40" y1="56" x2="58" y2="56" stroke="#4ADE80" stroke-width="1" />
+          <line x1="40" y1="59" x2="48" y2="59" stroke="#FBBF24" stroke-width="1" />
+          <!-- Developer behind laptop typing -->
+          <circle cx="50" cy="32" r="11" fill="#FCD34D" />
+          <path d="M39 30C39 24 44 19 50 19C56 19 61 24 61 30C61 31 58 29 55 30C52 31 50 30 47 30C43 30 39 31 39 30Z" fill="#78350F" />
+          <!-- Glasses -->
+          <circle cx="46" cy="33" r="3.5" stroke="#1F2937" stroke-width="1.8" fill="#E0F2FE" />
+          <circle cx="54" cy="33" r="3.5" stroke="#1F2937" stroke-width="1.8" fill="#E0F2FE" />
+          <line x1="49.5" y1="33" x2="50.5" y2="33" stroke="#1F2937" stroke-width="1.8" />
+          <!-- Body -->
+          <path d="M36 46C36 42 41 40 50 40C59 40 64 42 64 46L62 65H38L36 46Z" fill="#FF9E1B" />
+          <!-- Coffee Cup on Desk with Steam -->
+          <rect x="72" y="56" width="8" height="9" rx="1.5" fill="#FFFFFF" stroke="#D97706" stroke-width="1" />
+          <path d="M80" y="58" width="3" height="5" stroke="#D97706" stroke-width="1" />
+          <path d="M74 53C75 51 77 51 78 53" stroke="#92400E" stroke-width="1" class="animate-steam" />
+        </svg>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= HERO & HEADER CONTAINER (INSPIRED DIRECTLY BY IMAGE 4) ================= -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 pt-4 sm:pt-6 pb-12 sm:pb-16">
+    
+    <!-- MASTER CARD (Curved canvas like Image 4) -->
+    <div class="rounded-[2.5rem] sm:rounded-[3rem] bg-white dark:bg-[#111215] border border-zinc-200/80 dark:border-zinc-800/80 shadow-hero relative overflow-hidden transition-all">
+      
+      <!-- INTERNAL NAVBAR (Exact style of Image 4 top navigation) -->
+      <nav class="px-6 sm:px-12 pt-7 pb-4 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800/60 relative z-30">
+        <!-- Logo / Brand -->
+        <a href="#" class="flex items-center gap-2.5 group">
+          <span class="w-9 h-9 rounded-2xl bg-[#FF9E1B] text-white flex items-center justify-center font-mono font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
+            JN
+          </span>
+          <span class="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900 dark:text-white uppercase font-sans">
+            NICOLÁS <span class="text-[#FF9E1B]">ESPINOZA</span>
+          </span>
+        </a>
+
+        <!-- Menu Links -->
+        <div class="hidden md:flex items-center gap-8 text-xs font-bold text-zinc-600 dark:text-zinc-300">
+          <a href="#proyectos" class="hover:text-[#FF9E1B] transition-colors">Proyectos</a>
+          <a href="#competencias" class="hover:text-[#FF9E1B] transition-colors">Tecnologías</a>
+          <a href="#formacion" class="hover:text-[#FF9E1B] transition-colors">Educación</a>
+          <a href="#contacto" class="hover:text-[#FF9E1B] transition-colors">Contacto</a>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-3">
+          <!-- Availability Pill -->
+          <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/40">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Disponible</span>
+          </div>
+
+          <!-- Theme Toggle -->
+          <button 
+            (click)="toggleTheme()" 
+            class="w-9 h-9 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-[#FF9E1B] transition-colors shadow-sm"
+            title="Cambiar tema">
+            <svg *ngIf="!isDarkMode()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            <svg *ngIf="isDarkMode()" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </button>
+        </div>
       </nav>
 
-      <!-- Right Controls -->
-      <div class="flex items-center gap-2.5">
-        <!-- Status Pill -->
-        <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/40 shadow-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Disponible para trabajar</span>
+      <!-- HERO BODY: SPLIT 2-COLUMNS (Exact composition of Image 4) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[520px] lg:min-h-[580px] relative">
+        
+        <!-- LEFT COLUMN: LARGE EDITORIAL TYPOGRAPHY & CTAs -->
+        <div class="lg:col-span-7 px-6 sm:px-12 py-12 lg:py-20 flex flex-col justify-center relative z-20">
+          
+          <!-- Graduate Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-800 dark:text-amber-300 bg-amber-100/70 dark:bg-amber-950/60 border border-amber-300/60 dark:border-amber-800/60 mb-6 w-fit shadow-sm">
+            <span class="text-sm">🎓</span>
+            <span>Ingeniero en Informática · Egresado 2026 (UNSTA)</span>
+          </div>
+
+          <!-- Big Title Styled like "Get FRESH FRUITS Today" in Image 4 -->
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.08]">
+            Desarrollo <br />
+            <span class="inline-block px-4 py-1 bg-[#FF9E1B]/20 text-[#FF7A00] dark:text-[#FF9E1B] rounded-2xl my-1">SOFTWARE</span> <br />
+            Escalable & Moderno
+          </h1>
+
+          <!-- Subtitle / Bio -->
+          <p class="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-300 max-w-lg leading-relaxed font-normal">
+            Graduado en Ingeniería en Informática por la UNSTA. Especializado en crear aplicaciones web completas combinando <strong>Angular</strong>, <strong>React</strong>, <strong>TypeScript</strong>, <strong>Python</strong> y <strong>PostgreSQL</strong>.
+          </p>
+
+          <!-- Buttons: Pill shape inspired by "Know More" in Image 4 -->
+          <div class="mt-9 flex flex-wrap items-center gap-4">
+            <a 
+              href="#proyectos" 
+              class="px-8 py-4 rounded-full bg-[#FF7A00] hover:bg-[#FF9E1B] text-white font-extrabold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
+              <span>Ver Proyectos</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+
+            <a 
+              [href]="githubUrl" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="px-7 py-4 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-bold text-sm hover:border-[#FF9E1B] transition-all shadow-sm inline-flex items-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+              <span>GitHub / JNicoEP ↗</span>
+            </a>
+
+            <button 
+              (click)="copyEmail()" 
+              class="px-5 py-4 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-bold text-xs hover:text-zinc-900 dark:hover:text-white transition-colors inline-flex items-center gap-1.5">
+              <svg *ngIf="!copied()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+              <svg *ngIf="copied()" class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>{{ copied() ? '¡Email copiado!' : 'Copiar email' }}</span>
+            </button>
+          </div>
+
         </div>
 
-        <!-- 3D Toggle Pill -->
-        <button 
-          (click)="toggle3D()"
-          class="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-mono border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-emerald-500 transition-colors"
-          title="Activar/Ocultar modelo 3D">
-          <span class="text-xs">🪐</span>
-          <span>3D: {{ show3DCompanion() ? 'ON' : 'OFF' }}</span>
-        </button>
+        <!-- RIGHT COLUMN: THE ORGANIC CURVED SHAPE WITH THE 2D DEVELOPER (EXACT IMAGE 4 RECREATION) -->
+        <div class="lg:col-span-5 relative flex items-center justify-center p-8 sm:p-12 overflow-hidden">
+          
+          <!-- Organic Sun / Amber Wave Backdrop (Recreating the curved shape of Image 4) -->
+          <div class="absolute -right-20 -top-20 -bottom-20 w-[120%] bg-gradient-to-br from-[#FFB74D] via-[#FF9E1B] to-[#FF7A00] rounded-l-[45%] opacity-90 dark:opacity-85 pointer-events-none transform rotate-3"></div>
+          
+          <!-- Floating Decorative Letters around the Character (like O-R-A-N-G-E in Image 4) -->
+          <span class="absolute top-10 left-12 text-3xl sm:text-5xl font-black text-amber-500 dark:text-amber-300 select-none animate-letter-1 drop-shadow-sm font-sans">
+            C
+          </span>
+          <span class="absolute top-14 right-16 text-3xl sm:text-5xl font-black text-white/90 select-none animate-letter-2 drop-shadow-sm font-sans">
+            O
+          </span>
+          <span class="absolute bottom-20 left-8 text-3xl sm:text-5xl font-black text-zinc-900 select-none animate-letter-3 drop-shadow-sm font-sans">
+            D
+          </span>
+          <span class="absolute bottom-16 right-14 text-4xl sm:text-6xl font-black text-white/90 select-none animate-letter-4 drop-shadow-sm font-sans">
+            E
+          </span>
+          <span class="absolute top-1/2 left-4 text-2xl sm:text-3xl font-black text-amber-900/60 select-none animate-letter-5 font-mono">
+            &lt;/&gt;
+          </span>
 
-        <!-- Dark/Light Theme Toggle -->
-        <button 
-          (click)="toggleTheme()" 
-          class="w-9 h-9 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors shadow-sm"
-          title="Cambiar tema">
-          <svg *ngIf="!isDarkMode()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-          </svg>
-          <svg *ngIf="isDarkMode()" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-          </svg>
-        </button>
+          <!-- 2D DEVELOPER ILLUSTRATION (Vector character standing with his coffee cup) -->
+          <div class="relative z-10 w-64 h-80 sm:w-80 sm:h-96 flex items-center justify-center animate-float">
+            <svg viewBox="0 0 280 340" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-2xl">
+              <!-- Shadow base -->
+              <ellipse cx="140" cy="325" rx="70" ry="10" fill="#000000" fill-opacity="0.15" />
+
+              <!-- Shoes -->
+              <rect x="105" y="300" width="30" height="15" rx="7" fill="#FFFFFF" />
+              <rect x="145" y="300" width="30" height="15" rx="7" fill="#FFFFFF" />
+              <!-- Legs / Jeans -->
+              <path d="M110 220L112 305H132L134 220H110Z" fill="#1E293B" />
+              <path d="M146 220L148 305H168L170 220H146Z" fill="#1E293B" />
+
+              <!-- Body / Navy Hoodie -->
+              <path d="M85 125C85 108 105 100 140 100C175 100 195 108 195 125L190 225H90L85 125Z" fill="#0F172A" />
+              <!-- Hoodie strings -->
+              <line x1="130" y1="120" x2="130" y2="155" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+              <line x1="150" y1="120" x2="150" y2="155" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+
+              <!-- Left Arm (holding laptop under arm or relaxed) -->
+              <path d="M85 130L65 200L85 205L100 150" fill="#0F172A" />
+
+              <!-- Right Arm (holding the coffee cup forward) -->
+              <path d="M190 130L215 185L200 195L178 150" fill="#0F172A" />
+              <circle cx="218" cy="188" r="9" fill="#FCD34D" />
+
+              <!-- The Coffee Cup (Official Vector Coffee Cup) -->
+              <g transform="translate(205, 160)">
+                <rect x="5" y="10" width="22" height="24" rx="4" fill="#FFFFFF" stroke="#78350F" stroke-width="2.5" />
+                <path d="M27 15C33 15 33 25 27 25" stroke="#78350F" stroke-width="2.5" fill="none" />
+                <ellipse cx="16" cy="11" rx="9" ry="3" fill="#92400E" />
+                <!-- Steam rising -->
+                <path d="M12 4C14 0 16 0 18 4" stroke="#FFF" stroke-width="2" stroke-linecap="round" class="animate-steam" />
+                <path d="M16 2C18 -2 20 -2 22 2" stroke="#FFF" stroke-width="2" stroke-linecap="round" class="animate-steam" />
+              </g>
+
+              <!-- Neck -->
+              <rect x="127" y="85" width="26" height="20" fill="#FCD34D" rx="4" />
+
+              <!-- Head -->
+              <circle cx="140" cy="65" r="30" fill="#FCD34D" />
+              <!-- Hair (Modern haircut) -->
+              <path d="M110 55C110 38 122 25 140 25C158 25 170 38 170 55C170 60 162 52 154 55C146 58 140 52 132 55C122 58 110 60 110 55Z" fill="#5A2E0E" />
+              <!-- Glasses -->
+              <circle cx="128" cy="65" r="9" stroke="#0F172A" stroke-width="3.5" fill="#E0F2FE" fill-opacity="0.6" />
+              <circle cx="152" cy="65" r="9" stroke="#0F172A" stroke-width="3.5" fill="#E0F2FE" fill-opacity="0.6" />
+              <line x1="137" y1="65" x2="143" y2="65" stroke="#0F172A" stroke-width="3.5" />
+              <!-- Friendly Smile -->
+              <path d="M134 78C138 83 142 83 146 78" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />
+            </svg>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
-  </header>
 
-  <!-- ================= FLOATING 3D MODEL-VIEWER COMPANION ================= -->
-  <aside 
-    *ngIf="show3DCompanion()"
-    class="fixed bottom-6 right-6 z-40 w-40 h-48 sm:w-48 sm:h-56 hidden lg:flex flex-col items-center justify-end pointer-events-none select-none transition-all duration-300">
-    <div class="w-full h-full relative pointer-events-auto group">
-      <!-- 3D Card Backdrop -->
-      <div class="absolute inset-0 rounded-2xl glass bg-white/60 dark:bg-zinc-900/60 border border-zinc-200/70 dark:border-zinc-800/70 shadow-card backdrop-blur-md transition-all group-hover:border-emerald-500/50"></div>
-      
-      <!-- Model-Viewer -->
-      <model-viewer
-        src="models/astronaut.glb"
-        alt="Compañero 3D interactivo"
-        [attr.camera-orbit]="modelOrbit()"
-        interaction-prompt="none"
-        camera-controls
-        touch-action="pan-y"
-        shadow-intensity="1"
-        shadow-softness="0.8"
-        class="relative z-10 w-full h-full">
-      </model-viewer>
+  </div>
 
-      <!-- Badge Indicator -->
-      <div class="absolute bottom-2 left-2 right-2 text-center z-20">
-        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold bg-zinc-900/80 text-white dark:bg-zinc-800/90 dark:text-emerald-400 backdrop-blur-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-          Scroll Driven 3D
-        </span>
-      </div>
-    </div>
-  </aside>
-
-  <!-- ================= HERO SECTION (FRIENDLY & WELCOMING) ================= -->
-  <section class="pt-16 pb-16 md:pt-24 md:pb-24 border-b border-zinc-200/60 dark:border-zinc-800/60 relative overflow-hidden">
-    <!-- Ambient subtle background glow -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-emerald-500/10 dark:bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none"></div>
-
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-      
-      <!-- Graduate Badge -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-100/70 dark:bg-emerald-950/50 border border-emerald-300/60 dark:border-emerald-800/60 mb-6 shadow-sm">
-        <span class="text-sm">🎓</span>
-        <span>Ingeniero en Informática · Egresado 2026 (UNSTA)</span>
-      </div>
-
-      <!-- Main Headline -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.12] max-w-4xl">
-        Hola, soy <span class="text-emerald-600 dark:text-emerald-400">Nicolás Espinoza</span>. Creo software robusto, interfaces claras y soluciones web escalables.
-      </h1>
-
-      <!-- Bio / Description -->
-      <p class="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl font-normal leading-relaxed">
-        Graduado en Ingeniería en Informática por la Universidad del Norte Santo Tomás de Aquino. Combino una sólida base analítica en algoritmos y sistemas con el desarrollo ágil de aplicaciones modernas usando <strong>Angular</strong>, <strong>React</strong>, <strong>TypeScript</strong>, <strong>Python</strong> y <strong>PostgreSQL</strong>.
-      </p>
-
-      <!-- Action Buttons -->
-      <div class="mt-8 flex flex-wrap items-center gap-3.5 text-xs sm:text-sm">
-        <a 
-          href="#proyectos" 
-          class="px-6 py-3 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 inline-flex items-center gap-2">
-          <span>Ver proyectos</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-        </a>
-
-        <a 
-          [href]="githubUrl" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-all shadow-sm inline-flex items-center gap-2">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
-          <span>GitHub / JNicoEP ↗</span>
-        </a>
-
-        <button 
-          (click)="copyEmail()" 
-          class="px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 text-zinc-700 dark:text-zinc-300 font-semibold hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all inline-flex items-center gap-2">
-          <svg *ngIf="!copied()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-          <svg *ngIf="copied()" class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-          <span>{{ copied() ? '¡Email copiado!' : 'Copiar email' }}</span>
-        </button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ================= PROYECTOS DESTACADOS (SIDE-BY-SIDE CON SCREENSHOTS REALES) ================= -->
-  <section id="proyectos" class="py-20 md:py-28 border-b border-zinc-200/60 dark:border-zinc-800/60">
+  <!-- ================= PROYECTOS DESTACADOS (SIDE-BY-SIDE CON SCREENSHOTS MEJORADOS) ================= -->
+  <section id="proyectos" class="py-16 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60">
     <div class="max-w-6xl mx-auto px-6">
       
       <!-- Section Title -->
       <div class="mb-14 fade-in-up">
-        <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest block mb-2">
+        <span class="text-xs font-mono font-bold text-[#FF7A00] dark:text-[#FF9E1B] uppercase tracking-widest block mb-2">
           // Casos de Estudio & Proyectos
         </span>
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
           Proyectos Seleccionados
         </h2>
         <p class="text-sm sm:text-base text-zinc-500 dark:text-zinc-400 mt-2 max-w-xl">
-          Aplicaciones completas con despliegues en producción, arquitecturas frontend modernas y bases de datos integradas.
+          Sistemas completos con despliegues activos en producción, arquitecturas modernas y bases de datos integradas.
         </p>
       </div>
 
@@ -175,7 +289,7 @@
       <div class="space-y-16">
         <div 
           *ngFor="let p of projects" 
-          class="fade-in-up rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] p-6 sm:p-8 lg:p-10 shadow-card hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300">
+          class="fade-in-up rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] p-6 sm:p-8 lg:p-10 shadow-card hover:border-[#FF9E1B]/50 transition-all duration-300">
           
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
@@ -185,34 +299,34 @@
                 [href]="p.link" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-xl group-hover/preview:border-emerald-500/40 transition-all duration-300">
+                class="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-2xl group-hover/preview:border-[#FF9E1B]/60 transition-all duration-300">
                 
                 <!-- Browser Mockup Window Header -->
-                <div class="h-8 bg-zinc-200/80 dark:bg-zinc-800/80 px-3.5 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 select-none">
+                <div class="h-9 bg-zinc-100 dark:bg-zinc-800/90 px-4 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700/60 select-none">
                   <div class="flex items-center gap-1.5">
                     <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
                   </div>
-                  <div class="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[200px] sm:max-w-xs">
+                  <div class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[220px] sm:max-w-xs">
                     {{ p.link }}
                   </div>
                   <div class="w-8"></div>
                 </div>
 
-                <!-- Actual Screenshot Image -->
-                <div class="relative overflow-hidden aspect-[16/10] bg-zinc-900/5 dark:bg-zinc-950">
+                <!-- Actual High-Res Screenshot Image Uploaded by User -->
+                <div class="relative overflow-hidden aspect-[16/10] bg-zinc-950">
                   <img 
                     [src]="p.screenshot" 
                     [alt]="p.title"
                     loading="lazy"
-                    class="w-full h-full object-cover object-top group-hover/preview:scale-[1.02] transition-transform duration-500" />
+                    class="w-full h-full object-cover object-top group-hover/preview:scale-[1.03] transition-transform duration-500" />
                   
-                  <!-- Hover overlay overlay with pill -->
+                  <!-- Hover overlay with direct action pill -->
                   <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
-                    <span class="px-4 py-2 rounded-xl bg-white text-zinc-900 font-bold text-xs shadow-lg inline-flex items-center gap-1.5">
-                      <span>Explorar sitio en vivo</span>
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    <span class="px-5 py-2.5 rounded-full bg-white text-zinc-900 font-bold text-xs shadow-xl inline-flex items-center gap-1.5 transform translate-y-2 group-hover/preview:translate-y-0 transition-transform">
+                      <span>Abrir sitio en vivo</span>
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </span>
                   </div>
                 </div>
@@ -227,7 +341,7 @@
                 <div class="flex items-center gap-2 mb-2 font-mono text-xs">
                   <span class="font-bold text-zinc-400 dark:text-zinc-500">PROYECTO {{ p.id }}</span>
                   <span class="text-zinc-300 dark:text-zinc-700">·</span>
-                  <span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-[10px]">
+                  <span class="px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-[#FF7A00] dark:text-[#FF9E1B] font-semibold text-[11px]">
                     {{ p.status }}
                   </span>
                 </div>
@@ -235,7 +349,7 @@
                 <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
                   {{ p.title }}
                 </h3>
-                <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-1 mb-4">
+                <p class="text-xs font-semibold text-[#FF7A00] dark:text-[#FF9E1B] mt-1 mb-4">
                   {{ p.subtitle }}
                 </p>
 
@@ -259,7 +373,7 @@
                   [href]="p.link" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  class="w-full sm:w-auto px-6 py-3 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-semibold text-xs sm:text-sm hover:bg-emerald-600 dark:hover:bg-emerald-400 dark:hover:text-black transition-all shadow-sm hover:shadow-md inline-flex items-center justify-center gap-2">
+                  class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#FF7A00] hover:bg-[#FF9E1B] text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2">
                   <span>Visitar sitio oficial</span>
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
@@ -275,19 +389,19 @@
     </div>
   </section>
 
-  <!-- ================= COMPETENCIAS TÉCNICAS (LOGOS VECTORIALES SVG) ================= -->
-  <section id="competencias" class="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/20">
+  <!-- ================= COMPETENCIAS TÉCNICAS (LOGOS VECTORIALES) ================= -->
+  <section id="competencias" class="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E]">
     <div class="max-w-6xl mx-auto px-6">
       
       <div class="mb-12 text-center max-w-2xl mx-auto fade-in-up">
-        <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest block mb-2">
+        <span class="text-xs font-mono font-bold text-[#FF7A00] dark:text-[#FF9E1B] uppercase tracking-widest block mb-2">
           // Stack Tecnológico
         </span>
         <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
           Competencias Técnicas
         </h2>
         <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-          Herramientas, lenguajes y frameworks que domino para construir soluciones completas.
+          Lenguajes y tecnologías clave que integro en el desarrollo de software.
         </p>
       </div>
 
@@ -295,10 +409,9 @@
       <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-3 sm:gap-4 fade-in-up">
         <div 
           *ngFor="let tech of technologies" 
-          class="group flex flex-col items-center justify-center p-5 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#111215] hover:border-emerald-500/40 hover:shadow-soft hover:-translate-y-1 transition-all duration-200 cursor-default"
+          class="group flex flex-col items-center justify-center p-5 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50 dark:bg-[#121316] hover:border-[#FF9E1B]/50 hover:shadow-soft hover:-translate-y-1 transition-all duration-200 cursor-default"
           [title]="tech.name">
           
-          <!-- Official Tech Logo Image -->
           <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
             <img 
               [src]="tech.iconSvg" 
@@ -307,7 +420,6 @@
               loading="lazy" />
           </div>
 
-          <!-- Subtle Minimalist Name -->
           <span class="mt-2.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors text-center truncate max-w-full">
             {{ tech.name }}
           </span>
@@ -317,12 +429,12 @@
     </div>
   </section>
 
-  <!-- ================= FORMACIÓN ACADÉMICA (ACTUALIZADA) ================= -->
+  <!-- ================= FORMACIÓN ACADÉMICA (INGENIERO EGRESADO) ================= -->
   <section id="formacion" class="py-20 md:py-28 border-b border-zinc-200/60 dark:border-zinc-800/60">
     <div class="max-w-6xl mx-auto px-6">
       
       <div class="mb-12 fade-in-up">
-        <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest block mb-2">
+        <span class="text-xs font-mono font-bold text-[#FF7A00] dark:text-[#FF9E1B] uppercase tracking-widest block mb-2">
           // Trayectoria Académica
         </span>
         <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
@@ -333,10 +445,10 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         <!-- UNSTA GRADUADO -->
-        <div class="fade-in-up p-8 rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-white to-emerald-50/20 dark:from-[#111215] dark:to-emerald-950/10 shadow-soft">
+        <div class="fade-in-up p-8 sm:p-10 rounded-3xl border-2 border-amber-400/40 bg-gradient-to-br from-white to-amber-50/30 dark:from-[#111215] dark:to-amber-950/20 shadow-card">
           <div class="flex items-center justify-between mb-4 text-xs font-mono">
-            <span class="px-2.5 py-1 rounded-full bg-emerald-500 text-white font-bold">EGRESADO 2026</span>
-            <span class="text-emerald-600 dark:text-emerald-400 font-semibold">TÍTULO DE GRADO</span>
+            <span class="px-3 py-1 rounded-full bg-[#FF7A00] text-white font-bold">EGRESADO 2026</span>
+            <span class="text-[#FF7A00] dark:text-[#FF9E1B] font-bold">TÍTULO DE GRADO</span>
           </div>
           <h3 class="text-2xl font-extrabold text-zinc-900 dark:text-white">
             Ingeniero en Informática
@@ -348,16 +460,16 @@
             Formación integral de grado orientada al diseño y arquitectura de software complejo, ciencias de la computación y resolución metodológica de problemas.
           </p>
           <ul class="text-xs text-zinc-500 dark:text-zinc-400 space-y-1.5 font-normal">
-            <li>• Algoritmos avanzados, estructuras de datos y análisis de complejidad.</li>
+            <li>• Algoritmos avanzados, estructuras de datos y optimización computacional.</li>
             <li>• Arquitectura de sistemas distribuidos, sistemas operativos y redes.</li>
             <li>• Modelado relacional avanzado de bases de datos transaccionales en PostgreSQL.</li>
           </ul>
         </div>
 
         <!-- TÉCNICA 1 -->
-        <div class="fade-in-up p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] shadow-soft">
+        <div class="fade-in-up p-8 sm:p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] shadow-card">
           <div class="flex items-center justify-between mb-4 text-xs font-mono text-zinc-400">
-            <span class="px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold">SECUNDARIO TÉCNICO</span>
+            <span class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold">SECUNDARIO TÉCNICO</span>
             <span>TÍTULO TÉCNICO</span>
           </div>
           <h3 class="text-2xl font-extrabold text-zinc-900 dark:text-white">
@@ -370,8 +482,8 @@
             Formación técnica disciplinada en diagnóstico de fallas, pensamiento lógico estructurado paso a paso y mantenimiento preventivo de sistemas.
           </p>
           <ul class="text-xs text-zinc-500 dark:text-zinc-400 space-y-1.5 font-normal">
-            <li>• Diagnóstico metódico de errores y lectura de esquemas lógicos.</li>
-            <li>• Pensamiento analítico aplicado a resolución de problemas prácticos.</li>
+            <li>• Diagnóstico metódico de errores y esquemas circuitales.</li>
+            <li>• Pensamiento analítico aplicado a resolución práctica de problemas.</li>
             <li>• Trabajo en equipo interdisciplinario y seguridad operativa.</li>
           </ul>
         </div>
@@ -381,59 +493,144 @@
     </div>
   </section>
 
-  <!-- ================= CONTACTO AMIGABLE ================= -->
-  <footer id="contacto" class="py-20 md:py-28">
+  <!-- ================= CONTACTO & ESCENA FINAL (EL PROGRAMADOR EN SU ESCRITORIO CON SU CAFÉ) ================= -->
+  <footer id="contacto" class="py-20 md:py-28 bg-[#F3F4F6] dark:bg-[#070809]">
     <div class="max-w-6xl mx-auto px-6">
       
-      <!-- Big Inviting Contact Card -->
-      <div class="fade-in-up p-8 sm:p-14 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] shadow-card mb-14 relative overflow-hidden">
-        <div class="max-w-2xl">
-          <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 mb-4">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Disponible para incorporación inmediata</span>
-          </div>
+      <!-- Big Contact Card with 2D Coding Scene -->
+      <div class="fade-in-up p-8 sm:p-12 lg:p-16 rounded-[2.5rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] shadow-card mb-14 relative overflow-hidden">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
-            ¿Construimos algo increíble juntos?
-          </h2>
-          <p class="mt-4 text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-            Busco sumarme a equipos de tecnología como desarrollador Full Stack, Frontend o Backend, en modalidad remota o híbrida. Si tienes un proyecto o una vacante, conversemos.
-          </p>
+          <!-- LEFT: Contact Texts & Actions -->
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF7A00] dark:text-[#FF9E1B] mb-4">
+              <span class="w-2 h-2 rounded-full bg-[#FF7A00] animate-pulse"></span>
+              <span>Listo para nuevos desafíos y proyectos</span>
+            </div>
+            
+            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
+              ¿Construimos algo increíble juntos?
+            </h2>
+            <p class="mt-4 text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xl">
+              Disponible para incorporarme a equipos tecnológicos de alto rendimiento como desarrollador Full Stack, Frontend o Backend, en modalidad remota o híbrida.
+            </p>
 
-          <div class="mt-8 flex flex-wrap items-center gap-3.5">
-            <a 
-              [href]="'mailto:' + email" 
-              class="px-6 py-3.5 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-xs sm:text-sm font-bold hover:bg-emerald-600 dark:hover:bg-emerald-400 dark:hover:text-black transition-all shadow-sm hover:shadow-md inline-flex items-center gap-2">
-              <span>Enviar email directo</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
+            <div class="mt-8 flex flex-wrap items-center gap-3.5">
+              <a 
+                [href]="'mailto:' + email" 
+                class="px-7 py-4 rounded-full bg-[#FF7A00] hover:bg-[#FF9E1B] text-white text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2">
+                <span>Enviar email directo</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
 
-            <a 
-              [href]="whatsappUrl" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="px-6 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-emerald-500 transition-all shadow-sm inline-flex items-center gap-2">
-              <span>WhatsApp (+54 9 3863 567732) ↗</span>
-            </a>
+              <a 
+                [href]="whatsappUrl" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="px-6 py-4 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-[#FF9E1B] transition-all shadow-sm inline-flex items-center gap-2">
+                <span>WhatsApp (+54 9 3863 567732) ↗</span>
+              </a>
 
-            <a 
-              [href]="githubUrl" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="px-6 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm font-bold hover:text-zinc-900 dark:hover:text-white transition-colors">
-              GitHub / JNicoEP ↗
-            </a>
+              <a 
+                [href]="githubUrl" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="px-6 py-4 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm font-bold hover:text-zinc-900 dark:hover:text-white transition-colors">
+                GitHub / JNicoEP ↗
+              </a>
+            </div>
           </div>
+
+          <!-- RIGHT: 2D SCENE — EL HOMBRE SENTADO EN SU ESCRITORIO PROGRAMANDO CON SU CAFÉ (YOUTUBE SHORT CLIMAX) -->
+          <div class="lg:col-span-5 flex items-center justify-center relative">
+            <div class="w-full max-w-[320px] aspect-square rounded-3xl bg-gradient-to-br from-amber-100/60 to-orange-50/30 dark:from-zinc-800/50 dark:to-zinc-900/50 border border-amber-200/50 dark:border-zinc-700/50 p-6 flex items-center justify-center relative overflow-hidden shadow-inner">
+              
+              <!-- Code particles / glow behind desk -->
+              <div class="absolute inset-0 bg-gradient-to-t from-[#FF9E1B]/10 to-transparent"></div>
+
+              <!-- Vector Scene: Developer at desk with laptop & coffee -->
+              <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full relative z-10 drop-shadow-md">
+                <!-- Desk Lamp Glow -->
+                <path d="M40 70L20 180H100L80 70Z" fill="#FDE68A" fill-opacity="0.15" />
+                <path d="M45 180L45 100L65 75" stroke="#475569" stroke-width="3" stroke-linecap="round" />
+                <polygon points="60,68 75,80 50,85" fill="#FF7A00" />
+                
+                <!-- Ergonomic Office Chair -->
+                <ellipse cx="120" cy="195" rx="35" ry="10" fill="#334155" />
+                <rect x="117" y="195" width="6" height="30" fill="#1E293B" />
+                <path d="M100 130C100 100 140 100 140 130V190H100V130Z" fill="#1E293B" />
+
+                <!-- The Desk -->
+                <rect x="25" y="165" width="190" height="12" rx="3" fill="#D97706" />
+                <rect x="40" y="177" width="8" height="55" fill="#92400E" />
+                <rect x="192" y="177" width="8" height="55" fill="#92400E" />
+
+                <!-- Dual Monitors / Laptop -->
+                <!-- Main Screen -->
+                <rect x="90" y="105" width="70" height="50" rx="3" fill="#0F172A" stroke="#334155" stroke-width="2" />
+                <rect x="120" y="155" width="10" height="10" fill="#475569" />
+                <rect x="110" y="163" width="30" height="3" rx="1.5" fill="#334155" />
+                <!-- Screen Glow & Code Lines -->
+                <rect x="94" y="109" width="62" height="42" fill="#0284C7" fill-opacity="0.2" />
+                <line x1="98" y1="116" x2="125" y2="116" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" />
+                <line x1="104" y1="122" x2="145" y2="122" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" />
+                <line x1="104" y1="128" x2="135" y2="128" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" />
+                <line x1="98" y1="134" x2="118" y2="134" stroke="#F472B6" stroke-width="2" stroke-linecap="round" />
+                <line x1="104" y1="140" x2="148" y2="140" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" />
+
+                <!-- Keyboard & Hands typing -->
+                <rect x="100" y="166" width="45" height="5" rx="1.5" fill="#1E293B" />
+                <ellipse cx="112" cy="166" rx="5" ry="3" fill="#FCD34D" />
+                <ellipse cx="132" cy="166" rx="5" ry="3" fill="#FCD34D" />
+
+                <!-- Developer Sitting -->
+                <!-- Head -->
+                <circle cx="120" cy="85" r="18" fill="#FCD34D" />
+                <!-- Hair -->
+                <path d="M102 78C102 65 110 57 120 57C130 57 138 65 138 78C138 81 133 76 128 78C123 80 120 76 116 78C110 80 102 81 102 78Z" fill="#5A2E0E" />
+                <!-- Glasses -->
+                <circle cx="114" cy="86" r="5" stroke="#0F172A" stroke-width="2" fill="#E0F2FE" fill-opacity="0.6" />
+                <circle cx="126" cy="86" r="5" stroke="#0F172A" stroke-width="2" fill="#E0F2FE" fill-opacity="0.6" />
+                <line x1="119" y1="86" x2="121" y2="86" stroke="#0F172A" stroke-width="2" />
+                <!-- Smile -->
+                <path d="M117 94C119 97 121 97 123 94" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round" />
+                <!-- Torso (Navy hoodie) -->
+                <path d="M98 108C98 103 105 101 120 101C135 101 142 103 142 108L144 165H96L98 108Z" fill="#0F172A" />
+
+                <!-- THE STEAMING COFFEE CUP (On the desk right next to him!) -->
+                <g transform="translate(170, 142)">
+                  <rect x="4" y="10" width="18" height="15" rx="3" fill="#FFFFFF" stroke="#78350F" stroke-width="2" />
+                  <path d="M22 13C27 13 27 21 22 21" stroke="#78350F" stroke-width="2" fill="none" />
+                  <ellipse cx="13" cy="10" rx="7" ry="2.5" fill="#92400E" />
+                  <!-- Steam curls -->
+                  <path d="M10 5C11 1 13 1 14 5" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" class="animate-steam" />
+                  <path d="M14 3C15 -1 17 -1 18 3" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" class="animate-steam" />
+                </g>
+              </svg>
+
+              <!-- Floating badge -->
+              <div class="absolute bottom-3 left-4 right-4 text-center">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-zinc-900/80 text-white dark:bg-zinc-800/90 dark:text-amber-300 backdrop-blur-md">
+                  <span>☕</span>
+                  <span>Nicolás en su escritorio</span>
+                </span>
+              </div>
+
+            </div>
+          </div>
+
         </div>
+
       </div>
 
-      <!-- Minimal Sub-Footer -->
+      <!-- Minimal Sub-Footer (WITHOUT ANY POWERED BY NETLIFY) -->
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400 dark:text-zinc-500 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60">
         <div class="flex items-center gap-2">
           <span>© 2026 {{ name }}</span>
           <span>·</span>
           <span>Ingeniero en Informática (UNSTA)</span>
-          <span>☕</span>
+          <img src="favicon.png" alt="Café" class="w-4 h-4 inline-block" />
         </div>
         <div class="flex items-center gap-4">
           <a [href]="githubUrl" target="_blank" class="hover:underline">github.com/JNicoEP</a>

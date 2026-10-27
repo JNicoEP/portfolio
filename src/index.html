@@ -5,18 +5,16 @@
   <title>Nicolás Espinoza — Ingeniero en Informática & Full Stack</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portafolio de José Nicolás Espinoza Perillo. Ingeniero en Informática (UNSTA). Especializado en desarrollo Full Stack, Angular, React, Python, C/C++, TypeScript y PostgreSQL.">
+  <meta name="description" content="Portafolio de José Nicolás Espinoza Perillo. Ingeniero en Informática (UNSTA). Desarrollo Full Stack con Angular, React, TypeScript, Python y PostgreSQL.">
   
-  <!-- Favicon: Taza de Café -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.85em%22 font-size=%2285%22>☕</text></svg>">
+  <!-- Favicon: Taza de Café Oficial (Vectorizada por el usuario) -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
   
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Google Model Viewer para 3D interactivo -->
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -37,19 +35,26 @@
               500: '#22c55e',
               600: '#16a34a',
               700: '#15803d',
+            },
+            warm: {
+              amber: '#FF9E1B',
+              orange: '#FF7A00',
+              light: '#FFF6E9',
+              dark: '#2A1800'
             }
           },
           boxShadow: {
             'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-            'card': '0 10px 30px -5px rgba(0, 0, 0, 0.07)',
-            'glow': '0 0 25px -5px rgba(34, 197, 94, 0.25)',
+            'card': '0 12px 36px -4px rgba(0, 0, 0, 0.08)',
+            'hero': '0 20px 50px -10px rgba(255, 158, 27, 0.15)',
+            'glow': '0 0 25px -5px rgba(255, 158, 27, 0.35)',
           }
         }
       }
     }
   </script>
 </head>
-<body class="bg-[#FAFAFA] text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100 font-sans antialiased transition-colors duration-300 selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-zinc-900">
+<body class="bg-[#F3F4F6] text-zinc-900 dark:bg-[#070809] dark:text-zinc-100 font-sans antialiased transition-colors duration-300 selection:bg-[#FF9E1B] selection:text-white">
   <app-root></app-root>
 </body>
 </html>

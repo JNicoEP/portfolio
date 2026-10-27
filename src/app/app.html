@@ -1,0 +1,345 @@
+<div class="min-h-screen bg-[#FAFAFA] text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100 font-sans selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-zinc-900 transition-colors duration-300">
+
+  <!-- ================= TOP NAVIGATION (MINIMALIST) ================= -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-[#09090B]/80 border-b border-zinc-200/70 dark:border-zinc-800/70">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand / Logo -->
+      <a href="#" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 flex items-center justify-center font-mono font-bold text-xs tracking-wider group-hover:scale-105 transition-transform">
+          JN
+        </span>
+        <div class="flex flex-col">
+          <span class="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+            Nicolás Espinoza
+          </span>
+          <span class="text-[11px] text-zinc-500 dark:text-zinc-400 font-mono -mt-0.5">
+            Software Engineer
+          </span>
+        </div>
+      </a>
+
+      <!-- Quick Nav Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+        <a href="#proyectos" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Proyectos</a>
+        <a href="#competencias" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Tecnologías</a>
+        <a href="#formacion" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Formación</a>
+        <a href="#contacto" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Contacto</a>
+      </nav>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Status Pill -->
+        <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800/40">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Disponible para trabajar</span>
+        </div>
+
+        <!-- Dark/Light Mode Switcher -->
+        <button 
+          (click)="toggleTheme()" 
+          class="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
+          title="Cambiar tema">
+          <svg *ngIf="!isDarkMode()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+          <svg *ngIf="isDarkMode()" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION (MINIMALIST) ================= -->
+  <section class="pt-20 pb-16 md:pt-28 md:pb-24 border-b border-zinc-200/60 dark:border-zinc-800/60">
+    <div class="max-w-5xl mx-auto px-6">
+      
+      <!-- Academic & Location Breadcrumb -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-zinc-600 dark:text-zinc-400 bg-zinc-100/80 dark:bg-zinc-800/40 border border-zinc-200/80 dark:border-zinc-700/50 mb-6">
+        <span class="w-2 h-2 rounded-full bg-zinc-400 dark:bg-zinc-500"></span>
+        <span>Ingeniería en Informática (5° Año · UNSTA)</span>
+        <span class="text-zinc-300 dark:text-zinc-700">|</span>
+        <span>Tucumán, AR</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.1] max-w-3xl">
+        Creando sistemas web escalables, arquitecturas sólidas e interfaces fluidas.
+      </h1>
+
+      <!-- Bio / Description -->
+      <p class="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl font-normal leading-relaxed">
+        Hola, soy <span class="font-semibold text-zinc-900 dark:text-white">{{ name }}</span>. Desarrollo aplicaciones web combinando los fundamentos de ciencias de la computación con frameworks modernos como Angular y React, y bases de datos relacionales en PostgreSQL.
+      </p>
+
+      <!-- Minimal Action Buttons -->
+      <div class="mt-8 flex flex-wrap items-center gap-3 text-xs sm:text-sm">
+        <a 
+          href="#proyectos" 
+          class="px-5 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-medium hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors inline-flex items-center gap-2">
+          <span>Ver proyectos</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </a>
+
+        <a 
+          [href]="githubUrl" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="px-5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors inline-flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+          <span>GitHub / JNicoEP ↗</span>
+        </a>
+
+        <button 
+          (click)="copyEmail()" 
+          class="px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-medium hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/40 transition-colors inline-flex items-center gap-2">
+          <svg *ngIf="!copied()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+          <svg *ngIf="copied()" class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          <span>{{ copied() ? '¡Correo copiado!' : 'Copiar email' }}</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= COMPETENCIAS TÉCNICAS (SOLO IMÁGENES / LOGOS) ================= -->
+  <section id="competencias" class="py-16 md:py-20 border-b border-zinc-200/60 dark:border-zinc-800/60">
+    <div class="max-w-5xl mx-auto px-6">
+      
+      <div class="mb-10">
+        <span class="text-xs font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-1">
+          Stack Tecnológico
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">
+          Competencias Técnicas
+        </h2>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 max-w-xl">
+          Lenguajes de programación, frameworks y tecnologías que integro en mis sistemas.
+        </p>
+      </div>
+
+      <!-- Icon-Only Minimalist Grid -->
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-3 sm:gap-4">
+        <div 
+          *ngFor="let tech of technologies" 
+          class="group relative flex flex-col items-center justify-center p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#111215] hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200 cursor-default"
+          [title]="tech.name">
+          
+          <!-- Official Tech Logo Image -->
+          <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1.5 transition-transform duration-200 group-hover:scale-110">
+            <img 
+              [src]="tech.iconSvg" 
+              [alt]="tech.name" 
+              class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
+              loading="lazy" />
+          </div>
+
+          <!-- Subtle Minimalist Name on hover or default -->
+          <span class="mt-2 text-[11px] font-medium text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors text-center truncate max-w-full">
+            {{ tech.name }}
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PROYECTOS DESTACADOS ================= -->
+  <section id="proyectos" class="py-16 md:py-20 border-b border-zinc-200/60 dark:border-zinc-800/60">
+    <div class="max-w-5xl mx-auto px-6">
+      
+      <div class="mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-1">
+            Portfolio
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">
+            Proyectos Seleccionados
+          </h2>
+        </div>
+        <span class="text-xs font-mono text-zinc-400 dark:text-zinc-500">
+          Total: 03 Proyectos
+        </span>
+      </div>
+
+      <!-- Project Cards List -->
+      <div class="space-y-6">
+        <div 
+          *ngFor="let p of projects" 
+          class="group rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] p-6 sm:p-8 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm transition-all duration-200">
+          
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-mono font-bold text-zinc-400 dark:text-zinc-500">{{ p.id }}</span>
+                <span class="text-zinc-300 dark:text-zinc-700">·</span>
+                <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400 font-mono">{{ p.status }}</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                {{ p.title }}
+              </h3>
+              <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-0.5">
+                {{ p.subtitle }}
+              </p>
+            </div>
+
+            <!-- Direct Live Link Button -->
+            <a 
+              [href]="p.link" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="self-start inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 hover:bg-zinc-200/80 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 transition-colors">
+              <span>Visitar sitio</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+          </div>
+
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6 max-w-3xl">
+            {{ p.description }}
+          </p>
+
+          <!-- Tags & Details Footer -->
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-zinc-100 dark:border-zinc-800/60">
+            <div class="flex flex-wrap gap-1.5">
+              <span 
+                *ngFor="let tag of p.tags" 
+                class="px-2.5 py-1 rounded-md text-[11px] font-mono text-zinc-600 dark:text-zinc-400 bg-zinc-100/70 dark:bg-zinc-800/50 border border-zinc-200/50 dark:border-zinc-700/40">
+                {{ tag }}
+              </span>
+            </div>
+
+            <a 
+              [href]="p.link" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="text-xs font-mono text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors truncate max-w-xs">
+              {{ p.link }}
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FORMACIÓN ACADÉMICA ================= -->
+  <section id="formacion" class="py-16 md:py-20 border-b border-zinc-200/60 dark:border-zinc-800/60">
+    <div class="max-w-5xl mx-auto px-6">
+      
+      <div class="mb-10">
+        <span class="text-xs font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-1">
+          Trayectoria
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">
+          Educación & Formación
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- UNSTA -->
+        <div class="p-6 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215]">
+          <div class="flex items-center justify-between mb-3 text-xs font-mono text-zinc-400">
+            <span>2020 — PRESENTE</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">5° AÑO</span>
+          </div>
+          <h3 class="text-lg font-bold text-zinc-900 dark:text-white">
+            Ingeniería en Informática
+          </h3>
+          <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mt-0.5 mb-4">
+            Universidad del Norte Santo Tomás de Aquino (UNSTA)
+          </p>
+          <ul class="text-xs text-zinc-600 dark:text-zinc-400 space-y-1.5 font-normal">
+            <li>• Diseño y análisis de algoritmos y estructuras de datos.</li>
+            <li>• Arquitectura de sistemas operativos y protocolos de redes.</li>
+            <li>• Modelado avanzado de bases de datos relacionales y transaccionales.</li>
+          </ul>
+        </div>
+
+        <!-- TÉCNICA 1 -->
+        <div class="p-6 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215]">
+          <div class="flex items-center justify-between mb-3 text-xs font-mono text-zinc-400">
+            <span>TÍTULO TÉCNICO</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">SECUNDARIO</span>
+          </div>
+          <h3 class="text-lg font-bold text-zinc-900 dark:text-white">
+            Técnico Electromecánico
+          </h3>
+          <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mt-0.5 mb-4">
+            Escuela Técnica N°1 de Monteros
+          </p>
+          <ul class="text-xs text-zinc-600 dark:text-zinc-400 space-y-1.5 font-normal">
+            <li>• Diagnóstico metódico y resolución de averías en entornos técnicos.</li>
+            <li>• Pensamiento analítico estructurado y trabajo en equipo multidisciplinario.</li>
+            <li>• Lógica de control y esquemas electromecánicos.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CONTACTO & FOOTER (MINIMALIST) ================= -->
+  <footer id="contacto" class="py-16 md:py-24">
+    <div class="max-w-5xl mx-auto px-6">
+      
+      <!-- Big Minimalist Card -->
+      <div class="p-8 sm:p-12 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] mb-12">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400 mb-4">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Búsqueda activa de oportunidades laborales</span>
+          </div>
+          
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
+            ¿Trabajamos juntos?
+          </h2>
+          <p class="mt-3 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Estoy disponible para sumarme a equipos de tecnología como desarrollador Full Stack, Frontend o Backend, en modalidad remota o híbrida.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a 
+              [href]="'mailto:' + email" 
+              class="px-5 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-xs sm:text-sm font-medium hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors inline-flex items-center gap-2">
+              <span>Enviar correo directo</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+
+            <a 
+              [href]="whatsappUrl" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="px-5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors inline-flex items-center gap-2">
+              <span>WhatsApp (+54 9 3863 567732) ↗</span>
+            </a>
+
+            <a 
+              [href]="githubUrl" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="px-5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm font-medium hover:text-zinc-900 dark:hover:text-white transition-colors">
+              GitHub ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Minimal Sub-Footer -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400 dark:text-zinc-500 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60">
+        <div>
+          © 2026 {{ name }} · Minimalist Portfolio (Angular)
+        </div>
+        <div class="flex items-center gap-4">
+          <a [href]="githubUrl" target="_blank" class="hover:underline">github.com/JNicoEP</a>
+          <span>·</span>
+          <span>Monteros, Tucumán</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</div>

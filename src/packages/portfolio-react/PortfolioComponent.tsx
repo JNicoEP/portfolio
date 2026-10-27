@@ -618,34 +618,105 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               Formación académica
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-              Bases universitarias en ciencias de la computación, sistemas distribuidos y desarrollo de software.
+              Bases universitarias y técnicas en ciencias de la computación, sistemas y resolución analítica de problemas.
             </p>
           </div>
 
-          <div className="border-beam-card group">
-            <div className="border-beam-inner p-8 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-              <div>
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 dark:bg-amber-950/80 text-[#D97706] dark:text-[#FBBF24] inline-block mb-3">
-                  Graduación 2026 · Título de Grado
-                </span>
-                <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-white">
-                  Ingeniero en Informática
-                </h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-300 font-medium mt-1">
-                  Universidad del Norte Santo Tomás de Aquino (UNSTA)
-                </p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2 max-w-2xl leading-relaxed">
-                  Formación integral en algoritmos avanzados, arquitecturas de software, desarrollo full stack, bases de datos relacionales y gestión ágil de proyectos tecnológicos.
-                </p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* 1. Título Universitario: Ingeniero en Informática (UNSTA) */}
+            <div className="border-beam-card group">
+              <div className="border-beam-inner p-8 sm:p-9 flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-3">
+                    <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 dark:bg-amber-950/80 text-[#D97706] dark:text-[#FBBF24]">
+                      Graduación 2026 · Título de Grado
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50 text-xs font-bold">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span>Egresado</span>
+                    </span>
+                  </div>
 
-              <div className="flex-shrink-0">
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50 text-xs font-bold shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>Egresado 2026</span>
-                </span>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
+                    Ingeniero en Informática
+                  </h3>
+                  <p className="text-sm font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-3">
+                    Universidad del Norte Santo Tomás de Aquino (UNSTA)
+                  </p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
+                    Formación integral en diseño de algoritmos avanzados, desarrollo full stack, bases de datos distribuidas y gestión de proyectos tecnológicos.
+                  </p>
+
+                  <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-1.5 font-normal border-t border-zinc-100 dark:border-zinc-800/60 pt-3">
+                    <li className="flex items-center gap-2">
+                      <span className="text-amber-500">▹</span>
+                      <span>Diseño y análisis de algoritmos y estructuras de datos complejas.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-amber-500">▹</span>
+                      <span>Arquitectura de sistemas operativos, redes y sistemas distribuidos.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-amber-500">▹</span>
+                      <span>Modelado relacional en PostgreSQL y control de acceso RBAC.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="mt-6 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                  <span>Concepción / Tucumán</span>
+                  <span className="text-amber-600 dark:text-amber-400 font-semibold">5 Años de Carrera</span>
+                </div>
               </div>
             </div>
+
+            {/* 2. Título Secundario: Técnico Electromecánico (Escuela Técnica N°1 de Monteros) */}
+            <div className="border-beam-card group">
+              <div className="border-beam-inner p-8 sm:p-9 flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-3">
+                    <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                      Nivel Secundario Técnico
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 text-xs font-bold">
+                      <span>Graduado</span>
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
+                    Técnico Electromecánico
+                  </h3>
+                  <p className="text-sm font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-3">
+                    Escuela Técnica N°1 de Monteros
+                  </p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
+                    Formación técnica con fuerte base práctica en resolución metódica de averías, esquemas lógicos y trabajo en equipo multidisciplinario.
+                  </p>
+
+                  <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-1.5 font-normal border-t border-zinc-100 dark:border-zinc-800/60 pt-3">
+                    <li className="flex items-center gap-2">
+                      <span className="text-amber-500">▹</span>
+                      <span>Diagnóstico metódico y resolución de averías en entornos técnicos.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-amber-500">▹</span>
+                      <span>Pensamiento analítico estructurado y metodologías de precisión.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-amber-500">▹</span>
+                      <span>Lógica de control, circuitos y esquemas electromecánicos.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="mt-6 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                  <span>Monteros / Tucumán</span>
+                  <span className="text-zinc-500 dark:text-zinc-400 font-semibold">Título Técnico Oficial</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -655,9 +726,17 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         <div className="max-w-6xl mx-auto px-6">
           <div className="border-beam-card group">
             <div className="border-beam-inner p-8 sm:p-14 lg:p-16 flex flex-col items-center text-center">
-              <span className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-6 shadow-sm">
-                ☕
-              </span>
+              
+              {/* Ilustración 3D generada por IA para la sección de contacto */}
+              <div className="w-56 sm:w-64 md:w-72 max-w-full mb-6 relative group/illus">
+                <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-orange-500/10 rounded-3xl blur-2xl opacity-60 group-hover/illus:opacity-100 transition-opacity"></div>
+                <img 
+                  src="contact-illustration.png" 
+                  alt="Ilustración 3D de ingeniería y colaboración" 
+                  className="w-full h-auto object-contain relative z-10 rounded-2xl shadow-xl hover:scale-105 transition-transform duration-500" 
+                  loading="lazy" 
+                />
+              </div>
 
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white max-w-2xl">
                 ¿Construimos algo extraordinario juntos?

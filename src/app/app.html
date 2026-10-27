@@ -14,15 +14,14 @@
     [class.opacity-90]="scrollProgress() < 0.9"
     [class.scale-105]="scrollProgress() >= 0.9">
     
-    <!-- Mensaje dinámico según la sección -->
     <div class="pointer-events-auto glass bg-white/90 dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800/80 px-3.5 py-2 rounded-2xl shadow-card text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2 animate-float">
       <span *ngIf="scrollProgress() < 0.2">👋 ¡Hola! Explora mi portafolio</span>
       <span *ngIf="scrollProgress() >= 0.2 && scrollProgress() < 0.55">💻 Viendo proyectos en vivo</span>
-      <span *ngIf="scrollProgress() >= 0.55 && scrollProgress() < 0.85">⚡ Tecnologías y stack</span>
+      <span *ngIf="scrollProgress() >= 0.55 && scrollProgress() < 0.85">⚡ Tecnologías y filosofía</span>
       <span *ngIf="scrollProgress() >= 0.85">☕ ¡Programando en mi escritorio!</span>
     </div>
 
-    <!-- Mini Avatar 2D: Camina durante el scroll / Se sienta al final -->
+    <!-- Mini Avatar 2D: Camina durante el scroll / Se sienta al final con su café -->
     <div class="pointer-events-auto w-16 h-16 sm:w-20 sm:h-20 rounded-2xl glass bg-white/90 dark:bg-zinc-900/90 border border-amber-300/60 dark:border-amber-700/50 shadow-card flex items-center justify-center relative overflow-hidden group">
       
       <!-- Caminando (Scroll < 85%) -->
@@ -35,7 +34,6 @@
           <line x1="48" y1="30" x2="52" y2="30" stroke="#1F2937" stroke-width="2.5" />
           <path d="M47 38C49 40 51 40 53 38" stroke="#1F2937" stroke-width="2" stroke-linecap="round" />
           <path d="M30 52C30 46 36 44 50 44C64 44 70 46 70 52L68 85H32L30 52Z" fill="#F59E0B" />
-          <!-- Taza en mano -->
           <rect x="65" y="60" width="10" height="12" rx="2" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5" />
           <path d="M75 63C78 63 78 69 75 69" stroke="#D97706" stroke-width="1.5" />
           <path d="M68 56C69 54 71 54 72 56" stroke="#92400E" stroke-width="1" class="animate-steam" />
@@ -79,10 +77,10 @@
       
       <!-- Navegación integrada en el canvas -->
       <nav class="px-6 sm:px-12 pt-7 pb-4 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800/60 relative z-30">
-        <!-- Logotipo & Nombre -->
+        <!-- Logotipo: JNEP (Reemplazando JN) -->
         <a href="#" class="flex items-center gap-2.5 group">
-          <span class="w-10 h-10 rounded-2xl bg-[#F59E0B] text-white flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
-            JN
+          <span class="w-12 h-10 rounded-2xl bg-[#F59E0B] text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-md group-hover:scale-105 transition-transform">
+            JNEP
           </span>
           <div class="flex flex-col">
             <span class="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900 dark:text-white uppercase font-sans leading-none">
@@ -98,6 +96,7 @@
         <div class="hidden md:flex items-center gap-8 text-xs font-bold text-zinc-600 dark:text-zinc-300">
           <a href="#proyectos" class="hover:text-[#F59E0B] transition-colors">Proyectos</a>
           <a href="#competencias" class="hover:text-[#F59E0B] transition-colors">Tecnologías</a>
+          <a href="#filosofia" class="hover:text-[#F59E0B] transition-colors">Filosofía</a>
           <a href="#formacion" class="hover:text-[#F59E0B] transition-colors">Educación</a>
           <a href="#contacto" class="hover:text-[#F59E0B] transition-colors">Contacto</a>
         </div>
@@ -106,7 +105,7 @@
         <div class="flex items-center gap-3">
           <div class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/40">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Disponible para trabajar</span>
+            <span>Disponible</span>
           </div>
 
           <button 
@@ -126,22 +125,17 @@
       <!-- Cuerpo del Hero (Composición de 2 columnas estilo Imagen 4) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[520px] lg:min-h-[580px] relative">
         
-        <!-- Columna Izquierda: Tipografía limpia y CTAs -->
+        <!-- Columna Izquierda: Tipografía limpia (Sin el texto 🎓 Ingeniero en Informática Egresado 2026 arriba) -->
         <div class="lg:col-span-7 px-6 sm:px-12 py-12 lg:py-20 flex flex-col justify-center relative z-20">
           
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-900 dark:text-amber-300 bg-amber-100/70 dark:bg-amber-950/60 border border-amber-300/60 dark:border-amber-800/60 mb-6 w-fit shadow-sm">
-            <span>🎓</span>
-            <span>Ingeniero en Informática · Egresado 2026 (UNSTA)</span>
-          </div>
-
-          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.08]">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.06]">
             Desarrollo de <br />
             <span class="inline-block px-4 py-1 bg-amber-100 dark:bg-amber-950/70 text-[#D97706] dark:text-[#FBBF24] rounded-2xl my-1">software</span> <br />
             escalable y moderno
           </h1>
 
           <p class="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-300 max-w-lg leading-relaxed font-normal">
-            Graduado en Ingeniería en Informática por la UNSTA. Creo soluciones web completas, arquitecturas limpias y sistemas de alto impacto con <strong>Angular</strong>, <strong>React</strong>, <strong>TypeScript</strong>, <strong>Python</strong> y <strong>PostgreSQL</strong>.
+            Ingeniero en Informática (UNSTA). Especializado en desarrollo de software moderno con <strong>Angular</strong>, <strong>React</strong>, <strong>TypeScript</strong>, <strong>Python</strong> y bases de datos relacionales en <strong>PostgreSQL</strong>.
           </p>
 
           <!-- Botones estilo píldora -->
@@ -173,61 +167,67 @@
 
         </div>
 
-        <!-- Columna Derecha: Curva orgánica ámbar y el desarrollador con su café (Recreación fiel de la Imagen 4) -->
-        <div class="lg:col-span-5 relative flex items-center justify-center p-8 sm:p-12 overflow-hidden">
+        <!-- Columna Derecha: Nueva composición visual atractiva con Terminal IDE + Ilustración + Chips flotantes -->
+        <div class="lg:col-span-5 relative flex items-center justify-center p-6 sm:p-10 overflow-hidden">
           
-          <!-- Onda orgánica curvada en degradado cálido -->
-          <div class="absolute -right-20 -top-20 -bottom-20 w-[120%] bg-gradient-to-br from-[#FBBF24] via-[#F59E0B] to-[#D97706] rounded-l-[45%] opacity-90 dark:opacity-85 pointer-events-none transform rotate-3"></div>
+          <!-- Onda orgánica curvada en degradado cálido de fondo -->
+          <div class="absolute -right-16 -top-16 -bottom-16 w-[120%] bg-gradient-to-br from-[#FBBF24] via-[#F59E0B] to-[#D97706] rounded-l-[45%] opacity-90 dark:opacity-85 pointer-events-none transform rotate-3"></div>
           
           <!-- Letras flotantes decorativas (C-O-D-E) -->
-          <span class="absolute top-10 left-12 text-3xl sm:text-5xl font-black text-amber-500 dark:text-amber-300 select-none animate-letter-1 drop-shadow-sm font-sans">
-            C
-          </span>
-          <span class="absolute top-14 right-16 text-3xl sm:text-5xl font-black text-white/90 select-none animate-letter-2 drop-shadow-sm font-sans">
-            O
-          </span>
-          <span class="absolute bottom-20 left-8 text-3xl sm:text-5xl font-black text-zinc-900 select-none animate-letter-3 drop-shadow-sm font-sans">
-            D
-          </span>
-          <span class="absolute bottom-16 right-14 text-4xl sm:text-6xl font-black text-white/90 select-none animate-letter-4 drop-shadow-sm font-sans">
-            E
-          </span>
-          <span class="absolute top-1/2 left-4 text-2xl sm:text-3xl font-black text-amber-900/60 select-none animate-letter-5 font-mono">
-            &lt;/&gt;
-          </span>
+          <span class="absolute top-8 left-10 text-3xl sm:text-4xl font-black text-amber-500 dark:text-amber-300 select-none animate-letter-1 drop-shadow-sm font-sans">C</span>
+          <span class="absolute top-12 right-12 text-3xl sm:text-4xl font-black text-white/90 select-none animate-letter-2 drop-shadow-sm font-sans">O</span>
+          <span class="absolute bottom-16 left-6 text-3xl sm:text-4xl font-black text-zinc-900 select-none animate-letter-3 drop-shadow-sm font-sans">D</span>
+          <span class="absolute bottom-12 right-10 text-4xl sm:text-5xl font-black text-white/90 select-none animate-letter-4 drop-shadow-sm font-sans">E</span>
 
-          <!-- Ilustración 2D del desarrollador saludando con su taza de café -->
-          <div class="relative z-10 w-64 h-80 sm:w-80 sm:h-96 flex items-center justify-center animate-float">
-            <svg viewBox="0 0 280 340" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-2xl">
-              <ellipse cx="140" cy="325" rx="70" ry="10" fill="#000000" fill-opacity="0.15" />
-              <rect x="105" y="300" width="30" height="15" rx="7" fill="#FFFFFF" />
-              <rect x="145" y="300" width="30" height="15" rx="7" fill="#FFFFFF" />
-              <path d="M110 220L112 305H132L134 220H110Z" fill="#1E293B" />
-              <path d="M146 220L148 305H168L170 220H146Z" fill="#1E293B" />
-              <path d="M85 125C85 108 105 100 140 100C175 100 195 108 195 125L190 225H90L85 125Z" fill="#0F172A" />
-              <line x1="130" y1="120" x2="130" y2="155" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
-              <line x1="150" y1="120" x2="150" y2="155" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
-              <path d="M85 130L65 200L85 205L100 150" fill="#0F172A" />
-              <path d="M190 130L215 185L200 195L178 150" fill="#0F172A" />
-              <circle cx="218" cy="188" r="9" fill="#FCD34D" />
+          <!-- Composición Central: Terminal flotante con código de Nicolás + Desarrollador + Café -->
+          <div class="relative z-10 w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center animate-float">
+            
+            <!-- Ventana de Editor de Código Estilizada -->
+            <div class="w-full rounded-2xl bg-[#0F172A] border border-slate-700/80 shadow-2xl p-4 text-left font-mono text-[11px] leading-relaxed select-none transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+              
+              <!-- Barra de control del editor -->
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-sans font-medium">developer.ts</span>
+                <span class="text-[10px] text-amber-400 font-bold">☕ UTF-8</span>
+              </div>
 
-              <!-- Taza de café con vapor -->
-              <g transform="translate(205, 160)">
-                <rect x="5" y="10" width="22" height="24" rx="4" fill="#FFFFFF" stroke="#78350F" stroke-width="2.5" />
-                <path d="M27 15C33 15 33 25 27 25" stroke="#78350F" stroke-width="2.5" fill="none" />
-                <ellipse cx="16" cy="11" rx="9" ry="3" fill="#92400E" />
-                <path d="M12 4C14 0 16 0 18 4" stroke="#FFF" stroke-width="2" stroke-linecap="round" class="animate-steam" />
-                <path d="M16 2C18 -2 20 -2 22 2" stroke="#FFF" stroke-width="2" stroke-linecap="round" class="animate-steam" />
-              </g>
+              <!-- Código en TypeScript -->
+              <p class="text-indigo-400"><span class="text-rose-400">const</span> engineer = &#123;</p>
+              <p class="pl-4 text-slate-300">name: <span class="text-amber-300">'Nicolás Espinoza'</span>,</p>
+              <p class="pl-4 text-slate-300">role: <span class="text-emerald-400">'Ingeniero en Informática'</span>,</p>
+              <p class="pl-4 text-slate-300">stack: [<span class="text-sky-300">'Angular'</span>, <span class="text-sky-300">'React'</span>, <span class="text-sky-300">'Python'</span>, <span class="text-sky-300">'Postgres'</span>],</p>
+              <p class="pl-4 text-slate-300">coffee: <span class="text-amber-400">true</span>,</p>
+              <p class="pl-4 text-slate-300">availableToWork: <span class="text-emerald-400">true</span></p>
+              <p class="text-indigo-400">&#125;;</p>
 
-              <rect x="127" y="85" width="26" height="20" fill="#FCD34D" rx="4" />
-              <circle cx="140" cy="65" r="30" fill="#FCD34D" />
-              <path d="M110 55C110 38 122 25 140 25C158 25 170 38 170 55C170 60 162 52 154 55C146 58 140 52 132 55C122 58 110 60 110 55Z" fill="#5A2E0E" />
-              <circle cx="128" cy="65" r="9" stroke="#0F172A" stroke-width="3.5" fill="#E0F2FE" fill-opacity="0.6" />
-              <circle cx="152" cy="65" r="9" stroke="#0F172A" stroke-width="3.5" fill="#E0F2FE" fill-opacity="0.6" />
-              <line x1="137" y1="65" x2="143" y2="65" stroke="#0F172A" stroke-width="3.5" />
-              <path d="M134 78C138 83 142 83 146 78" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />
-            </svg>
+              <!-- Chip flotante integrado en el editor -->
+              <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[10px]">
+                <span class="text-emerald-400 flex items-center gap-1 font-sans">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Sistema online & listo
+                </span>
+                <span class="text-slate-400 font-mono">Tucumán, AR</span>
+              </div>
+
+            </div>
+
+            <!-- Chips Flotantes de Estadísticas y Pasión -->
+            <div class="w-full flex items-center justify-between gap-2 mt-3 z-20">
+              <div class="glass px-3 py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 shadow-md border border-amber-300/50 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center gap-1.5">
+                <span>☕</span>
+                <span>Code & Coffee</span>
+              </div>
+              <div class="glass px-3 py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 shadow-md border border-amber-300/50 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center gap-1.5">
+                <span class="text-amber-500">⚡</span>
+                <span>Full Stack</span>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -238,7 +238,7 @@
 
   </div>
 
-  <!-- ================= PROYECTOS DESTACADOS (CON SCREENSHOTS REALES MEJORADOS) ================= -->
+  <!-- ================= PROYECTOS DESTACADOS (CON EFECTO BORDER BEAM ROTATIVO) ================= -->
   <section id="proyectos" class="py-16 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60">
     <div class="max-w-6xl mx-auto px-6">
       
@@ -251,107 +251,107 @@
         </p>
       </div>
 
-      <!-- Tarjetas de Proyectos en 2 columnas -->
+      <!-- Tarjetas de Proyectos con Destello Rotativo en Bordes -->
       <div class="space-y-16">
-        <div 
-          *ngFor="let p of projects" 
-          class="fade-in-up rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] p-6 sm:p-8 lg:p-10 shadow-card hover:border-amber-400/50 transition-all duration-300">
-          
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        
+        <div *ngFor="let p of projects" class="fade-in-up border-beam-card group">
+          <div class="border-beam-inner p-6 sm:p-8 lg:p-10">
             
-            <!-- Columna 1: Screenshot real enmarcado en ventana de navegador -->
-            <div class="lg:col-span-7 group/preview">
-              <a 
-                [href]="p.link" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-2xl group-hover/preview:border-amber-500/60 transition-all duration-300">
-                
-                <!-- Barra superior de la ventana -->
-                <div class="h-9 bg-zinc-100 dark:bg-zinc-800/90 px-4 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700/60 select-none">
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
-                  </div>
-                  <div class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[220px] sm:max-w-xs">
-                    {{ p.link }}
-                  </div>
-                  <div class="w-8"></div>
-                </div>
-
-                <!-- Imagen de la captura real enviada por el usuario -->
-                <div class="relative overflow-hidden aspect-[16/10] bg-zinc-950">
-                  <img 
-                    [src]="p.screenshot" 
-                    [alt]="p.title"
-                    loading="lazy"
-                    class="w-full h-full object-cover object-top group-hover/preview:scale-[1.03] transition-transform duration-500" />
-                  
-                  <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
-                    <span class="px-5 py-2.5 rounded-full bg-white text-zinc-900 font-bold text-xs shadow-xl inline-flex items-center gap-1.5 transform translate-y-2 group-hover/preview:translate-y-0 transition-transform">
-                      <span>Abrir sitio en vivo</span>
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </span>
-                  </div>
-                </div>
-
-              </a>
-            </div>
-
-            <!-- Columna 2: Descripción y acción -->
-            <div class="lg:col-span-5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center gap-2 mb-2 font-mono text-xs">
-                  <span class="font-bold text-zinc-400 dark:text-zinc-500">Proyecto {{ p.id }}</span>
-                  <span class="text-zinc-300 dark:text-zinc-700">·</span>
-                  <span class="px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-[#D97706] dark:text-[#FBBF24] font-semibold text-[11px]">
-                    {{ p.status }}
-                  </span>
-                </div>
-
-                <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-                  {{ p.title }}
-                </h3>
-                <p class="text-xs font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-4">
-                  {{ p.subtitle }}
-                </p>
-
-                <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6 font-normal">
-                  {{ p.description }}
-                </p>
-
-                <div class="flex flex-wrap gap-1.5 mb-8">
-                  <span 
-                    *ngFor="let tag of p.tags" 
-                    class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60">
-                    {{ tag }}
-                  </span>
-                </div>
-              </div>
-
-              <div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+              
+              <!-- Columna 1: Screenshot real enmarcado en ventana de navegador -->
+              <div class="lg:col-span-7 group/preview">
                 <a 
                   [href]="p.link" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2">
-                  <span>Visitar sitio oficial</span>
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                  class="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-2xl group-hover/preview:border-amber-500/60 transition-all duration-300">
+                  
+                  <div class="h-9 bg-zinc-100 dark:bg-zinc-800/90 px-4 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700/60 select-none">
+                    <div class="flex items-center gap-1.5">
+                      <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                    </div>
+                    <div class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[220px] sm:max-w-xs">
+                      {{ p.link }}
+                    </div>
+                    <div class="w-8"></div>
+                  </div>
+
+                  <div class="relative overflow-hidden aspect-[16/10] bg-zinc-950">
+                    <img 
+                      [src]="p.screenshot" 
+                      [alt]="p.title"
+                      loading="lazy"
+                      class="w-full h-full object-cover object-top group-hover/preview:scale-[1.03] transition-transform duration-500" />
+                    
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
+                      <span class="px-5 py-2.5 rounded-full bg-white text-zinc-900 font-bold text-xs shadow-xl inline-flex items-center gap-1.5 transform translate-y-2 group-hover/preview:translate-y-0 transition-transform">
+                        <span>Abrir sitio en vivo</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                      </span>
+                    </div>
+                  </div>
+
                 </a>
+              </div>
+
+              <!-- Columna 2: Descripción y acción -->
+              <div class="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 mb-2 font-mono text-xs">
+                    <span class="font-bold text-zinc-400 dark:text-zinc-500">Proyecto {{ p.id }}</span>
+                    <span class="text-zinc-300 dark:text-zinc-700">·</span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-[#D97706] dark:text-[#FBBF24] font-semibold text-[11px]">
+                      {{ p.status }}
+                    </span>
+                  </div>
+
+                  <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+                    {{ p.title }}
+                  </h3>
+                  <p class="text-xs font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-4">
+                    {{ p.subtitle }}
+                  </p>
+
+                  <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6 font-normal">
+                    {{ p.description }}
+                  </p>
+
+                  <div class="flex flex-wrap gap-1.5 mb-8">
+                    <span 
+                      *ngFor="let tag of p.tags" 
+                      class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60">
+                      {{ tag }}
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <a 
+                    [href]="p.link" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2">
+                    <span>Visitar sitio oficial</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                  </a>
+                </div>
+
               </div>
 
             </div>
 
           </div>
-
         </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- ================= COMPETENCIAS TÉCNICAS (LOGOS VECTORIALES OFICIALES) ================= -->
+  <!-- ================= COMPETENCIAS TÉCNICAS (CON BORDER BEAM) ================= -->
   <section id="competencias" class="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E]">
     <div class="max-w-6xl mx-auto px-6">
       
@@ -367,27 +367,103 @@
       <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-3 sm:gap-4 fade-in-up">
         <div 
           *ngFor="let tech of technologies" 
-          class="group flex flex-col items-center justify-center p-5 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50 dark:bg-[#121316] hover:border-amber-400/50 hover:shadow-soft hover:-translate-y-1 transition-all duration-200 cursor-default"
-          [title]="tech.name">
-          
-          <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
-            <img 
-              [src]="tech.iconSvg" 
-              [alt]="tech.name" 
-              class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
-              loading="lazy" />
-          </div>
+          class="border-beam-card group cursor-default">
+          <div class="border-beam-inner flex flex-col items-center justify-center p-5">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+              <img 
+                [src]="tech.iconSvg" 
+                [alt]="tech.name" 
+                class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
+                loading="lazy" />
+            </div>
 
-          <span class="mt-2.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors text-center truncate max-w-full">
-            {{ tech.name }}
-          </span>
+            <span class="mt-2.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors text-center truncate max-w-full">
+              {{ tech.name }}
+            </span>
+          </div>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ================= FORMACIÓN ACADÉMICA (ACTUALIZADA A GRADUADO 2026) ================= -->
+  <!-- ================= NUEVA SECCIÓN: FILOSOFÍA & CÓMO TRABAJO (QUE LLEVA UN PORTAFOLIO) ================= -->
+  <section id="filosofia" class="py-20 md:py-28 border-b border-zinc-200/60 dark:border-zinc-800/60">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="mb-12 fade-in-up">
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          Filosofía de desarrollo
+        </h2>
+        <p class="text-base text-zinc-600 dark:text-zinc-400 mt-2 max-w-xl">
+          Principios de ingeniería que aplico en cada proyecto para garantizar calidad y sostenibilidad.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Pilar 1 -->
+        <div class="border-beam-card group">
+          <div class="border-beam-inner p-7 flex flex-col justify-between h-full">
+            <div>
+              <span class="text-3xl mb-4 block">🧱</span>
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-2">Arquitectura Limpia</h3>
+              <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                Módulos desacoplados, código legible y principios SOLID que facilitan el mantenimiento a largo plazo.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Deep Modules</span>
+          </div>
+        </div>
+
+        <!-- Pilar 2 -->
+        <div class="border-beam-card group">
+          <div class="border-beam-inner p-7 flex flex-col justify-between h-full">
+            <div>
+              <span class="text-3xl mb-4 block">⚡</span>
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-2">Alto Rendimiento</h3>
+              <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                Bundles ligeros, renderizado optimizado y métricas de Core Web Vitals al máximo para una carga instantánea.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Speed & UX</span>
+          </div>
+        </div>
+
+        <!-- Pilar 3 -->
+        <div class="border-beam-card group">
+          <div class="border-beam-inner p-7 flex flex-col justify-between h-full">
+            <div>
+              <span class="text-3xl mb-4 block">🛡️</span>
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-2">Seguridad y Datos</h3>
+              <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                Modelado relacional robusto en PostgreSQL, control de acceso por roles (RBAC) y validaciones estrictas.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Data Integrity</span>
+          </div>
+        </div>
+
+        <!-- Pilar 4 -->
+        <div class="border-beam-card group">
+          <div class="border-beam-inner p-7 flex flex-col justify-between h-full">
+            <div>
+              <span class="text-3xl mb-4 block">🔄</span>
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-2">Despliegue Ágil</h3>
+              <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                Integración continua con Git, pruebas de integración y despliegues automáticos sin fricciones.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">CI/CD & Git</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FORMACIÓN ACADÉMICA (CON BORDER BEAM) ================= -->
   <section id="formacion" class="py-20 md:py-28 border-b border-zinc-200/60 dark:border-zinc-800/60">
     <div class="max-w-6xl mx-auto px-6">
       
@@ -400,47 +476,51 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         <!-- UNSTA GRADUADO -->
-        <div class="fade-in-up p-8 sm:p-10 rounded-3xl border-2 border-amber-400/40 bg-gradient-to-br from-white to-amber-50/30 dark:from-[#111215] dark:to-amber-950/20 shadow-card">
-          <div class="flex items-center justify-between mb-4 text-xs font-mono">
-            <span class="px-3 py-1 rounded-full bg-[#D97706] text-white font-bold">EGRESADO 2026</span>
-            <span class="text-[#D97706] dark:text-[#FBBF24] font-bold">TÍTULO DE GRADO</span>
+        <div class="fade-in-up border-beam-card group">
+          <div class="border-beam-inner p-8 sm:p-10">
+            <div class="flex items-center justify-between mb-4 text-xs font-mono">
+              <span class="px-3 py-1 rounded-full bg-[#D97706] text-white font-bold">EGRESADO 2026</span>
+              <span class="text-[#D97706] dark:text-[#FBBF24] font-bold">TÍTULO DE GRADO</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-zinc-900 dark:text-white">
+              Ingeniero en Informática
+            </h3>
+            <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-400 mt-1 mb-4">
+              Universidad del Norte Santo Tomás de Aquino (UNSTA)
+            </p>
+            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
+              Formación integral de grado orientada al diseño y arquitectura de software complejo, ciencias de la computación y resolución metodológica de problemas.
+            </p>
+            <ul class="text-xs text-zinc-500 dark:text-zinc-400 space-y-1.5 font-normal">
+              <li>• Algoritmos avanzados, estructuras de datos y optimización computacional.</li>
+              <li>• Arquitectura de sistemas distribuidos, sistemas operativos y redes.</li>
+              <li>• Modelado relacional avanzado de bases de datos transaccionales en PostgreSQL.</li>
+            </ul>
           </div>
-          <h3 class="text-2xl font-extrabold text-zinc-900 dark:text-white">
-            Ingeniero en Informática
-          </h3>
-          <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-400 mt-1 mb-4">
-            Universidad del Norte Santo Tomás de Aquino (UNSTA)
-          </p>
-          <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
-            Formación integral de grado orientada al diseño y arquitectura de software complejo, ciencias de la computación y resolución metodológica de problemas.
-          </p>
-          <ul class="text-xs text-zinc-500 dark:text-zinc-400 space-y-1.5 font-normal">
-            <li>• Algoritmos avanzados, estructuras de datos y optimización computacional.</li>
-            <li>• Arquitectura de sistemas distribuidos, sistemas operativos y redes.</li>
-            <li>• Modelado relacional avanzado de bases de datos transaccionales en PostgreSQL.</li>
-          </ul>
         </div>
 
         <!-- TÉCNICA 1 -->
-        <div class="fade-in-up p-8 sm:p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] shadow-card">
-          <div class="flex items-center justify-between mb-4 text-xs font-mono text-zinc-400">
-            <span class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold">SECUNDARIO TÉCNICO</span>
-            <span>TÍTULO TÉCNICO</span>
+        <div class="fade-in-up border-beam-card group">
+          <div class="border-beam-inner p-8 sm:p-10">
+            <div class="flex items-center justify-between mb-4 text-xs font-mono text-zinc-400">
+              <span class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold">SECUNDARIO TÉCNICO</span>
+              <span>TÍTULO TÉCNICO</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-zinc-900 dark:text-white">
+              Técnico en Equipos e Instalaciones Electromecánicas
+            </h3>
+            <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-400 mt-1 mb-4">
+              Escuela Técnica N°1 de Monteros
+            </p>
+            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
+              Formación técnica disciplinada en diagnóstico de fallas, pensamiento lógico estructurado paso a paso y mantenimiento preventivo de sistemas.
+            </p>
+            <ul class="text-xs text-zinc-500 dark:text-zinc-400 space-y-1.5 font-normal">
+              <li>• Diagnóstico metódico de errores y esquemas circuitales.</li>
+              <li>• Pensamiento analítico aplicado a resolución práctica de problemas.</li>
+              <li>• Trabajo en equipo interdisciplinario y seguridad operativa.</li>
+            </ul>
           </div>
-          <h3 class="text-2xl font-extrabold text-zinc-900 dark:text-white">
-            Técnico en Equipos e Instalaciones Electromecánicas
-          </h3>
-          <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-400 mt-1 mb-4">
-            Escuela Técnica N°1 de Monteros
-          </p>
-          <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
-            Formación técnica disciplinada en diagnóstico de fallas, pensamiento lógico estructurado paso a paso y mantenimiento preventivo de sistemas.
-          </p>
-          <ul class="text-xs text-zinc-500 dark:text-zinc-400 space-y-1.5 font-normal">
-            <li>• Diagnóstico metódico de errores y esquemas circuitales.</li>
-            <li>• Pensamiento analítico aplicado a resolución práctica de problemas.</li>
-            <li>• Trabajo en equipo interdisciplinario y seguridad operativa.</li>
-          </ul>
         </div>
 
       </div>
@@ -452,114 +532,115 @@
   <footer id="contacto" class="py-20 md:py-28 bg-[#F6F7F9] dark:bg-[#090A0D]">
     <div class="max-w-6xl mx-auto px-6">
       
-      <!-- Tarjeta principal con la ilustración 2D del escritorio -->
-      <div class="fade-in-up p-8 sm:p-12 lg:p-16 rounded-[2.5rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#111215] shadow-card mb-14 relative overflow-hidden">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <!-- Tarjeta principal con Border Beam -->
+      <div class="fade-in-up border-beam-card mb-14 group">
+        <div class="border-beam-inner p-8 sm:p-12 lg:p-16">
           
-          <!-- Textos y botones -->
-          <div class="lg:col-span-7">
-            <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#D97706] dark:text-[#FBBF24] mb-4">
-              <span class="w-2 h-2 rounded-full bg-[#D97706] animate-pulse"></span>
-              <span>Listo para incorporarme a nuevos proyectos</span>
-            </div>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
-            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
-              ¿Construimos algo juntos?
-            </h2>
-            <p class="mt-4 text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xl">
-              Disponible para sumarme a equipos de tecnología como desarrollador Full Stack, Frontend o Backend, en modalidad remota o híbrida. Conversemos.
-            </p>
-
-            <div class="mt-8 flex flex-wrap items-center gap-3.5">
-              <a 
-                [href]="'mailto:' + email" 
-                class="px-7 py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2">
-                <span>Enviar email directo</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-              </a>
-
-              <a 
-                [href]="whatsappUrl" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="px-6 py-4 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-[#D97706] transition-all shadow-sm inline-flex items-center gap-2">
-                <span>WhatsApp (+54 9 3863 567732)</span>
-              </a>
-
-              <a 
-                [href]="githubUrl" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="px-6 py-4 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm font-bold hover:text-zinc-900 dark:hover:text-white transition-colors">
-                GitHub
-              </a>
-            </div>
-          </div>
-
-          <!-- Escena 2D: El programador sentado en su escritorio con su café -->
-          <div class="lg:col-span-5 flex items-center justify-center relative">
-            <div class="w-full max-w-[320px] aspect-square rounded-3xl bg-gradient-to-br from-amber-100/60 to-orange-50/30 dark:from-zinc-800/50 dark:to-zinc-900/50 border border-amber-200/50 dark:border-zinc-700/50 p-6 flex items-center justify-center relative overflow-hidden shadow-inner">
-              
-              <div class="absolute inset-0 bg-gradient-to-t from-[#D97706]/10 to-transparent"></div>
-
-              <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full relative z-10 drop-shadow-md">
-                <path d="M40 70L20 180H100L80 70Z" fill="#FDE68A" fill-opacity="0.15" />
-                <path d="M45 180L45 100L65 75" stroke="#475569" stroke-width="3" stroke-linecap="round" />
-                <polygon points="60,68 75,80 50,85" fill="#D97706" />
-                
-                <ellipse cx="120" cy="195" rx="35" ry="10" fill="#334155" />
-                <rect x="117" y="195" width="6" height="30" fill="#1E293B" />
-                <path d="M100 130C100 100 140 100 140 130V190H100V130Z" fill="#1E293B" />
-
-                <rect x="25" y="165" width="190" height="12" rx="3" fill="#D97706" />
-                <rect x="40" y="177" width="8" height="55" fill="#92400E" />
-                <rect x="192" y="177" width="8" height="55" fill="#92400E" />
-
-                <rect x="90" y="105" width="70" height="50" rx="3" fill="#0F172A" stroke="#334155" stroke-width="2" />
-                <rect x="120" y="155" width="10" height="10" fill="#475569" />
-                <rect x="110" y="163" width="30" height="3" rx="1.5" fill="#334155" />
-                <rect x="94" y="109" width="62" height="42" fill="#0284C7" fill-opacity="0.2" />
-                <line x1="98" y1="116" x2="125" y2="116" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" />
-                <line x1="104" y1="122" x2="145" y2="122" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" />
-                <line x1="104" y1="128" x2="135" y2="128" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" />
-                <line x1="98" y1="134" x2="118" y2="134" stroke="#F472B6" stroke-width="2" stroke-linecap="round" />
-                <line x1="104" y1="140" x2="148" y2="140" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" />
-
-                <rect x="100" y="166" width="45" height="5" rx="1.5" fill="#1E293B" />
-                <ellipse cx="112" cy="166" rx="5" ry="3" fill="#FCD34D" />
-                <ellipse cx="132" cy="166" rx="5" ry="3" fill="#FCD34D" />
-
-                <circle cx="120" cy="85" r="18" fill="#FCD34D" />
-                <path d="M102 78C102 65 110 57 120 57C130 57 138 65 138 78C138 81 133 76 128 78C123 80 120 76 116 78C110 80 102 81 102 78Z" fill="#5A2E0E" />
-                <circle cx="114" cy="86" r="5" stroke="#0F172A" stroke-width="2" fill="#E0F2FE" fill-opacity="0.6" />
-                <circle cx="126" cy="86" r="5" stroke="#0F172A" stroke-width="2" fill="#E0F2FE" fill-opacity="0.6" />
-                <line x1="119" y1="86" x2="121" y2="86" stroke="#0F172A" stroke-width="2" />
-                <path d="M117 94C119 97 121 97 123 94" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round" />
-                <path d="M98 108C98 103 105 101 120 101C135 101 142 103 142 108L144 165H96L98 108Z" fill="#0F172A" />
-
-                <!-- Taza de café humeante en el escritorio -->
-                <g transform="translate(170, 142)">
-                  <rect x="4" y="10" width="18" height="15" rx="3" fill="#FFFFFF" stroke="#78350F" stroke-width="2" />
-                  <path d="M22 13C27 13 27 21 22 21" stroke="#78350F" stroke-width="2" fill="none" />
-                  <ellipse cx="13" cy="10" rx="7" ry="2.5" fill="#92400E" />
-                  <path d="M10 5C11 1 13 1 14 5" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" class="animate-steam" />
-                  <path d="M14 3C15 -1 17 -1 18 3" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" class="animate-steam" />
-                </g>
-              </svg>
-
-              <div class="absolute bottom-3 left-4 right-4 text-center">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-zinc-900/80 text-white dark:bg-zinc-800/90 dark:text-amber-300 backdrop-blur-md">
-                  <span>☕</span>
-                  <span>Nicolás en su escritorio</span>
-                </span>
+            <!-- Textos y botones -->
+            <div class="lg:col-span-7">
+              <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#D97706] dark:text-[#FBBF24] mb-4">
+                <span class="w-2 h-2 rounded-full bg-[#D97706] animate-pulse"></span>
+                <span>Listo para incorporarme a nuevos proyectos</span>
               </div>
+              
+              <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
+                ¿Construimos algo juntos?
+              </h2>
+              <p class="mt-4 text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xl">
+                Disponible para sumarme a equipos de tecnología como desarrollador Full Stack, Frontend o Backend, en modalidad remota o híbrida. Conversemos.
+              </p>
 
+              <div class="mt-8 flex flex-wrap items-center gap-3.5">
+                <a 
+                  [href]="'mailto:' + email" 
+                  class="px-7 py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2">
+                  <span>Enviar email directo</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+
+                <a 
+                  [href]="whatsappUrl" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="px-6 py-4 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-[#D97706] transition-all shadow-sm inline-flex items-center gap-2">
+                  <span>WhatsApp (+54 9 3863 567732)</span>
+                </a>
+
+                <a 
+                  [href]="githubUrl" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="px-6 py-4 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm font-bold hover:text-zinc-900 dark:hover:text-white transition-colors">
+                  GitHub
+                </a>
+              </div>
             </div>
+
+            <!-- Escena 2D: El programador sentado en su escritorio con su café -->
+            <div class="lg:col-span-5 flex items-center justify-center relative">
+              <div class="w-full max-w-[320px] aspect-square rounded-3xl bg-gradient-to-br from-amber-100/60 to-orange-50/30 dark:from-zinc-800/50 dark:to-zinc-900/50 border border-amber-200/50 dark:border-zinc-700/50 p-6 flex items-center justify-center relative overflow-hidden shadow-inner">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-[#D97706]/10 to-transparent"></div>
+
+                <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full relative z-10 drop-shadow-md">
+                  <path d="M40 70L20 180H100L80 70Z" fill="#FDE68A" fill-opacity="0.15" />
+                  <path d="M45 180L45 100L65 75" stroke="#475569" stroke-width="3" stroke-linecap="round" />
+                  <polygon points="60,68 75,80 50,85" fill="#D97706" />
+                  
+                  <ellipse cx="120" cy="195" rx="35" ry="10" fill="#334155" />
+                  <rect x="117" y="195" width="6" height="30" fill="#1E293B" />
+                  <path d="M100 130C100 100 140 100 140 130V190H100V130Z" fill="#1E293B" />
+
+                  <rect x="25" y="165" width="190" height="12" rx="3" fill="#D97706" />
+                  <rect x="40" y="177" width="8" height="55" fill="#92400E" />
+                  <rect x="192" y="177" width="8" height="55" fill="#92400E" />
+
+                  <rect x="90" y="105" width="70" height="50" rx="3" fill="#0F172A" stroke="#334155" stroke-width="2" />
+                  <rect x="120" y="155" width="10" height="10" fill="#475569" />
+                  <rect x="110" y="163" width="30" height="3" rx="1.5" fill="#334155" />
+                  <rect x="94" y="109" width="62" height="42" fill="#0284C7" fill-opacity="0.2" />
+                  <line x1="98" y1="116" x2="125" y2="116" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" />
+                  <line x1="104" y1="122" x2="145" y2="122" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" />
+                  <line x1="104" y1="128" x2="135" y2="128" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" />
+                  <line x1="98" y1="134" x2="118" y2="134" stroke="#F472B6" stroke-width="2" stroke-linecap="round" />
+                  <line x1="104" y1="140" x2="148" y2="140" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" />
+
+                  <rect x="100" y="166" width="45" height="5" rx="1.5" fill="#1E293B" />
+                  <ellipse cx="112" cy="166" rx="5" ry="3" fill="#FCD34D" />
+                  <ellipse cx="132" cy="166" rx="5" ry="3" fill="#FCD34D" />
+
+                  <circle cx="120" cy="85" r="18" fill="#FCD34D" />
+                  <path d="M102 78C102 65 110 57 120 57C130 57 138 65 138 78C138 81 133 76 128 78C123 80 120 76 116 78C110 80 102 81 102 78Z" fill="#5A2E0E" />
+                  <circle cx="114" cy="86" r="5" stroke="#0F172A" stroke-width="2" fill="#E0F2FE" fill-opacity="0.6" />
+                  <circle cx="126" cy="86" r="5" stroke="#0F172A" stroke-width="2" fill="#E0F2FE" fill-opacity="0.6" />
+                  <line x1="119" y1="86" x2="121" y2="86" stroke="#0F172A" stroke-width="2" />
+                  <path d="M117 94C119 97 121 97 123 94" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round" />
+                  <path d="M98 108C98 103 105 101 120 101C135 101 142 103 142 108L144 165H96L98 108Z" fill="#0F172A" />
+
+                  <g transform="translate(170, 142)">
+                    <rect x="4" y="10" width="18" height="15" rx="3" fill="#FFFFFF" stroke="#78350F" stroke-width="2" />
+                    <path d="M22 13C27 13 27 21 22 21" stroke="#78350F" stroke-width="2" fill="none" />
+                    <ellipse cx="13" cy="10" rx="7" ry="2.5" fill="#92400E" />
+                    <path d="M10 5C11 1 13 1 14 5" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" class="animate-steam" />
+                    <path d="M14 3C15 -1 17 -1 18 3" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" class="animate-steam" />
+                  </g>
+                </svg>
+
+                <div class="absolute bottom-3 left-4 right-4 text-center">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-zinc-900/80 text-white dark:bg-zinc-800/90 dark:text-amber-300 backdrop-blur-md">
+                    <span>☕</span>
+                    <span>Nicolás en su escritorio</span>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
         </div>
-
       </div>
 
       <!-- Footer limpio sin menciones a Netlify -->

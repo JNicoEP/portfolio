@@ -1,37 +1,18 @@
-import { Component, signal, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface Project {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  link: string;
-  screenshot: string;
-  tags: string[];
-  status: string;
-  category: string;
-}
-
-export interface TechItem {
-  name: string;
-  category: string;
-  iconSvg: string;
-}
+import { ReactBridgeComponent } from './bridges/react-bridge.component';
+import type { ProjectContract, TechItemContract } from '../packages/portfolio-react';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactBridgeComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit, AfterViewInit {
+export class App implements OnInit {
   isDarkMode = signal<boolean>(false);
   copied = signal<boolean>(false);
-  scrollProgress = signal<number>(0);
-  isScrolling = signal<boolean>(false);
-  private scrollTimeout: any;
 
   // Información personal
   name = 'José Nicolás Espinoza Perillo';
@@ -44,11 +25,10 @@ export class App implements OnInit, AfterViewInit {
   email = 'nespinoza912@gmail.com';
   phone = '+54 9 3863567732';
   whatsappUrl = 'https://wa.me/5493863567732?text=Hola%20Nicolas,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar.';
-
   cvUrl = 'cv-nicolas-espinoza.pdf';
 
-  // Proyectos destacados en el orden y estado solicitados por el usuario
-  projects: Project[] = [
+  // Proyectos destacados (Tipados bajo contrato estricto de microfrontends)
+  projects: readonly ProjectContract[] = [
     {
       id: '01',
       title: 'Escuela Mariano Ariza',
@@ -84,8 +64,8 @@ export class App implements OnInit, AfterViewInit {
     }
   ];
 
-  // Competencias técnicas divididas en dos filas continuas animadas (estilo edwinsantos.dev)
-  technologiesRow1: TechItem[] = [
+  // Competencias técnicas organizadas en dos filas para desplazamiento continuo
+  technologiesRow1: readonly TechItemContract[] = [
     {
       name: 'Python',
       category: 'Lenguaje',
@@ -123,7 +103,7 @@ export class App implements OnInit, AfterViewInit {
     }
   ];
 
-  technologiesRow2: TechItem[] = [
+  technologiesRow2: readonly TechItemContract[] = [
     {
       name: 'PostgreSQL',
       category: 'Base de Datos',
@@ -156,55 +136,10 @@ export class App implements OnInit, AfterViewInit {
     }
   ];
 
-  // Referencia general
-  technologies: TechItem[] = [...this.technologiesRow1, ...this.technologiesRow2];
-
   ngOnInit() {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       this.isDarkMode.set(true);
       document.documentElement.classList.add('dark');
-    }
-  }
-
-  ngAfterViewInit() {
-    this.setupScrollAnimations();
-  }
-
-  @HostListener('window:scroll')
-  onWindowScroll() {
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight > 0) {
-      const progress = Math.min(Math.max(window.scrollY / docHeight, 0), 1);
-      this.scrollProgress.set(progress);
-      
-      this.isScrolling.set(true);
-      clearTimeout(this.scrollTimeout);
-      this.scrollTimeout = setTimeout(() => {
-        this.isScrolling.set(false);
-      }, 260);
-    }
-  }
-
-  setupScrollAnimations() {
-    if (typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-      );
-
-      document.querySelectorAll('.fade-in-up').forEach((el) => {
-        observer.observe(el);
-      });
-    } else {
-      document.querySelectorAll('.fade-in-up').forEach((el) => {
-        el.classList.add('visible');
-      });
     }
   }
 
@@ -217,12 +152,10 @@ export class App implements OnInit, AfterViewInit {
     }
   }
 
-  copyEmail() {
-    navigator.clipboard.writeText(this.email).then(() => {
-      this.copied.set(true);
-      setTimeout(() => {
-        this.copied.set(false);
-      }, 2500);
-    });
+  onEmailCopied(email: string) {
+    this.copied.set(true);
+    setTimeout(() => {
+      this.copied.set(false);
+    }, 2500);
   }
 }

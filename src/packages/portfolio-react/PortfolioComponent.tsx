@@ -1,0 +1,707 @@
+import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
+import type { PortfolioBridgeProps } from './types';
+
+export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
+  isDarkMode,
+  onToggleTheme,
+  projects,
+  technologiesRow1,
+  technologiesRow2,
+  cvUrl,
+  githubUrl,
+  whatsappUrl,
+  email,
+  onCopyEmail,
+}) => {
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
+  const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Escucha reactiva de scroll para animar el compañero 2D
+  const handleScroll = useCallback((): void => {
+    const docElement = document.documentElement;
+    const docHeight = docElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      const progress = Math.min(Math.max(window.scrollY / docHeight, 0), 1);
+      setScrollProgress(progress);
+      setIsScrolling(true);
+
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 260);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, [handleScroll]);
+
+  const copyEmailToClipboard = () => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(true);
+    if (onCopyEmail) onCopyEmail(email);
+    setTimeout(() => setCopiedEmail(false), 2200);
+  };
+
+  return (
+    <div className={`min-h-screen font-sans transition-colors duration-300 relative overflow-x-hidden ${isDarkMode ? 'dark bg-[#090A0D] text-zinc-100' : 'bg-[#F6F7F9] text-zinc-900'}`}>
+      
+      {/* 1. BARRA DE PROGRESO DE SCROLL */}
+      <div className="fixed top-0 left-0 right-0 h-[3px] bg-transparent z-[70]">
+        <div 
+          className="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 transition-all duration-100 ease-out"
+          style={{ width: `${scrollProgress * 100}%` }}
+        />
+      </div>
+
+      {/* 2. COMPAÑERO 2D EN TIEMPO REAL */}
+      <aside 
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 select-none pointer-events-none transition-all duration-300 ${
+          scrollProgress >= 0.9 ? 'scale-105' : 'opacity-90'
+        }`}
+      >
+        {/* Globo de diálogo contextual */}
+        <div className="hidden sm:flex pointer-events-auto glass bg-white/95 dark:bg-zinc-900/95 border border-zinc-200/80 dark:border-zinc-800/80 px-3.5 py-2 rounded-2xl shadow-card text-xs font-medium text-zinc-700 dark:text-zinc-300 items-center gap-2 animate-float">
+          {isScrolling && scrollProgress < 0.85 ? (
+            <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1.5">
+              <span>🏃‍♂️</span>
+              <span>¡Acelerando por la página!</span>
+            </span>
+          ) : scrollProgress >= 0.85 ? (
+            <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1.5">
+              <span>☕</span>
+              <span>¡Programando en mi escritorio!</span>
+            </span>
+          ) : scrollProgress < 0.2 ? (
+            <span>👋 ¡Hola! Explora mi portafolio</span>
+          ) : scrollProgress < 0.55 ? (
+            <span>💻 Viendo proyectos en vivo</span>
+          ) : (
+            <span>⚡ Tecnologías y filosofía</span>
+          )}
+        </div>
+
+        {/* Mini Avatar 2D */}
+        <div className="pointer-events-auto w-16 h-16 sm:w-20 sm:h-20 rounded-2xl glass bg-white/95 dark:bg-zinc-900/95 border border-amber-300/60 dark:border-amber-700/50 shadow-card flex items-center justify-center relative overflow-hidden group">
+          {scrollProgress < 0.85 ? (
+            <div className={`w-13 h-15 sm:w-14 sm:h-16 relative transition-transform ${isScrolling ? 'companion-running' : 'companion-walking'}`}>
+              <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                {/* Estelas de viento al correr */}
+                {isScrolling && (
+                  <g>
+                    <line x1="16" y1="52" x2="6" y2="52" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" className="animate-speed-1" />
+                    <line x1="22" y1="64" x2="8" y2="64" stroke="#FBBF24" strokeWidth="2.5" strokeLinecap="round" className="animate-speed-2" />
+                    <line x1="18" y1="76" x2="6" y2="76" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" className="animate-speed-3" />
+                    <circle cx="26" cy="106" r="3" fill="#D97706" opacity="0.6" className="animate-puff-1" />
+                    <circle cx="20" cy="108" r="2" fill="#B45309" opacity="0.4" className="animate-puff-2" />
+                  </g>
+                )}
+
+                {/* Pierna Izquierda articulada */}
+                <g transform="translate(42, 82)">
+                  <g className="companion-leg-left-pivot">
+                    <line x1="0" y1="0" x2="0" y2="23" stroke="#1E293B" strokeWidth="5" strokeLinecap="round" />
+                    <rect x="-8" y="20" width="15" height="6.5" rx="3.2" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="0.75" />
+                  </g>
+                </g>
+
+                {/* Pierna Derecha articulada */}
+                <g transform="translate(58, 82)">
+                  <g className="companion-leg-right-pivot">
+                    <line x1="0" y1="0" x2="0" y2="23" stroke="#1E293B" strokeWidth="5" strokeLinecap="round" />
+                    <rect x="-5" y="20" width="15" height="6.5" rx="3.2" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="0.75" />
+                  </g>
+                </g>
+
+                {/* Torso, Cabeza & Taza de café */}
+                <g className="companion-body">
+                  <circle cx="50" cy="30" r="16" fill="#FCD34D" />
+                  <path d="M34 26C34 17.2 41.2 10 50 10C58.8 10 66 17.2 66 26C66 28 62 25 58 26C54 27 50 25 46 26C40 27 34 29 34 26Z" fill="#78350F" />
+                  <circle cx="43" cy="30" r="5" stroke="#1F2937" strokeWidth="2.5" fill="#E0F2FE" fillOpacity="0.5" />
+                  <circle cx="57" cy="30" r="5" stroke="#1F2937" strokeWidth="2.5" fill="#E0F2FE" fillOpacity="0.5" />
+                  <line x1="48" y1="30" x2="52" y2="30" stroke="#1F2937" strokeWidth="2.5" />
+                  <path d="M47 38C49 40 51 40 53 38" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M30 52C30 46 36 44 50 44C64 44 70 46 70 52L68 85H32L30 52Z" fill="#F59E0B" />
+                  <rect x="65" y="60" width="10" height="12" rx="2" fill="#FFFFFF" stroke="#D97706" strokeWidth="1.5" />
+                  <path d="M75 63C78 63 78 69 75 69" stroke="#D97706" strokeWidth="1.5" />
+                  <path d="M68 56C69 54 71 54 72 56" stroke="#92400E" strokeWidth="1" className="animate-steam" />
+                </g>
+              </svg>
+            </div>
+          ) : (
+            <div className="w-14 h-14 relative animate-float">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                <rect x="10" y="65" width="80" height="6" rx="2" fill="#D97706" />
+                <rect x="18" y="71" width="5" height="25" fill="#92400E" />
+                <rect x="77" y="71" width="5" height="25" fill="#92400E" />
+                <polygon points="32,65 68,65 64,48 36,48" fill="#1E293B" />
+                <rect x="38" y="50" width="24" height="13" rx="1" fill="#0284C7" />
+                <line x1="40" y1="53" x2="52" y2="53" stroke="#38BDF8" strokeWidth="1" />
+                <line x1="40" y1="56" x2="58" y2="56" stroke="#4ADE80" strokeWidth="1" />
+                <line x1="40" y1="59" x2="48" y2="59" stroke="#FBBF24" strokeWidth="1" />
+                <circle cx="50" cy="32" r="11" fill="#FCD34D" />
+                <path d="M39 30C39 24 44 19 50 19C56 19 61 24 61 30C61 31 58 29 55 30C52 31 50 30 47 30C43 30 39 31 39 30Z" fill="#78350F" />
+                <circle cx="46" cy="33" r="3.5" stroke="#1F2937" strokeWidth="1.8" fill="#E0F2FE" />
+                <circle cx="54" cy="33" r="3.5" stroke="#1F2937" strokeWidth="1.8" fill="#E0F2FE" />
+                <line x1="49.5" y1="33" x2="50.5" y2="33" stroke="#1F2937" strokeWidth="1.8" />
+                <path d="M36 46C36 42 41 40 50 40C59 40 64 42 64 46L62 65H38L36 46Z" fill="#F59E0B" />
+                <rect x="72" y="56" width="8" height="9" rx="1.5" fill="#FFFFFF" stroke="#D97706" strokeWidth="1" />
+                <path d="M80 58C82 58 82 63 80 63" stroke="#D97706" strokeWidth="1" />
+                <path d="M74 53C75 51 77 51 78 53" stroke="#92400E" strokeWidth="1" className="animate-steam" />
+              </svg>
+            </div>
+          )}
+        </div>
+      </aside>
+
+      {/* 3. HERO MASTER CARD */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-12 sm:pb-16">
+        <div className="rounded-[2.5rem] sm:rounded-[3rem] bg-white dark:bg-[#111317] border border-zinc-200/80 dark:border-zinc-800/80 shadow-hero relative overflow-hidden transition-all">
+          
+          {/* Navegación integrada */}
+          <nav className="px-6 sm:px-12 pt-7 pb-4 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800/60 relative z-30">
+            <a href="#" className="flex items-center gap-2.5 group">
+              <span className="w-12 h-10 rounded-2xl bg-[#F59E0B] text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-md group-hover:scale-105 transition-transform">
+                JNEP
+              </span>
+              <div className="flex flex-col">
+                <span className="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900 dark:text-white uppercase font-sans leading-none">
+                  Nicolás Espinoza
+                </span>
+                <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 mt-1">
+                  Ingeniero en Informática
+                </span>
+              </div>
+            </a>
+
+            <div className="hidden md:flex items-center gap-8 text-xs font-bold text-zinc-600 dark:text-zinc-300">
+              <a href="#proyectos" className="hover:text-[#F59E0B] transition-colors">Proyectos</a>
+              <a href="#competencias" className="hover:text-[#F59E0B] transition-colors">Tecnologías</a>
+              <a href="#filosofia" className="hover:text-[#F59E0B] transition-colors">Filosofía</a>
+              <a href="#formacion" className="hover:text-[#F59E0B] transition-colors">Educación</a>
+              <a href="#contacto" className="hover:text-[#F59E0B] transition-colors">Contacto</a>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-3">
+              <a 
+                href={cvUrl} 
+                download="CV-Nicolas-Espinoza-Ingeniero.pdf" 
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 hover:bg-[#F59E0B] text-[#D97706] dark:text-[#FBBF24] hover:text-white border border-amber-500/30 transition-all shadow-xs"
+                title="Descargar Curriculum Vitae en PDF"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>CV</span>
+              </a>
+
+              <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/40">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Disponible</span>
+              </div>
+
+              <button 
+                type="button"
+                onClick={onToggleTheme} 
+                className="w-10 h-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-[#F59E0B] transition-colors shadow-sm"
+                title="Alternar modo oscuro"
+              >
+                {isDarkMode ? (
+                  <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                  </svg>
+                )}
+              </button>
+            </div>
+          </nav>
+
+          {/* Hero Body */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px] lg:min-h-[580px] relative">
+            <div className="lg:col-span-7 px-6 sm:px-12 py-12 lg:py-20 flex flex-col justify-center relative z-20">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.06]">
+                Desarrollo de <br />
+                <span className="inline-block px-4 py-1 bg-amber-100 dark:bg-amber-950/70 text-[#D97706] dark:text-[#FBBF24] rounded-2xl my-1">
+                  software
+                </span> <br />
+                escalable y moderno
+              </h1>
+
+              <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 mt-6 max-w-xl leading-relaxed font-normal">
+                Ingeniero en Informática enfocado en arquitecturas web de alto rendimiento, interfaces reactivas modernas y soluciones completas de extremo a extremo.
+              </p>
+
+              <div className="mt-9 flex flex-wrap items-center gap-3 sm:gap-4">
+                <a 
+                  href="#proyectos" 
+                  className="px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
+                >
+                  <span>Explorar proyectos</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </a>
+
+                <a 
+                  href={cvUrl} 
+                  download="CV-Nicolas-Espinoza-Ingeniero.pdf" 
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-6 py-3.5 sm:py-4 rounded-full border-2 border-amber-500/80 bg-amber-500/10 hover:bg-amber-500 text-[#D97706] dark:text-[#FBBF24] hover:text-white font-bold text-sm hover:border-amber-500 transition-all shadow-sm hover:shadow-md inline-flex items-center gap-2 group/cv"
+                >
+                  <svg className="w-4 h-4 text-amber-500 dark:text-amber-400 group-hover/cv:text-white group-hover/cv:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                  <span>Descargar CV</span>
+                </a>
+
+                <a 
+                  href={githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="px-6 py-3.5 sm:py-4 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-bold text-sm hover:border-[#D97706] transition-all shadow-sm inline-flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                  <span>GitHub</span>
+                </a>
+
+                <button 
+                  type="button"
+                  onClick={copyEmailToClipboard} 
+                  className="px-5 py-3.5 sm:py-4 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-bold text-xs hover:text-zinc-900 dark:hover:text-white transition-colors inline-flex items-center gap-1.5"
+                >
+                  {copiedEmail ? (
+                    <>
+                      <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                      <span>¡Email copiado!</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                      <span>Copiar email</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Columna Derecha: IDE Terminal Mockup */}
+            <div className="lg:col-span-5 relative flex items-center justify-center p-6 sm:p-10 overflow-hidden">
+              <div className="absolute -right-16 -top-16 -bottom-16 w-[120%] bg-gradient-to-br from-[#FBBF24] via-[#F59E0B] to-[#D97706] rounded-l-[45%] opacity-90 dark:opacity-85 pointer-events-none transform rotate-3"></div>
+              
+              <span className="absolute top-8 left-10 text-3xl sm:text-4xl font-black text-amber-500 dark:text-amber-300 select-none animate-letter-1 drop-shadow-sm font-sans">C</span>
+              <span className="absolute top-12 right-12 text-3xl sm:text-4xl font-black text-white/90 select-none animate-letter-2 drop-shadow-sm font-sans">O</span>
+              <span className="absolute bottom-16 left-6 text-3xl sm:text-4xl font-black text-zinc-900 select-none animate-letter-3 drop-shadow-sm font-sans">D</span>
+              <span className="absolute bottom-12 right-10 text-4xl sm:text-5xl font-black text-white/90 select-none animate-letter-4 drop-shadow-sm font-sans">E</span>
+
+              <div className="relative z-10 w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center animate-float">
+                <div className="w-full rounded-2xl bg-[#0F172A] border border-slate-700/80 shadow-2xl p-4 text-left font-mono text-[11px] leading-relaxed select-none transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-sans font-medium">~/portfolio/developer.ts</span>
+                    <span className="text-slate-500 text-[10px]">TypeScript</span>
+                  </div>
+
+                  <div className="space-y-1 text-slate-300">
+                    <p><span className="text-pink-400">const</span> <span className="text-cyan-300">engineer</span> = &#123;</p>
+                    <p className="pl-4"><span className="text-slate-400">name:</span> <span className="text-amber-300">&apos;Nicolás Espinoza&apos;</span>,</p>
+                    <p className="pl-4"><span className="text-slate-400">role:</span> <span className="text-amber-300">&apos;Ingeniero en Informática&apos;</span>,</p>
+                    <p className="pl-4"><span className="text-slate-400">graduation:</span> <span className="text-emerald-400">2026</span>,</p>
+                    <p className="pl-4"><span className="text-slate-400">stack:</span> [<span className="text-amber-300">&apos;Angular&apos;</span>, <span className="text-amber-300">&apos;React&apos;</span>, <span className="text-amber-300">&apos;PostgreSQL&apos;</span>],</p>
+                    <p className="pl-4"><span className="text-slate-400">status:</span> <span className="text-emerald-400">&apos;Open to Work&apos;</span></p>
+                    <p>&#125;;</p>
+                  </div>
+                </div>
+
+                <div className="w-full flex items-center justify-between mt-3 px-1">
+                  <div className="px-3 py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-amber-300/80 dark:border-amber-700/80 shadow-md flex items-center gap-1.5 text-[11px] font-bold text-zinc-800 dark:text-zinc-200">
+                    <span>☕ Code &amp; Coffee</span>
+                  </div>
+                  <div className="px-3 py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-amber-300/80 dark:border-amber-700/80 shadow-md flex items-center gap-1.5 text-[11px] font-bold text-zinc-800 dark:text-zinc-200">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Full Stack Senior-Ready</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. PROYECTOS DESTACADOS CON BORDER BEAM */}
+      <section id="proyectos" className="py-16 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-14">
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+              Proyectos destacados
+            </h2>
+            <p className="text-base text-zinc-600 dark:text-zinc-400 mt-2 max-w-xl">
+              Aplicaciones completas con despliegues activos en producción, arquitecturas modernas y bases de datos integradas.
+            </p>
+          </div>
+
+          <div className="space-y-16">
+            {projects.map((p) => (
+              <div key={p.id} className="border-beam-card group">
+                <div className="border-beam-inner p-6 sm:p-8 lg:p-10">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                    
+                    <div className="lg:col-span-7 group/preview">
+                      <a 
+                        href={p.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-2xl group-hover/preview:border-amber-500/60 transition-all duration-300"
+                      >
+                        <div className="h-9 bg-zinc-100 dark:bg-zinc-800/90 px-4 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700/60 select-none">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                          </div>
+                          <div className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[220px] sm:max-w-xs">
+                            {p.link}
+                          </div>
+                          <div className="w-8"></div>
+                        </div>
+
+                        <div className="relative overflow-hidden aspect-[16/10] bg-zinc-950">
+                          <img 
+                            src={p.screenshot} 
+                            alt={p.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover object-top group-hover/preview:scale-[1.03] transition-transform duration-500" 
+                          />
+                        </div>
+                      </a>
+                    </div>
+
+                    <div className="lg:col-span-5 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 mb-2 font-mono text-xs">
+                          <span className="font-bold text-zinc-400 dark:text-zinc-500">Proyecto {p.id}</span>
+                          <span className="text-zinc-300 dark:text-zinc-700">·</span>
+                          <span className={`px-2.5 py-0.5 rounded-full font-semibold text-[11px] inline-flex items-center gap-1.5 ${
+                            p.status === 'EN LÍNEA' 
+                              ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50'
+                              : 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/50'
+                          }`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${p.status === 'EN LÍNEA' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
+                            <span>{p.status}</span>
+                          </span>
+                        </div>
+
+                        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+                          {p.title}
+                        </h3>
+                        <p className="text-xs font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-4">
+                          {p.subtitle}
+                        </p>
+                        <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6 font-normal">
+                          {p.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-1.5 mb-8">
+                          {p.tags.map((tag) => (
+                            <span key={tag} className="px-2.5 py-1 rounded-lg text-xs font-mono font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <a 
+                          href={p.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2"
+                        >
+                          <span>Visitar sitio oficial</span>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. COMPETENCIAS TÉCNICAS (CON INFINITE SCROLL BIDIRECCIONAL & FADE MASK) */}
+      <section id="competencias" className="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E] overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 mb-12 text-center">
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+            Competencias técnicas
+          </h2>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2 max-w-xl mx-auto">
+            Lenguajes de programación y herramientas que utilizo activamente para construir soluciones robustas.
+          </p>
+        </div>
+
+        <div className="w-full space-y-6">
+          {/* Fila 1 */}
+          <div className="skills-marquee-container">
+            <div className="animate-infinite-scroll flex items-center">
+              <div className="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6">
+                {technologiesRow1.map((tech) => (
+                  <div key={tech.name} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+                    <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      </div>
+                      <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                        {tech.name}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                        {tech.category}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Duplicado idéntico */}
+              <div className="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6" aria-hidden="true">
+                {technologiesRow1.map((tech, idx) => (
+                  <div key={`tech-row1-dup-${idx}`} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+                    <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      </div>
+                      <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                        {tech.name}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                        {tech.category}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Fila 2 (Sentido inverso) */}
+          <div className="skills-marquee-container">
+            <div className="animate-infinite-scroll-reverse flex items-center">
+              <div className="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6">
+                {technologiesRow2.map((tech) => (
+                  <div key={tech.name} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+                    <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      </div>
+                      <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                        {tech.name}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                        {tech.category}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Duplicado idéntico */}
+              <div className="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6" aria-hidden="true">
+                {technologiesRow2.map((tech, idx) => (
+                  <div key={`tech-row2-dup-${idx}`} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+                    <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      </div>
+                      <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                        {tech.name}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                        {tech.category}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FILOSOFÍA DE DESARROLLO */}
+      <section id="filosofia" className="py-20 md:py-28 border-b border-zinc-200/60 dark:border-zinc-800/60">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-12">
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+              Filosofía de desarrollo
+            </h2>
+            <p className="text-base text-zinc-600 dark:text-zinc-400 mt-2 max-w-xl">
+              Principios de ingeniería que aplico en cada proyecto para garantizar calidad y sostenibilidad.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="border-beam-card group">
+              <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
+                <div>
+                  <span className="text-3xl mb-4 block">🧱</span>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Arquitectura Limpia</h3>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                    Módulos desacoplados, código legible y principios SOLID que facilitan el mantenimiento a largo plazo.
+                  </p>
+                </div>
+                <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Deep Modules</span>
+              </div>
+            </div>
+
+            <div className="border-beam-card group">
+              <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
+                <div>
+                  <span className="text-3xl mb-4 block">⚡</span>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Alto Rendimiento</h3>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                    Bundles ligeros, renderizado optimizado y métricas de Core Web Vitals al máximo para una carga instantánea.
+                  </p>
+                </div>
+                <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Speed &amp; UX</span>
+              </div>
+            </div>
+
+            <div className="border-beam-card group">
+              <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
+                <div>
+                  <span className="text-3xl mb-4 block">🛡️</span>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Seguridad y Datos</h3>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                    Modelado relacional robusto en PostgreSQL, control de acceso por roles (RBAC) y validaciones estrictas.
+                  </p>
+                </div>
+                <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Data Integrity</span>
+              </div>
+            </div>
+
+            <div className="border-beam-card group">
+              <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
+                <div>
+                  <span className="text-3xl mb-4 block">🚀</span>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Entrega Ágil</h3>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                    Despliegues automatizados, control de versiones con Git y pruebas exhaustivas antes de pasar a producción.
+                  </p>
+                </div>
+                <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">CI/CD &amp; Testing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FORMACIÓN ACADÉMICA */}
+      <section id="formacion" className="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-12">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+              Formación académica
+            </h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+              Bases universitarias en ciencias de la computación, sistemas distribuidos y desarrollo de software.
+            </p>
+          </div>
+
+          <div className="border-beam-card group">
+            <div className="border-beam-inner p-8 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div>
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 dark:bg-amber-950/80 text-[#D97706] dark:text-[#FBBF24] inline-block mb-3">
+                  Graduación 2026 · Título de Grado
+                </span>
+                <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-white">
+                  Ingeniero en Informática
+                </h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-300 font-medium mt-1">
+                  Universidad del Norte Santo Tomás de Aquino (UNSTA)
+                </p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2 max-w-2xl leading-relaxed">
+                  Formación integral en algoritmos avanzados, arquitecturas de software, desarrollo full stack, bases de datos relacionales y gestión ágil de proyectos tecnológicos.
+                </p>
+              </div>
+
+              <div className="flex-shrink-0">
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50 text-xs font-bold shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>Egresado 2026</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. CONTACTO & FOOTER */}
+      <footer id="contacto" className="py-20 md:py-28 relative">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="border-beam-card group">
+            <div className="border-beam-inner p-8 sm:p-14 lg:p-16 flex flex-col items-center text-center">
+              <span className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-6 shadow-sm">
+                ☕
+              </span>
+
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white max-w-2xl">
+                ¿Construimos algo extraordinario juntos?
+              </h2>
+
+              <p className="text-base text-zinc-600 dark:text-zinc-300 mt-4 max-w-xl leading-relaxed">
+                Disponible para integrarme a equipos de ingeniería o liderar proyectos de software escalables. Conversemos.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <a 
+                  href={whatsappUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="px-8 py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
+                >
+                  <span>Escribir por WhatsApp</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+
+                <a 
+                  href={`mailto:${email}`} 
+                  className="px-7 py-4 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-500 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold text-sm transition-all shadow-sm inline-flex items-center gap-2"
+                >
+                  <span>Enviar correo directo</span>
+                </a>
+              </div>
+
+              <div className="mt-14 pt-8 border-t border-zinc-200/60 dark:border-zinc-800/60 w-full flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 gap-4">
+                <p>© 2026 José Nicolás Espinoza Perillo · Monteros, Tucumán, Argentina</p>
+                <div className="flex items-center gap-6">
+                  <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">GitHub</a>
+                  <a href={cvUrl} download="CV-Nicolas-Espinoza-Ingeniero.pdf" className="hover:text-amber-500 transition-colors">Descargar CV</a>
+                  <a href="#" className="hover:text-amber-500 transition-colors">Volver arriba ↑</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  );
+});
+
+PortfolioComponent.displayName = 'PortfolioComponent';
+export default PortfolioComponent;

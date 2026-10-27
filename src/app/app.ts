@@ -45,45 +45,47 @@ export class App implements OnInit, AfterViewInit {
   phone = '+54 9 3863567732';
   whatsappUrl = 'https://wa.me/5493863567732?text=Hola%20Nicolas,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar.';
 
-  // Proyectos destacados con las nuevas imágenes de alta fidelidad
+  cvUrl = 'cv-nicolas-espinoza.pdf';
+
+  // Proyectos destacados en el orden y estado solicitados por el usuario
   projects: Project[] = [
     {
       id: '01',
-      title: 'Luvanna',
-      subtitle: 'Plataforma Web de Streaming de Películas',
-      description: 'Plataforma audiovisual moderna para explorar y reproducir películas con diseño cinematográfico inmersivo. Desarrollada con React y TypeScript, incluye catálogo interactivo clasificado por géneros y tendencias, buscador en tiempo real y reproductor multimedia fluido.',
-      link: 'https://luvanna.netlify.app/',
-      screenshot: 'projects/luvanna.png',
-      tags: ['React', 'TypeScript', 'Tailwind CSS', 'Streaming API', 'SPA'],
-      status: 'EN LÍNEA',
-      category: 'Multimedia & Streaming'
-    },
-    {
-      id: '02',
       title: 'Escuela Mariano Ariza',
       subtitle: 'Sistema Institucional con BD & Aula Virtual con Roles',
       description: 'Sistema web integral para digitalizar la gestión escolar de la institución. Cuenta con arquitectura de base de datos relacional y autenticación con control de roles (directivos, docentes y alumnos), infografía escolar interactiva, proyectos estudiantiles y repositorio descargable de documentación.',
       link: 'https://escuela-mariano-ariza-rust.vercel.app/',
       screenshot: 'projects/mariano-ariza.png',
       tags: ['JavaScript', 'PostgreSQL', 'Supabase', 'Vercel', 'RBAC'],
-      status: 'PRODUCCIÓN',
+      status: 'TERMINADO',
       category: 'Gestión Educativa & Roles'
     },
     {
+      id: '02',
+      title: 'Luvanna',
+      subtitle: 'Plataforma Web de Streaming de Películas',
+      description: 'Plataforma audiovisual moderna para explorar y reproducir películas con diseño cinematográfico inmersivo. Desarrollada con React y TypeScript, incluye catálogo interactivo clasificado por géneros y tendencias, buscador en tiempo real y reproductor multimedia fluido.',
+      link: 'https://luvanna.netlify.app/',
+      screenshot: 'projects/luvanna.png',
+      tags: ['React', 'TypeScript', 'Tailwind CSS', 'Streaming API', 'SPA'],
+      status: 'TERMINADO',
+      category: 'Multimedia & Streaming'
+    },
+    {
       id: '03',
-      title: 'Lumière Studio',
+      title: 'Lumiere',
       subtitle: 'Sistema Integral para Centro de Peluquería & Estética',
-      description: 'Plataforma web con diseño editorial y minimalista concebida para salones de belleza y peluquería de autor. Integra catálogo interactivo de servicios estéticos, módulo dinámico de agenda y reserva de turnos online en tiempo real, cotizador y perfiles profesionales.',
+      description: 'Plataforma web con diseño editorial y minimalista para peluqueria. Integra catálogo interactivo de servicios estéticos, módulo dinámico de agenda y reserva de turnos online en tiempo real, cotizador y perfiles profesionales.',
       link: 'https://lumiiere.vercel.app/',
       screenshot: 'projects/lumiiere.png',
       tags: ['Angular', 'TypeScript', 'Tailwind CSS', 'Booking Engine', 'Responsive UI'],
-      status: 'EN LÍNEA',
+      status: 'EN PROCESO',
       category: 'Turnos Online & Estética'
     }
   ];
 
-  // Competencias técnicas representadas con imágenes vectoriales (SVGs) oficiales
-  technologies: TechItem[] = [
+  // Competencias técnicas divididas en dos filas continuas animadas (estilo edwinsantos.dev)
+  technologiesRow1: TechItem[] = [
     {
       name: 'Python',
       category: 'Lenguaje',
@@ -118,7 +120,10 @@ export class App implements OnInit, AfterViewInit {
       name: 'React',
       category: 'Biblioteca UI',
       iconSvg: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
-    },
+    }
+  ];
+
+  technologiesRow2: TechItem[] = [
     {
       name: 'PostgreSQL',
       category: 'Base de Datos',
@@ -150,6 +155,9 @@ export class App implements OnInit, AfterViewInit {
       iconSvg: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg'
     }
   ];
+
+  // Referencia general
+  technologies: TechItem[] = [...this.technologiesRow1, ...this.technologiesRow2];
 
   ngOnInit() {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {

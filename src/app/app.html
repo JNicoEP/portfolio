@@ -101,8 +101,19 @@
           <a href="#contacto" class="hover:text-[#F59E0B] transition-colors">Contacto</a>
         </div>
 
-        <!-- Controles de estado y tema -->
-        <div class="flex items-center gap-3">
+        <!-- Controles de estado, CV y tema -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Botón de descarga de CV rápido en el header -->
+          <a 
+            [href]="cvUrl" 
+            download="CV-Nicolas-Espinoza-Ingeniero.pdf" 
+            target="_blank"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 hover:bg-[#F59E0B] text-[#D97706] dark:text-[#FBBF24] hover:text-white border border-amber-500/30 transition-all shadow-xs"
+            title="Descargar Curriculum Vitae en PDF">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>CV</span>
+          </a>
+
           <div class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/40">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>Disponible</span>
@@ -139,26 +150,38 @@
           </p>
 
           <!-- Botones estilo píldora -->
-          <div class="mt-9 flex flex-wrap items-center gap-4">
+          <div class="mt-9 flex flex-wrap items-center gap-3 sm:gap-4">
             <a 
               href="#proyectos" 
-              class="px-8 py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
+              class="px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
               <span>Explorar proyectos</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+
+            <!-- Botón Descargar CV -->
+            <a 
+              [href]="cvUrl" 
+              download="CV-Nicolas-Espinoza-Ingeniero.pdf" 
+              target="_blank" 
+              class="px-6 py-3.5 sm:py-4 rounded-full border-2 border-amber-500/80 bg-amber-500/10 hover:bg-amber-500 text-[#D97706] dark:text-[#FBBF24] hover:text-white font-bold text-sm hover:border-amber-500 transition-all shadow-sm hover:shadow-md inline-flex items-center gap-2 group/cv">
+              <svg class="w-4 h-4 text-amber-500 dark:text-amber-400 group-hover/cv:text-white group-hover/cv:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              <span>Descargar CV</span>
             </a>
 
             <a 
               [href]="githubUrl" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="px-7 py-4 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-bold text-sm hover:border-[#D97706] transition-all shadow-sm inline-flex items-center gap-2">
+              class="px-6 py-3.5 sm:py-4 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-bold text-sm hover:border-[#D97706] transition-all shadow-sm inline-flex items-center gap-2">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
               <span>GitHub</span>
             </a>
 
             <button 
               (click)="copyEmail()" 
-              class="px-5 py-4 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-bold text-xs hover:text-zinc-900 dark:hover:text-white transition-colors inline-flex items-center gap-1.5">
+              class="px-5 py-3.5 sm:py-4 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-bold text-xs hover:text-zinc-900 dark:hover:text-white transition-colors inline-flex items-center gap-1.5">
               <svg *ngIf="!copied()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
               <svg *ngIf="copied()" class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
               <span>{{ copied() ? '¡Email copiado!' : 'Copiar email' }}</span>
@@ -303,8 +326,13 @@
                   <div class="flex items-center gap-2 mb-2 font-mono text-xs">
                     <span class="font-bold text-zinc-400 dark:text-zinc-500">Proyecto {{ p.id }}</span>
                     <span class="text-zinc-300 dark:text-zinc-700">·</span>
-                    <span class="px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-[#D97706] dark:text-[#FBBF24] font-semibold text-[11px]">
-                      {{ p.status }}
+                    <span 
+                      [ngClass]="p.status === 'TERMINADO' ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50' : 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/50'"
+                      class="px-2.5 py-0.5 rounded-full font-semibold text-[11px] inline-flex items-center gap-1.5">
+                      <span 
+                        [ngClass]="p.status === 'TERMINADO' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'" 
+                        class="w-1.5 h-1.5 rounded-full"></span>
+                      <span>{{ p.status }}</span>
                     </span>
                   </div>
 
@@ -351,39 +379,134 @@
     </div>
   </section>
 
-  <!-- ================= COMPETENCIAS TÉCNICAS (CON BORDER BEAM) ================= -->
-  <section id="competencias" class="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E]">
-    <div class="max-w-6xl mx-auto px-6">
+  <!-- ================= COMPETENCIAS TÉCNICAS (CON ANIMACIÓN ESTILO EDWINSANTOS.DEV Y BORDES DIFUMINADOS) ================= -->
+  <section id="competencias" class="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E] overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 mb-12 text-center fade-in-up">
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+        Competencias técnicas
+      </h2>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 max-w-xl mx-auto">
+        Lenguajes de programación y herramientas que utilizo activamente para construir soluciones robustas.
+      </p>
+    </div>
+
+    <!-- Contenedor Marquee con bordes difuminados (Fade mask exclusivo de competencias técnicas) -->
+    <div class="w-full space-y-6">
       
-      <div class="mb-12 text-center max-w-2xl mx-auto fade-in-up">
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-          Competencias técnicas
-        </h2>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-          Lenguajes de programación y herramientas que utilizo activamente para construir soluciones robustas.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-3 sm:gap-4 fade-in-up">
-        <div 
-          *ngFor="let tech of technologies" 
-          class="border-beam-card group cursor-default">
-          <div class="border-beam-inner flex flex-col items-center justify-center p-5">
-            <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
-              <img 
-                [src]="tech.iconSvg" 
-                [alt]="tech.name" 
-                class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
-                loading="lazy" />
+      <!-- Fila 1: Desplazamiento infinito continuo hacia la izquierda -->
+      <div class="skills-marquee-container">
+        <div class="animate-infinite-scroll flex items-center">
+          
+          <!-- Bloque A (Fila 1) -->
+          <div class="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6">
+            <div 
+              *ngFor="let tech of technologiesRow1" 
+              class="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+              <div class="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                  <img 
+                    [src]="tech.iconSvg" 
+                    [alt]="tech.name" 
+                    class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
+                    loading="lazy" />
+                </div>
+                <span class="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                  {{ tech.name }}
+                </span>
+                <span class="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                  {{ tech.category }}
+                </span>
+              </div>
             </div>
-
-            <span class="mt-2.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors text-center truncate max-w-full">
-              {{ tech.name }}
-            </span>
           </div>
+
+          <!-- Bloque B (Duplicado idéntico para continuidad 100% fluida) -->
+          <div class="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6" aria-hidden="true">
+            <div 
+              *ngFor="let tech of technologiesRow1" 
+              class="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+              <div class="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                  <img 
+                    [src]="tech.iconSvg" 
+                    [alt]="tech.name" 
+                    class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
+                    loading="lazy" />
+                </div>
+                <span class="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                  {{ tech.name }}
+                </span>
+                <span class="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                  {{ tech.category }}
+                </span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
+      <!-- Fila 2: Desplazamiento infinito continuo en dirección inversa (derecha) -->
+      <div class="skills-marquee-container">
+        <div class="animate-infinite-scroll-reverse flex items-center">
+          
+          <!-- Bloque A (Fila 2) -->
+          <div class="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6">
+            <div 
+              *ngFor="let tech of technologiesRow2" 
+              class="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+              <div class="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                  <img 
+                    [src]="tech.iconSvg" 
+                    [alt]="tech.name" 
+                    class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
+                    loading="lazy" />
+                </div>
+                <span class="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                  {{ tech.name }}
+                </span>
+                <span class="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                  {{ tech.category }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloque B (Duplicado idéntico para continuidad 100% fluida) -->
+          <div class="flex items-center gap-4 sm:gap-6 pr-4 sm:pr-6" aria-hidden="true">
+            <div 
+              *ngFor="let tech of technologiesRow2" 
+              class="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
+              <div class="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
+                <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
+                  <img 
+                    [src]="tech.iconSvg" 
+                    [alt]="tech.name" 
+                    class="w-full h-full object-contain filter group-hover:filter-none transition-all duration-200" 
+                    loading="lazy" />
+                </div>
+                <span class="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
+                  {{ tech.name }}
+                </span>
+                <span class="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                  {{ tech.category }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Indicador interactivo -->
+    <div class="mt-8 text-center">
+      <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-mono text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800/60 border border-zinc-200/60 dark:border-zinc-700/60">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+        <span>Desplazamiento continuo · Pausa al pasar el cursor</span>
+      </span>
     </div>
   </section>
 

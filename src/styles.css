@@ -180,6 +180,63 @@
   transform: translateY(0);
 }
 
+/* ================= MARQUEE / INFINITE SCROLL COMPETENCIAS TÉCNICAS (ESTILO EDWINSANTOS.DEV) ================= */
+.skills-marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  /* Borde difuminado / fade out en los extremos laterales (exclusivo para competencias técnicas) */
+  mask-image: linear-gradient(to right, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 120px, black calc(100% - 120px), transparent 100%);
+}
+
+@media (max-width: 640px) {
+  .skills-marquee-container {
+    mask-image: linear-gradient(to right, transparent 0%, black 36px, black calc(100% - 36px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 36px, black calc(100% - 36px), transparent 100%);
+  }
+}
+
+@keyframes infiniteScrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes infiniteScrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-infinite-scroll {
+  display: flex;
+  width: max-content;
+  animation: infiniteScrollLeft 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-infinite-scroll-reverse {
+  display: flex;
+  width: max-content;
+  animation: infiniteScrollRight 28s linear infinite;
+  will-change: transform;
+}
+
+/* Pausa al interactuar con el mouse para inspeccionar la tecnología */
+.skills-marquee-container:hover .animate-infinite-scroll,
+.skills-marquee-container:hover .animate-infinite-scroll-reverse {
+  animation-play-state: paused;
+}
+
 /* Ocultar badge flotante de Netlify por CSS */
 [data-netlify-badge], .netlify-badge, #netlify-badge, [id*="netlify-badge"], [class*="netlify-badge"], [id*="netlify-drawer"], [data-netlify-drawer] {
   display: none !important;

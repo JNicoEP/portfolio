@@ -57,7 +57,7 @@ export class App implements OnInit, AfterViewInit {
       link: 'https://escuela-mariano-ariza-rust.vercel.app/',
       screenshot: 'projects/mariano-ariza.png',
       tags: ['JavaScript', 'PostgreSQL', 'Supabase', 'Vercel', 'RBAC'],
-      status: 'TERMINADO',
+      status: 'EN LÍNEA',
       category: 'Gestión Educativa & Roles'
     },
     {
@@ -68,7 +68,7 @@ export class App implements OnInit, AfterViewInit {
       link: 'https://luvanna.netlify.app/',
       screenshot: 'projects/luvanna.png',
       tags: ['React', 'TypeScript', 'Tailwind CSS', 'Streaming API', 'SPA'],
-      status: 'TERMINADO',
+      status: 'EN LÍNEA',
       category: 'Multimedia & Streaming'
     },
     {

@@ -130,22 +130,122 @@
 .animate-letter-4 { animation: floatLetters 4.2s ease-in-out infinite 0.5s; }
 .animate-letter-5 { animation: floatLetters 4.8s ease-in-out infinite 1.1s; }
 
-/* Walking / bobbing cycle */
-@keyframes walkBob {
+/* ================= 2D COMPANION: WALKING & RUNNING ANIMATIONS ================= */
+/* Ciclo de caminata continuo (Idle/Normal) */
+@keyframes legWalkLeftAnim {
   0%, 100% {
-    transform: translateY(0) rotate(0deg);
+    transform: rotate(-24deg);
   }
-  25% {
-    transform: translateY(-4px) rotate(-2deg);
-  }
-  75% {
-    transform: translateY(-4px) rotate(2deg);
+  50% {
+    transform: rotate(24deg);
   }
 }
 
-.animate-walk {
-  animation: walkBob 0.6s ease-in-out infinite;
+@keyframes legWalkRightAnim {
+  0%, 100% {
+    transform: rotate(24deg);
+  }
+  50% {
+    transform: rotate(-24deg);
+  }
 }
+
+@keyframes bodyWalkBobAnim {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+
+/* Ciclo de carrera acelerada mientras se hace scroll (Running) */
+@keyframes legRunLeftAnim {
+  0%, 100% {
+    transform: rotate(-50deg);
+  }
+  50% {
+    transform: rotate(50deg);
+  }
+}
+
+@keyframes legRunRightAnim {
+  0%, 100% {
+    transform: rotate(50deg);
+  }
+  50% {
+    transform: rotate(-50deg);
+  }
+}
+
+@keyframes bodyRunBobAnim {
+  0%, 100% {
+    transform: rotate(14deg) translateY(0);
+  }
+  50% {
+    transform: rotate(14deg) translateY(-5px);
+  }
+}
+
+/* Estado Caminar: piernas oscilando continuamente */
+.companion-walking .companion-leg-left-pivot {
+  transform-origin: 0 0;
+  animation: legWalkLeftAnim 0.7s ease-in-out infinite;
+}
+
+.companion-walking .companion-leg-right-pivot {
+  transform-origin: 0 0;
+  animation: legWalkRightAnim 0.7s ease-in-out infinite;
+}
+
+.companion-walking .companion-body {
+  animation: bodyWalkBobAnim 0.7s ease-in-out infinite;
+}
+
+/* Estado Correr: piernas a máxima velocidad, cuerpo inclinado hacia adelante */
+.companion-running .companion-leg-left-pivot {
+  transform-origin: 0 0;
+  animation: legRunLeftAnim 0.22s ease-in-out infinite;
+}
+
+.companion-running .companion-leg-right-pivot {
+  transform-origin: 0 0;
+  animation: legRunRightAnim 0.22s ease-in-out infinite;
+}
+
+.companion-running .companion-body {
+  animation: bodyRunBobAnim 0.22s ease-in-out infinite;
+}
+
+/* Líneas de velocidad y partículas de polvo al correr */
+@keyframes speedLinePulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scaleX(0.7) translateX(3px);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.3) translateX(-3px);
+  }
+}
+
+.animate-speed-1 { animation: speedLinePulse 0.18s ease-in-out infinite; }
+.animate-speed-2 { animation: speedLinePulse 0.22s ease-in-out infinite 0.05s; }
+.animate-speed-3 { animation: speedLinePulse 0.2s ease-in-out infinite 0.1s; }
+
+@keyframes dustPuffAnim {
+  0% {
+    opacity: 0.8;
+    transform: translate(0, 0) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-6px, -4px) scale(1.4);
+  }
+}
+
+.animate-puff-1 { animation: dustPuffAnim 0.28s ease-out infinite; }
+.animate-puff-2 { animation: dustPuffAnim 0.28s ease-out infinite 0.14s; }
 
 /* Steam animation */
 @keyframes steam {

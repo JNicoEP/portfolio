@@ -181,7 +181,7 @@ export class App implements OnInit, AfterViewInit {
       clearTimeout(this.scrollTimeout);
       this.scrollTimeout = setTimeout(() => {
         this.isScrolling.set(false);
-      }, 150);
+      }, 260);
     }
   }
 

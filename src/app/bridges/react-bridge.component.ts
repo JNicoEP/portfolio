@@ -35,6 +35,7 @@ export class ReactBridgeComponent implements AfterViewInit, OnChanges, OnDestroy
   private readonly hostRef!: ElementRef<HTMLDivElement>;
 
   @Input({ required: true }) isDarkMode!: boolean;
+  @Input() language: 'es' | 'en' = 'es';
   @Input({ required: true }) projects!: readonly ProjectContract[];
   @Input({ required: true }) technologiesRow1!: readonly TechItemContract[];
   @Input({ required: true }) technologiesRow2!: readonly TechItemContract[];
@@ -44,6 +45,7 @@ export class ReactBridgeComponent implements AfterViewInit, OnChanges, OnDestroy
   @Input({ required: true }) email!: string;
 
   @Output() toggleTheme = new EventEmitter<void>();
+  @Output() toggleLanguage = new EventEmitter<void>();
   @Output() copyEmail = new EventEmitter<string>();
 
   private reactRoot: Root | null = null;
@@ -67,6 +69,8 @@ export class ReactBridgeComponent implements AfterViewInit, OnChanges, OnDestroy
     const props: PortfolioBridgeProps = {
       isDarkMode: this.isDarkMode,
       onToggleTheme: () => this.toggleTheme.emit(),
+      language: this.language,
+      onToggleLanguage: () => this.toggleLanguage.emit(),
       projects: this.projects,
       technologiesRow1: this.technologiesRow1,
       technologiesRow2: this.technologiesRow2,

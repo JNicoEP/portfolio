@@ -1,6 +1,7 @@
 <!-- Host Contenedor Angular que renderiza el Microfrontend de React a través del Bridge ReactWrapper -->
 <app-react-portfolio-bridge
   [isDarkMode]="isDarkMode()"
+  [language]="language()"
   [projects]="projects"
   [technologiesRow1]="technologiesRow1"
   [technologiesRow2]="technologiesRow2"
@@ -9,5 +10,6 @@
   [whatsappUrl]="whatsappUrl"
   [email]="email"
   (toggleTheme)="toggleTheme()"
+  (toggleLanguage)="toggleLanguage()"
   (copyEmail)="onEmailCopied($event)"
 ></app-react-portfolio-bridge>

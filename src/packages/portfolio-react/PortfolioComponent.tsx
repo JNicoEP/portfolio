@@ -1,9 +1,228 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import type { PortfolioBridgeProps } from './types';
+import type { PortfolioBridgeProps, ProjectContract } from './types';
+
+const i18n = {
+  es: {
+    nav: {
+      role: 'Ingeniero en Informática',
+      projects: 'Proyectos',
+      tech: 'Tecnologías',
+      philosophy: 'Filosofía',
+      education: 'Educación',
+      contact: 'Contacto',
+      available: 'Disponible',
+      cvTitle: 'Descargar Curriculum Vitae en PDF',
+      themeTitle: 'Alternar modo oscuro',
+      langTitle: 'Cambiar a Inglés (Switch to English)',
+    },
+    companion: {
+      sprint: '¡Acelerando por la página!',
+      coding: '¡Programando en mi escritorio!',
+      hello: '👋 ¡Hola! Explora mi portafolio',
+      viewingProjects: '💻 Viendo proyectos en vivo',
+      techPhilosophy: '⚡ Tecnologías y filosofía',
+    },
+    hero: {
+      title1: 'Desarrollo de',
+      titleHighlight: 'software',
+      title2: 'escalable y moderno',
+      desc: 'Ingeniero en Informática enfocado en arquitecturas web de alto rendimiento, interfaces reactivas modernas y soluciones completas de extremo a extremo.',
+      exploreProjects: 'Explorar proyectos',
+      downloadCv: 'Descargar CV',
+      copyEmail: 'Copiar email',
+      copiedEmail: '¡Email copiado!',
+      terminalTitle: '~/portfolio/developer.ts',
+      terminalRole: "'Ingeniero en Informática'",
+      terminalStatus: "'Open to Work'",
+      codeCoffee: '☕ Code & Coffee',
+      seniorReady: 'Full Stack Senior-Ready',
+    },
+    projects: {
+      title: 'Proyectos destacados',
+      desc: 'Aplicaciones completas con despliegues activos en producción, arquitecturas modernas y bases de datos integradas.',
+      prefix: 'Proyecto',
+      statusLive: 'EN LÍNEA',
+      statusProcess: 'EN PROCESO',
+      visitOfficial: 'Visitar sitio oficial',
+      p1Subtitle: 'Sistema Institucional con BD & Aula Virtual con Roles',
+      p1Desc: 'Sistema web integral para digitalizar la gestión escolar de la institución. Cuenta con arquitectura de base de datos relacional y autenticación con control de roles (directivos, docentes y alumnos), infografía escolar interactiva, proyectos estudiantiles y repositorio descargable de documentación.',
+      p2Subtitle: 'Plataforma Web de Streaming de Películas',
+      p2Desc: 'Plataforma audiovisual moderna para explorar y reproducir películas con diseño cinematográfico inmersivo. Desarrollada con React y TypeScript, incluye catálogo interactivo clasificado por géneros y tendencias, buscador en tiempo real y reproductor multimedia fluido.',
+      p3Subtitle: 'Sistema Integral para Centro de Peluquería & Estética',
+      p3Desc: 'Plataforma web con diseño editorial y minimalista para peluqueria. Integra catálogo interactivo de servicios estéticos, módulo dinámico de agenda y reserva de turnos online en tiempo real, cotizador y perfiles profesionales.',
+    },
+    skills: {
+      title: 'Competencias técnicas',
+      desc: 'Lenguajes de programación y herramientas que utilizo activamente para construir soluciones robustas.',
+    },
+    philosophy: {
+      title: 'Filosofía de desarrollo',
+      desc: 'Principios de ingeniería que aplico en cada proyecto para garantizar calidad y sostenibilidad.',
+      p1Title: 'Arquitectura Limpia',
+      p1Desc: 'Módulos desacoplados, código legible y principios SOLID que facilitan el mantenimiento a largo plazo.',
+      p2Title: 'Alto Rendimiento',
+      p2Desc: 'Bundles ligeros, renderizado optimizado y métricas de Core Web Vitals al máximo para una carga instantánea.',
+      p3Title: 'Seguridad y Datos',
+      p3Desc: 'Modelado relacional robusto en PostgreSQL, control de acceso por roles (RBAC) y validaciones estrictas.',
+      p4Title: 'Entrega Ágil',
+      p4Desc: 'Despliegues automatizados, control de versiones con Git y pruebas exhaustivas antes de pasar a producción.',
+    },
+    education: {
+      title: 'Formación académica',
+      desc: 'Bases universitarias y técnicas en ciencias de la computación, sistemas y resolución analítica de problemas.',
+      d1Badge: 'Graduación 2026 · Título de Grado',
+      d1Status: 'Egresado',
+      d1Title: 'Ingeniero en Informática',
+      d1School: 'Universidad del Norte Santo Tomás de Aquino (UNSTA)',
+      d1Desc: 'Formación integral en diseño de algoritmos avanzados, desarrollo full stack, bases de datos distribuidas y gestión de proyectos tecnológicos.',
+      d1Bullet1: 'Diseño y análisis de algoritmos y estructuras de datos complejas.',
+      d1Bullet2: 'Arquitectura de sistemas operativos, redes y sistemas distribuidos.',
+      d1Bullet3: 'Modelado relacional en PostgreSQL y control de acceso RBAC.',
+      d1FootLeft: 'Concepción / Tucumán',
+      d1FootRight: '5 Años de Carrera',
+      d2Badge: 'Nivel Secundario Técnico',
+      d2Status: 'Graduado',
+      d2Title: 'Técnico Electromecánico',
+      d2School: 'Escuela Técnica N°1 de Monteros',
+      d2Desc: 'Formación técnica con fuerte base práctica en resolución metódica de averías, esquemas lógicos y trabajo en equipo multidisciplinario.',
+      d2Bullet1: 'Diagnóstico metódico y resolución de averías en entornos técnicos.',
+      d2Bullet2: 'Pensamiento analítico estructurado y metodologías de precisión.',
+      d2Bullet3: 'Lógica de control, circuitos y esquemas electromecánicos.',
+      d2FootLeft: 'Monteros / Tucumán',
+      d2FootRight: 'Título Técnico Oficial',
+    },
+    contact: {
+      title: '¿Construimos algo extraordinario juntos?',
+      desc: 'Disponible para integrarme a equipos de ingeniería o liderar proyectos de software escalables. Conversemos.',
+      whatsapp: 'Escribir por WhatsApp',
+      email: 'Enviar correo directo',
+      copyRight: '© 2026 José Nicolás Espinoza Perillo · Monteros, Tucumán, Argentina',
+      backToTop: 'Volver arriba ↑',
+      downloadCv: 'Descargar CV',
+    },
+  },
+  en: {
+    nav: {
+      role: 'Software Engineer',
+      projects: 'Projects',
+      tech: 'Technologies',
+      philosophy: 'Philosophy',
+      education: 'Education',
+      contact: 'Contact',
+      available: 'Available',
+      cvTitle: 'Download Curriculum Vitae (PDF)',
+      themeTitle: 'Toggle dark mode',
+      langTitle: 'Switch to Spanish (Cambiar a Español)',
+    },
+    companion: {
+      sprint: 'Sprinting through the page!',
+      coding: 'Coding at my desk!',
+      hello: '👋 Hi! Explore my portfolio',
+      viewingProjects: '💻 Browsing live projects',
+      techPhilosophy: '⚡ Tech stack & philosophy',
+    },
+    hero: {
+      title1: 'Building modern &',
+      titleHighlight: 'scalable',
+      title2: 'software solutions',
+      desc: 'Software Engineer specialized in high-performance web architectures, modern reactive interfaces, and full-stack end-to-end solutions.',
+      exploreProjects: 'Explore projects',
+      downloadCv: 'Download CV',
+      copyEmail: 'Copy email',
+      copiedEmail: 'Email copied!',
+      terminalTitle: '~/portfolio/developer.ts',
+      terminalRole: "'Software Engineer'",
+      terminalStatus: "'Open to Work'",
+      codeCoffee: '☕ Code & Coffee',
+      seniorReady: 'Full Stack Senior-Ready',
+    },
+    projects: {
+      title: 'Featured Projects',
+      desc: 'Full-stack applications with active production deployments, modern architectures, and integrated relational databases.',
+      prefix: 'Project',
+      statusLive: 'LIVE',
+      statusProcess: 'IN PROGRESS',
+      visitOfficial: 'Visit live site',
+      p1Subtitle: 'Institutional System with DB & Role-Based Virtual Classroom',
+      p1Desc: 'Comprehensive web platform to digitize institutional school management. Features relational database architecture, role-based access control (principals, teachers, and students), interactive infographics, student showcases, and downloadable document repository.',
+      p2Subtitle: 'Movie Streaming Web Platform',
+      p2Desc: 'Modern audiovisual platform to explore and stream movies with an immersive cinematic design. Built with React and TypeScript, includes interactive catalog categorized by genres and trends, real-time search, and smooth media playback.',
+      p3Subtitle: 'Comprehensive System for Hair Salon & Aesthetics Studio',
+      p3Desc: 'Editorial and minimalist web platform for hair salons and beauty studios. Integrates interactive beauty service catalog, dynamic real-time appointment booking engine, service cost estimator, and professional staff profiles.',
+    },
+    skills: {
+      title: 'Technical Skills',
+      desc: 'Programming languages and tools I actively use to engineer robust software solutions.',
+    },
+    philosophy: {
+      title: 'Engineering Philosophy',
+      desc: 'Core engineering principles applied across every project to guarantee quality and long-term maintainability.',
+      p1Title: 'Clean Architecture',
+      p1Desc: 'Decoupled modules, clean readable code, and SOLID principles that ensure effortless long-term maintainability.',
+      p2Title: 'High Performance',
+      p2Desc: 'Lightweight bundles, optimized rendering, and top Core Web Vitals scores for near-instant load times.',
+      p3Title: 'Security & Data Integrity',
+      p3Desc: 'Robust relational modeling in PostgreSQL, role-based access control (RBAC), and strict data validations.',
+      p4Title: 'Agile Delivery',
+      p4Desc: 'Automated CI/CD deployments, Git version control, and thorough verification before production releases.',
+    },
+    education: {
+      title: 'Education & Qualifications',
+      desc: 'University and technical foundations in computer science, systems engineering, and analytical problem-solving.',
+      d1Badge: 'Graduation 2026 · Bachelor’s Degree',
+      d1Status: 'Graduate',
+      d1Title: 'Computer Systems Engineer',
+      d1School: 'Saint Thomas Aquinas University of the North (UNSTA)',
+      d1Desc: 'Comprehensive education in advanced algorithms, full-stack software development, distributed databases, and agile tech project management.',
+      d1Bullet1: 'Design and analysis of advanced algorithms and complex data structures.',
+      d1Bullet2: 'Operating systems architecture, networking, and distributed systems.',
+      d1Bullet3: 'Relational data modeling in PostgreSQL and role-based access control (RBAC).',
+      d1FootLeft: 'Concepción / Tucumán',
+      d1FootRight: '5-Year Degree',
+      d2Badge: 'Technical Secondary Education',
+      d2Status: 'Graduated',
+      d2Title: 'Electromechanical Technician',
+      d2School: 'Technical High School N°1 of Monteros',
+      d2Desc: 'Technical education with a solid practical foundation in methodical troubleshooting, logical schematics, and multidisciplinary teamwork.',
+      d2Bullet1: 'Methodical diagnostics and technical troubleshooting in industrial environments.',
+      d2Bullet2: 'Structured analytical thinking and precision technical methodologies.',
+      d2Bullet3: 'Control logic, electrical circuits, and electromechanical diagrams.',
+      d2FootLeft: 'Monteros / Tucumán',
+      d2FootRight: 'Official Technical Degree',
+    },
+    contact: {
+      title: 'Shall we build something extraordinary together?',
+      desc: 'Available to join engineering teams or lead scalable software projects. Let’s talk.',
+      whatsapp: 'Message on WhatsApp',
+      email: 'Send direct email',
+      copyRight: '© 2026 José Nicolás Espinoza Perillo · Monteros, Tucumán, Argentina',
+      backToTop: 'Back to top ↑',
+      downloadCv: 'Download CV',
+    },
+  },
+};
+
+const getCategoryLabel = (category: string, lang: 'es' | 'en') => {
+  if (lang === 'es') return category;
+  switch (category) {
+    case 'Lenguaje': return 'Language';
+    case 'Framework': return 'Framework';
+    case 'Biblioteca UI': return 'UI Library';
+    case 'Base de Datos': return 'Database';
+    case 'BaaS / DB': return 'BaaS / DB';
+    case 'Estilos / UI': return 'Styles / UI';
+    case 'Estructura Web': return 'Web Structure';
+    case 'Estilos Web': return 'Web Styling';
+    case 'Control de Versiones': return 'Version Control';
+    default: return category;
+  }
+};
 
 export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
   isDarkMode,
   onToggleTheme,
+  language = 'es',
+  onToggleLanguage,
   projects,
   technologiesRow1,
   technologiesRow2,
@@ -13,10 +232,27 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
   email,
   onCopyEmail,
 }) => {
+  const [currentLang, setCurrentLang] = useState<'es' | 'en'>(language || 'es');
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (language) {
+      setCurrentLang(language);
+    }
+  }, [language]);
+
+  const handleToggleLanguage = () => {
+    const nextLang = currentLang === 'es' ? 'en' : 'es';
+    setCurrentLang(nextLang);
+    if (onToggleLanguage) {
+      onToggleLanguage();
+    }
+  };
+
+  const t = i18n[currentLang];
 
   // Escucha reactiva de scroll para animar el compañero 2D
   const handleScroll = useCallback((): void => {
@@ -51,6 +287,35 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
     setTimeout(() => setCopiedEmail(false), 2200);
   };
 
+  const getProjectLocalized = (p: ProjectContract) => {
+    if (currentLang === 'es') return p;
+    if (p.id === '01') {
+      return {
+        ...p,
+        subtitle: t.projects.p1Subtitle,
+        description: t.projects.p1Desc,
+        status: t.projects.statusLive,
+      };
+    }
+    if (p.id === '02') {
+      return {
+        ...p,
+        subtitle: t.projects.p2Subtitle,
+        description: t.projects.p2Desc,
+        status: t.projects.statusLive,
+      };
+    }
+    if (p.id === '03') {
+      return {
+        ...p,
+        subtitle: t.projects.p3Subtitle,
+        description: t.projects.p3Desc,
+        status: t.projects.statusProcess,
+      };
+    }
+    return p;
+  };
+
   return (
     <div className={`min-h-screen font-sans transition-colors duration-300 relative overflow-x-hidden ${isDarkMode ? 'dark bg-[#090A0D] text-zinc-100' : 'bg-[#F6F7F9] text-zinc-900'}`}>
       
@@ -73,19 +338,19 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
           {isScrolling && scrollProgress < 0.85 ? (
             <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1.5">
               <span>🏃‍♂️</span>
-              <span>¡Acelerando por la página!</span>
+              <span>{t.companion.sprint}</span>
             </span>
           ) : scrollProgress >= 0.85 ? (
             <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1.5">
               <span>☕</span>
-              <span>¡Programando en mi escritorio!</span>
+              <span>{t.companion.coding}</span>
             </span>
           ) : scrollProgress < 0.2 ? (
-            <span>👋 ¡Hola! Explora mi portafolio</span>
+            <span>{t.companion.hello}</span>
           ) : scrollProgress < 0.55 ? (
-            <span>💻 Viendo proyectos en vivo</span>
+            <span>{t.companion.viewingProjects}</span>
           ) : (
-            <span>⚡ Tecnologías y filosofía</span>
+            <span>{t.companion.techPhilosophy}</span>
           )}
         </div>
 
@@ -177,17 +442,17 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                   Nicolás Espinoza
                 </span>
                 <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 mt-1">
-                  Ingeniero en Informática
+                  {t.nav.role}
                 </span>
               </div>
             </a>
 
             <div className="hidden md:flex items-center gap-8 text-xs font-bold text-zinc-600 dark:text-zinc-300">
-              <a href="#proyectos" className="hover:text-[#F59E0B] transition-colors">Proyectos</a>
-              <a href="#competencias" className="hover:text-[#F59E0B] transition-colors">Tecnologías</a>
-              <a href="#filosofia" className="hover:text-[#F59E0B] transition-colors">Filosofía</a>
-              <a href="#formacion" className="hover:text-[#F59E0B] transition-colors">Educación</a>
-              <a href="#contacto" className="hover:text-[#F59E0B] transition-colors">Contacto</a>
+              <a href="#proyectos" className="hover:text-[#F59E0B] transition-colors">{t.nav.projects}</a>
+              <a href="#competencias" className="hover:text-[#F59E0B] transition-colors">{t.nav.tech}</a>
+              <a href="#filosofia" className="hover:text-[#F59E0B] transition-colors">{t.nav.philosophy}</a>
+              <a href="#formacion" className="hover:text-[#F59E0B] transition-colors">{t.nav.education}</a>
+              <a href="#contacto" className="hover:text-[#F59E0B] transition-colors">{t.nav.contact}</a>
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
@@ -197,7 +462,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 hover:bg-[#F59E0B] text-[#D97706] dark:text-[#FBBF24] hover:text-white border border-amber-500/30 transition-all shadow-xs"
-                title="Descargar Curriculum Vitae en PDF"
+                title={t.nav.cvTitle}
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 <span>CV</span>
@@ -205,14 +470,29 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
 
               <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/40">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Disponible</span>
+                <span>{t.nav.available}</span>
               </div>
 
+              {/* Botón de cambio de idioma al lado del botón de cambiar de color */}
+              <button 
+                type="button"
+                onClick={handleToggleLanguage} 
+                className="w-10 h-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-[#F59E0B] transition-colors shadow-sm font-mono text-xs font-bold select-none group/lang"
+                title={t.nav.langTitle}
+                aria-label={t.nav.langTitle}
+              >
+                <span className="text-[11px] font-extrabold tracking-wider group-hover/lang:scale-110 transition-transform">
+                  {currentLang === 'es' ? 'EN' : 'ES'}
+                </span>
+              </button>
+
+              {/* Botón de cambiar de color (modo oscuro) */}
               <button 
                 type="button"
                 onClick={onToggleTheme} 
                 className="w-10 h-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-[#F59E0B] transition-colors shadow-sm"
-                title="Alternar modo oscuro"
+                title={t.nav.themeTitle}
+                aria-label={t.nav.themeTitle}
               >
                 {isDarkMode ? (
                   <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -231,15 +511,15 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px] lg:min-h-[580px] relative">
             <div className="lg:col-span-7 px-6 sm:px-12 py-12 lg:py-20 flex flex-col justify-center relative z-20">
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.06]">
-                Desarrollo de <br />
+                {t.hero.title1} <br />
                 <span className="inline-block px-4 py-1 bg-amber-100 dark:bg-amber-950/70 text-[#D97706] dark:text-[#FBBF24] rounded-2xl my-1">
-                  software
+                  {t.hero.titleHighlight}
                 </span> <br />
-                escalable y moderno
+                {t.hero.title2}
               </h1>
 
               <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 mt-6 max-w-xl leading-relaxed font-normal">
-                Ingeniero en Informática enfocado en arquitecturas web de alto rendimiento, interfaces reactivas modernas y soluciones completas de extremo a extremo.
+                {t.hero.desc}
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-3 sm:gap-4">
@@ -247,7 +527,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                   href="#proyectos" 
                   className="px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
                 >
-                  <span>Explorar proyectos</span>
+                  <span>{t.hero.exploreProjects}</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 </a>
 
@@ -261,7 +541,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                   <svg className="w-4 h-4 text-amber-500 dark:text-amber-400 group-hover/cv:text-white group-hover/cv:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                   </svg>
-                  <span>Descargar CV</span>
+                  <span>{t.hero.downloadCv}</span>
                 </a>
 
                 <a 
@@ -282,12 +562,12 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                   {copiedEmail ? (
                     <>
                       <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                      <span>¡Email copiado!</span>
+                      <span>{t.hero.copiedEmail}</span>
                     </>
                   ) : (
                     <>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                      <span>Copiar email</span>
+                      <span>{t.hero.copyEmail}</span>
                     </>
                   )}
                 </button>
@@ -311,28 +591,28 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                       <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
                       <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                     </div>
-                    <span className="text-[10px] text-slate-400 font-sans font-medium">~/portfolio/developer.ts</span>
+                    <span className="text-[10px] text-slate-400 font-sans font-medium">{t.hero.terminalTitle}</span>
                     <span className="text-slate-500 text-[10px]">TypeScript</span>
                   </div>
 
                   <div className="space-y-1 text-slate-300">
                     <p><span className="text-pink-400">const</span> <span className="text-cyan-300">engineer</span> = &#123;</p>
                     <p className="pl-4"><span className="text-slate-400">name:</span> <span className="text-amber-300">&apos;Nicolás Espinoza&apos;</span>,</p>
-                    <p className="pl-4"><span className="text-slate-400">role:</span> <span className="text-amber-300">&apos;Ingeniero en Informática&apos;</span>,</p>
+                    <p className="pl-4"><span className="text-slate-400">role:</span> <span className="text-amber-300">{t.hero.terminalRole}</span>,</p>
                     <p className="pl-4"><span className="text-slate-400">graduation:</span> <span className="text-emerald-400">2026</span>,</p>
                     <p className="pl-4"><span className="text-slate-400">stack:</span> [<span className="text-amber-300">&apos;Angular&apos;</span>, <span className="text-amber-300">&apos;React&apos;</span>, <span className="text-amber-300">&apos;PostgreSQL&apos;</span>],</p>
-                    <p className="pl-4"><span className="text-slate-400">status:</span> <span className="text-emerald-400">&apos;Open to Work&apos;</span></p>
+                    <p className="pl-4"><span className="text-slate-400">status:</span> <span className="text-emerald-400">{t.hero.terminalStatus}</span></p>
                     <p>&#125;;</p>
                   </div>
                 </div>
 
                 <div className="w-full flex items-center justify-between mt-3 px-1">
                   <div className="px-3 py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-amber-300/80 dark:border-amber-700/80 shadow-md flex items-center gap-1.5 text-[11px] font-bold text-zinc-800 dark:text-zinc-200">
-                    <span>☕ Code &amp; Coffee</span>
+                    <span>{t.hero.codeCoffee}</span>
                   </div>
                   <div className="px-3 py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-amber-300/80 dark:border-amber-700/80 shadow-md flex items-center gap-1.5 text-[11px] font-bold text-zinc-800 dark:text-zinc-200">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Full Stack Senior-Ready</span>
+                    <span>{t.hero.seniorReady}</span>
                   </div>
                 </div>
               </div>
@@ -346,100 +626,103 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-              Proyectos destacados
+              {t.projects.title}
             </h2>
             <p className="text-base text-zinc-600 dark:text-zinc-400 mt-2 max-w-xl">
-              Aplicaciones completas con despliegues activos en producción, arquitecturas modernas y bases de datos integradas.
+              {t.projects.desc}
             </p>
           </div>
 
           <div className="space-y-16">
-            {projects.map((p) => (
-              <div key={p.id} className="border-beam-card group">
-                <div className="border-beam-inner p-6 sm:p-8 lg:p-10">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                    
-                    <div className="lg:col-span-7 group/preview">
-                      <a 
-                        href={p.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-2xl group-hover/preview:border-amber-500/60 transition-all duration-300"
-                      >
-                        <div className="h-9 bg-zinc-100 dark:bg-zinc-800/90 px-4 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700/60 select-none">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
-                            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
-                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
-                          </div>
-                          <div className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[220px] sm:max-w-xs">
-                            {p.link}
-                          </div>
-                          <div className="w-8"></div>
-                        </div>
-
-                        <div className="relative overflow-hidden aspect-[16/10] bg-zinc-950">
-                          <img 
-                            src={p.screenshot} 
-                            alt={p.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover object-top group-hover/preview:scale-[1.03] transition-transform duration-500" 
-                          />
-                        </div>
-                      </a>
-                    </div>
-
-                    <div className="lg:col-span-5 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-2 mb-2 font-mono text-xs">
-                          <span className="font-bold text-zinc-400 dark:text-zinc-500">Proyecto {p.id}</span>
-                          <span className="text-zinc-300 dark:text-zinc-700">·</span>
-                          <span className={`px-2.5 py-0.5 rounded-full font-semibold text-[11px] inline-flex items-center gap-1.5 ${
-                            p.status === 'EN LÍNEA' 
-                              ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50'
-                              : 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/50'
-                          }`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${p.status === 'EN LÍNEA' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
-                            <span>{p.status}</span>
-                          </span>
-                        </div>
-
-                        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-                          {p.title}
-                        </h3>
-                        <p className="text-xs font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-4">
-                          {p.subtitle}
-                        </p>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6 font-normal">
-                          {p.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-1.5 mb-8">
-                          {p.tags.map((tag) => (
-                            <span key={tag} className="px-2.5 py-1 rounded-lg text-xs font-mono font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
+            {projects.map((origProject) => {
+              const p = getProjectLocalized(origProject);
+              return (
+                <div key={p.id} className="border-beam-card group">
+                  <div className="border-beam-inner p-6 sm:p-8 lg:p-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                      
+                      <div className="lg:col-span-7 group/preview">
                         <a 
                           href={p.link} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2"
+                          className="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-2xl group-hover/preview:border-amber-500/60 transition-all duration-300"
                         >
-                          <span>Visitar sitio oficial</span>
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                          <div className="h-9 bg-zinc-100 dark:bg-zinc-800/90 px-4 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700/60 select-none">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                              <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                            </div>
+                            <div className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[220px] sm:max-w-xs">
+                              {p.link}
+                            </div>
+                            <div className="w-8"></div>
+                          </div>
+
+                          <div className="relative overflow-hidden aspect-[16/10] bg-zinc-950">
+                            <img 
+                              src={p.screenshot} 
+                              alt={p.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover object-top group-hover/preview:scale-[1.03] transition-transform duration-500" 
+                            />
+                          </div>
                         </a>
                       </div>
-                    </div>
 
+                      <div className="lg:col-span-5 flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center gap-2 mb-2 font-mono text-xs">
+                            <span className="font-bold text-zinc-400 dark:text-zinc-500">{t.projects.prefix} {p.id}</span>
+                            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+                            <span className={`px-2.5 py-0.5 rounded-full font-semibold text-[11px] inline-flex items-center gap-1.5 ${
+                              p.status === 'EN LÍNEA' || p.status === 'LIVE'
+                                ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50'
+                                : 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/50'
+                            }`}>
+                              <span className={`w-1.5 h-1.5 rounded-full ${p.status === 'EN LÍNEA' || p.status === 'LIVE' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
+                              <span>{p.status}</span>
+                            </span>
+                          </div>
+
+                          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+                            {p.title}
+                          </h3>
+                          <p className="text-xs font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-4">
+                            {p.subtitle}
+                          </p>
+                          <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6 font-normal">
+                            {p.description}
+                          </p>
+
+                          <div className="flex flex-wrap gap-1.5 mb-8">
+                            {p.tags.map((tag) => (
+                              <span key={tag} className="px-2.5 py-1 rounded-lg text-xs font-mono font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <a 
+                            href={p.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2"
+                          >
+                            <span>{t.projects.visitOfficial}</span>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                          </a>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -448,10 +731,10 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
       <section id="competencias" className="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E] overflow-hidden">
         <div className="max-w-6xl mx-auto px-6 mb-12 text-center">
           <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-            Competencias técnicas
+            {t.skills.title}
           </h2>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2 max-w-xl mx-auto">
-            Lenguajes de programación y herramientas que utilizo activamente para construir soluciones robustas.
+            {t.skills.desc}
           </p>
         </div>
 
@@ -470,7 +753,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                         {tech.name}
                       </span>
                       <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
-                        {tech.category}
+                        {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
                   </div>
@@ -489,7 +772,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                         {tech.name}
                       </span>
                       <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
-                        {tech.category}
+                        {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
                   </div>
@@ -512,7 +795,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                         {tech.name}
                       </span>
                       <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
-                        {tech.category}
+                        {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
                   </div>
@@ -531,7 +814,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                         {tech.name}
                       </span>
                       <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
-                        {tech.category}
+                        {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
                   </div>
@@ -547,10 +830,10 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-12">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-              Filosofía de desarrollo
+              {t.philosophy.title}
             </h2>
             <p className="text-base text-zinc-600 dark:text-zinc-400 mt-2 max-w-xl">
-              Principios de ingeniería que aplico en cada proyecto para garantizar calidad y sostenibilidad.
+              {t.philosophy.desc}
             </p>
           </div>
 
@@ -559,9 +842,9 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
                 <div>
                   <span className="text-3xl mb-4 block">🧱</span>
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Arquitectura Limpia</h3>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">{t.philosophy.p1Title}</h3>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
-                    Módulos desacoplados, código legible y principios SOLID que facilitan el mantenimiento a largo plazo.
+                    {t.philosophy.p1Desc}
                   </p>
                 </div>
                 <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Deep Modules</span>
@@ -572,9 +855,9 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
                 <div>
                   <span className="text-3xl mb-4 block">⚡</span>
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Alto Rendimiento</h3>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">{t.philosophy.p2Title}</h3>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
-                    Bundles ligeros, renderizado optimizado y métricas de Core Web Vitals al máximo para una carga instantánea.
+                    {t.philosophy.p2Desc}
                   </p>
                 </div>
                 <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Speed &amp; UX</span>
@@ -585,9 +868,9 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
                 <div>
                   <span className="text-3xl mb-4 block">🛡️</span>
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Seguridad y Datos</h3>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">{t.philosophy.p3Title}</h3>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
-                    Modelado relacional robusto en PostgreSQL, control de acceso por roles (RBAC) y validaciones estrictas.
+                    {t.philosophy.p3Desc}
                   </p>
                 </div>
                 <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">Data Integrity</span>
@@ -598,9 +881,9 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               <div className="border-beam-inner p-7 flex flex-col justify-between h-full">
                 <div>
                   <span className="text-3xl mb-4 block">🚀</span>
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Entrega Ágil</h3>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">{t.philosophy.p4Title}</h3>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
-                    Despliegues automatizados, control de versiones con Git y pruebas exhaustivas antes de pasar a producción.
+                    {t.philosophy.p4Desc}
                   </p>
                 </div>
                 <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-4 block font-semibold">CI/CD &amp; Testing</span>
@@ -615,10 +898,10 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-12">
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-              Formación académica
+              {t.education.title}
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-              Bases universitarias y técnicas en ciencias de la computación, sistemas y resolución analítica de problemas.
+              {t.education.desc}
             </p>
           </div>
 
@@ -630,43 +913,43 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-3">
                     <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 dark:bg-amber-950/80 text-[#D97706] dark:text-[#FBBF24]">
-                      Graduación 2026 · Título de Grado
+                      {t.education.d1Badge}
                     </span>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/50 text-xs font-bold">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                      <span>Egresado</span>
+                      <span>{t.education.d1Status}</span>
                     </span>
                   </div>
 
                   <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
-                    Ingeniero en Informática
+                    {t.education.d1Title}
                   </h3>
                   <p className="text-sm font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-3">
-                    Universidad del Norte Santo Tomás de Aquino (UNSTA)
+                    {t.education.d1School}
                   </p>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
-                    Formación integral en diseño de algoritmos avanzados, desarrollo full stack, bases de datos distribuidas y gestión de proyectos tecnológicos.
+                    {t.education.d1Desc}
                   </p>
 
                   <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-1.5 font-normal border-t border-zinc-100 dark:border-zinc-800/60 pt-3">
                     <li className="flex items-center gap-2">
                       <span className="text-amber-500">▹</span>
-                      <span>Diseño y análisis de algoritmos y estructuras de datos complejas.</span>
+                      <span>{t.education.d1Bullet1}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-amber-500">▹</span>
-                      <span>Arquitectura de sistemas operativos, redes y sistemas distribuidos.</span>
+                      <span>{t.education.d1Bullet2}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-amber-500">▹</span>
-                      <span>Modelado relacional en PostgreSQL y control de acceso RBAC.</span>
+                      <span>{t.education.d1Bullet3}</span>
                     </li>
                   </ul>
                 </div>
 
                 <div className="mt-6 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                  <span>Concepción / Tucumán</span>
-                  <span className="text-amber-600 dark:text-amber-400 font-semibold">5 Años de Carrera</span>
+                  <span>{t.education.d1FootLeft}</span>
+                  <span className="text-amber-600 dark:text-amber-400 font-semibold">{t.education.d1FootRight}</span>
                 </div>
               </div>
             </div>
@@ -677,42 +960,42 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-3">
                     <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
-                      Nivel Secundario Técnico
+                      {t.education.d2Badge}
                     </span>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 text-xs font-bold">
-                      <span>Graduado</span>
+                      <span>{t.education.d2Status}</span>
                     </span>
                   </div>
 
                   <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
-                    Técnico Electromecánico
+                    {t.education.d2Title}
                   </h3>
                   <p className="text-sm font-semibold text-[#D97706] dark:text-[#FBBF24] mt-1 mb-3">
-                    Escuela Técnica N°1 de Monteros
+                    {t.education.d2School}
                   </p>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
-                    Formación técnica con fuerte base práctica en resolución metódica de averías, esquemas lógicos y trabajo en equipo multidisciplinario.
+                    {t.education.d2Desc}
                   </p>
 
                   <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-1.5 font-normal border-t border-zinc-100 dark:border-zinc-800/60 pt-3">
                     <li className="flex items-center gap-2">
                       <span className="text-amber-500">▹</span>
-                      <span>Diagnóstico metódico y resolución de averías en entornos técnicos.</span>
+                      <span>{t.education.d2Bullet1}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-amber-500">▹</span>
-                      <span>Pensamiento analítico estructurado y metodologías de precisión.</span>
+                      <span>{t.education.d2Bullet2}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-amber-500">▹</span>
-                      <span>Lógica de control, circuitos y esquemas electromecánicos.</span>
+                      <span>{t.education.d2Bullet3}</span>
                     </li>
                   </ul>
                 </div>
 
                 <div className="mt-6 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                  <span>Monteros / Tucumán</span>
-                  <span className="text-zinc-500 dark:text-zinc-400 font-semibold">Título Técnico Oficial</span>
+                  <span>{t.education.d2FootLeft}</span>
+                  <span className="text-zinc-500 dark:text-zinc-400 font-semibold">{t.education.d2FootRight}</span>
                 </div>
               </div>
             </div>
@@ -739,11 +1022,11 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white max-w-2xl">
-                ¿Construimos algo extraordinario juntos?
+                {t.contact.title}
               </h2>
 
               <p className="text-base text-zinc-600 dark:text-zinc-300 mt-4 max-w-xl leading-relaxed">
-                Disponible para integrarme a equipos de ingeniería o liderar proyectos de software escalables. Conversemos.
+                {t.contact.desc}
               </p>
 
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -753,7 +1036,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                   rel="noopener noreferrer" 
                   className="px-8 py-4 rounded-full bg-[#D97706] hover:bg-[#F59E0B] text-white font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
                 >
-                  <span>Escribir por WhatsApp</span>
+                  <span>{t.contact.whatsapp}</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
 
@@ -761,16 +1044,16 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                   href={`mailto:${email}`} 
                   className="px-7 py-4 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-500 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold text-sm transition-all shadow-sm inline-flex items-center gap-2"
                 >
-                  <span>Enviar correo directo</span>
+                  <span>{t.contact.email}</span>
                 </a>
               </div>
 
               <div className="mt-14 pt-8 border-t border-zinc-200/60 dark:border-zinc-800/60 w-full flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 gap-4">
-                <p>© 2026 José Nicolás Espinoza Perillo · Monteros, Tucumán, Argentina</p>
+                <p>{t.contact.copyRight}</p>
                 <div className="flex items-center gap-6">
                   <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">GitHub</a>
-                  <a href={cvUrl} download="CV-Nicolas-Espinoza-Ingeniero.pdf" className="hover:text-amber-500 transition-colors">Descargar CV</a>
-                  <a href="#" className="hover:text-amber-500 transition-colors">Volver arriba ↑</a>
+                  <a href={cvUrl} download="CV-Nicolas-Espinoza-Ingeniero.pdf" className="hover:text-amber-500 transition-colors">{t.contact.downloadCv}</a>
+                  <a href="#" className="hover:text-amber-500 transition-colors">{t.contact.backToTop}</a>
                 </div>
               </div>
             </div>

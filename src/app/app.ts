@@ -12,6 +12,7 @@ import type { ProjectContract, TechItemContract } from '../packages/portfolio-re
 })
 export class App implements OnInit {
   isDarkMode = signal<boolean>(false);
+  language = signal<'es' | 'en'>('es');
   copied = signal<boolean>(false);
 
   // Información personal
@@ -150,6 +151,10 @@ export class App implements OnInit {
     } else {
       document.documentElement.classList.remove('dark');
     }
+  }
+
+  toggleLanguage() {
+    this.language.update((l) => (l === 'es' ? 'en' : 'es'));
   }
 
   onEmailCopied(email: string) {

@@ -24,6 +24,8 @@ export interface TechItemContract {
 export interface PortfolioBridgeProps {
   readonly isDarkMode: boolean;
   readonly onToggleTheme: () => void;
+  readonly language?: 'es' | 'en';
+  readonly onToggleLanguage?: () => void;
   readonly projects: readonly ProjectContract[];
   readonly technologiesRow1: readonly TechItemContract[];
   readonly technologiesRow2: readonly TechItemContract[];

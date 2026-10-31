@@ -235,6 +235,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
   const [currentLang, setCurrentLang] = useState<'es' | 'en'>(language || 'es');
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -254,7 +255,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
 
   const t = i18n[currentLang];
 
-  // Escucha reactiva de scroll para animar el compañero 2D
+  // Escucha reactiva de scroll para animar el compañero 2D y fijar el navbar sticky
   const handleScroll = useCallback((): void => {
     const docElement = document.documentElement;
     const docHeight = docElement.scrollHeight - window.innerHeight;
@@ -270,9 +271,11 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         setIsScrolling(false);
       }, 260);
     }
+    setIsScrolled(window.scrollY > 20);
   }, []);
 
   useEffect(() => {
+    setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -427,12 +430,16 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         </div>
       </aside>
 
-      {/* 3. HERO MASTER CARD */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-12 sm:pb-16">
-        <div className="rounded-[2.5rem] sm:rounded-[3rem] bg-white dark:bg-[#111317] border border-zinc-200/80 dark:border-zinc-800/80 shadow-hero relative overflow-hidden transition-all">
-          
-          {/* Navegación integrada */}
-          <nav className="px-6 sm:px-12 pt-7 pb-4 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800/60 relative z-30">
+      {/* 3. NAVEGACIÓN STICKY PERMANENTE */}
+      <header 
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+          isScrolled 
+            ? 'py-2.5 sm:py-3 bg-[#F6F7F9]/85 dark:bg-[#090A0D]/85 backdrop-blur-md border-b border-zinc-200/50 dark:border-zinc-800/50 shadow-sm' 
+            : 'pt-3 sm:pt-4 pb-2 bg-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <nav className="rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#111317]/95 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800/80 shadow-hero px-5 sm:px-10 py-3 sm:py-3.5 flex items-center justify-between transition-all">
             <a href="#" className="flex items-center gap-2.5 group">
               <span className="w-12 h-10 rounded-2xl bg-[#F59E0B] text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-md group-hover:scale-105 transition-transform">
                 JNEP
@@ -506,6 +513,12 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               </button>
             </div>
           </nav>
+        </div>
+      </header>
+
+      {/* 4. HERO MASTER CARD */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-12 sm:pb-16">
+        <div className="rounded-[2.5rem] sm:rounded-[3rem] bg-white dark:bg-[#111317] border border-zinc-200/80 dark:border-zinc-800/80 shadow-hero relative overflow-hidden transition-all">
 
           {/* Hero Body */}
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px] lg:min-h-[580px] relative">
@@ -622,7 +635,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
       </div>
 
       {/* 4. PROYECTOS DESTACADOS CON BORDER BEAM */}
-      <section id="proyectos" className="py-16 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60">
+      <section id="proyectos" className="py-16 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
@@ -728,7 +741,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
       </section>
 
       {/* 5. COMPETENCIAS TÉCNICAS (CON INFINITE SCROLL BIDIRECCIONAL & FADE MASK) */}
-      <section id="competencias" className="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E] overflow-hidden">
+      <section id="competencias" className="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E] overflow-hidden scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6 mb-12 text-center">
           <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
             {t.skills.title}
@@ -826,7 +839,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
       </section>
 
       {/* 6. FILOSOFÍA DE DESARROLLO */}
-      <section id="filosofia" className="py-20 md:py-28 border-b border-zinc-200/60 dark:border-zinc-800/60">
+      <section id="filosofia" className="py-20 md:py-28 border-b border-zinc-200/60 dark:border-zinc-800/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-12">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
@@ -894,7 +907,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
       </section>
 
       {/* 7. FORMACIÓN ACADÉMICA */}
-      <section id="formacion" className="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E]">
+      <section id="formacion" className="py-20 md:py-24 border-b border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#0B0C0E] scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-12">
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
@@ -1005,7 +1018,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
       </section>
 
       {/* 8. CONTACTO & FOOTER */}
-      <footer id="contacto" className="py-20 md:py-28 relative">
+      <footer id="contacto" className="py-20 md:py-28 relative scroll-mt-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="border-beam-card group">
             <div className="border-beam-inner p-8 sm:p-14 lg:p-16 flex flex-col items-center text-center">

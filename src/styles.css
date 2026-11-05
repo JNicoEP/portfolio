@@ -344,3 +344,43 @@
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* ================= PREVISUALIZADOR CON AUTO-SCROLL AL PASAR EL MOUSE (ESTILO WEBEXPORT) ================= */
+.project-preview-viewport {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #09090b;
+}
+
+/* La imagen ocupa el ancho completo y alinea arriba por defecto */
+.project-preview-scroll-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: object-position 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: object-position;
+}
+
+/* Se activa ÚNICAMENTE al pasar el mouse directamente encima de la imagen */
+.project-preview-viewport:hover .project-preview-scroll-img {
+  object-position: bottom center;
+  transition: object-position 4.5s linear 0.1s;
+}
+
+/* Badge indicador flotante de auto-scroll */
+.preview-scroll-hint {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  pointer-events: none;
+  opacity: 0.88;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+.project-preview-viewport:hover .preview-scroll-hint {
+  opacity: 0;
+  transform: translateY(4px);
+}

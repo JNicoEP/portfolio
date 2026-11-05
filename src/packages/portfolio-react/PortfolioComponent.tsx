@@ -666,34 +666,51 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                   <div className="border-beam-inner p-6 sm:p-8 lg:p-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                       
-                      <div className="lg:col-span-7 group/preview">
-                        <a 
-                          href={p.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md group-hover/preview:shadow-2xl group-hover/preview:border-amber-500/60 transition-all duration-300"
-                        >
+                      <div className="lg:col-span-7">
+                        <div className="block rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-md transition-all duration-300">
+                          {/* Barra superior estilo navegador */}
                           <div className="h-9 bg-zinc-100 dark:bg-zinc-800/90 px-4 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700/60 select-none">
                             <div className="flex items-center gap-1.5">
                               <span className="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
                               <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
                               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
                             </div>
-                            <div className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-[220px] sm:max-w-xs">
+                            <a 
+                              href={p.link} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="text-[11px] font-mono text-zinc-500 hover:text-amber-500 dark:text-zinc-400 dark:hover:text-amber-400 truncate max-w-[220px] sm:max-w-xs transition-colors"
+                            >
                               {p.link}
-                            </div>
+                            </a>
                             <div className="w-8"></div>
                           </div>
 
-                          <div className="relative overflow-hidden aspect-[16/10] bg-zinc-950">
+                          {/* Marco de previsualización con auto-scroll al pasar el mouse SOLO por encima de la imagen */}
+                          <a 
+                            href={p.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="project-preview-viewport relative block overflow-hidden aspect-[16/10] bg-zinc-950 group/viewport"
+                            title={currentLang === 'es' ? 'Explorar sitio en vivo (pasa el cursor para previsualizar)' : 'Explore live site (hover to scroll preview)'}
+                          >
                             <img 
                               src={p.screenshot} 
                               alt={p.title}
                               loading="lazy"
-                              className="w-full h-full object-cover object-top group-hover/preview:scale-[1.03] transition-transform duration-500" 
+                              className="project-preview-scroll-img w-full h-full object-cover" 
                             />
-                          </div>
-                        </a>
+                            
+                            {/* Píldora de ayuda visual interactiva */}
+                            <div className="preview-scroll-hint px-2.5 py-1 rounded-full bg-zinc-900/85 dark:bg-black/85 backdrop-blur-md border border-white/15 text-[10px] font-mono font-medium text-zinc-300 flex items-center gap-1.5 shadow-lg">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                              <span>{currentLang === 'es' ? 'Pasa el cursor para ver toda la web' : 'Hover to scroll preview'}</span>
+                              <svg className="w-3 h-3 text-amber-400 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                              </svg>
+                            </div>
+                          </a>
+                        </div>
                       </div>
 
                       <div className="lg:col-span-5 flex flex-col justify-between">

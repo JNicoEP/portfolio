@@ -62,6 +62,17 @@ export class App implements OnInit {
       tags: ['Angular', 'TypeScript', 'Tailwind CSS', 'Booking Engine', 'Responsive UI'],
       status: 'EN PROCESO',
       category: 'Turnos Online & Estética'
+    },
+    {
+      id: '04',
+      title: 'DJ Gabo Mosevich',
+      subtitle: 'Plataforma Web Oficial para DJ de Eventos & Festivales',
+      description: 'Plataforma web de alto impacto visual desarrollada para DJ profesional de eventos, bodas y festivales. Cuenta con reproductor interactivo de sets y sesiones en vivo, archivo fotográfico de eventos y módulo dinámico de coordinación de fechas online con integración a WhatsApp.',
+      link: 'https://gabomosevich.dj',
+      screenshot: 'projects/dj-gabo.png',
+      tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Audio API', 'Event Booking'],
+      status: 'EN PROCESO',
+      category: 'Entretenimiento & Eventos'
     }
   ];
 
@@ -91,6 +102,11 @@ export class App implements OnInit {
       name: 'TypeScript',
       category: 'Lenguaje',
       iconSvg: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'
+    },
+    {
+      name: 'Next.js',
+      category: 'Framework',
+      iconSvg: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg'
     },
     {
       name: 'Angular',

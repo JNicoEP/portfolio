@@ -50,6 +50,8 @@ const i18n = {
       p2Desc: 'Plataforma audiovisual moderna para explorar y reproducir películas con diseño cinematográfico inmersivo. Desarrollada con React y TypeScript, incluye catálogo interactivo clasificado por géneros y tendencias, buscador en tiempo real y reproductor multimedia fluido.',
       p3Subtitle: 'Sistema Integral para Centro de Peluquería & Estética',
       p3Desc: 'Plataforma web con diseño editorial y minimalista para peluqueria. Integra catálogo interactivo de servicios estéticos, módulo dinámico de agenda y reserva de turnos online en tiempo real, cotizador y perfiles profesionales.',
+      p4Subtitle: 'Plataforma Web Oficial para DJ de Eventos & Festivales',
+      p4Desc: 'Plataforma web de alto impacto visual desarrollada para DJ profesional de eventos, bodas y festivales. Cuenta con reproductor interactivo de sets y sesiones en vivo, archivo fotográfico de eventos y módulo dinámico de coordinación de fechas online con integración a WhatsApp.',
     },
     skills: {
       title: 'Competencias técnicas',
@@ -149,6 +151,8 @@ const i18n = {
       p2Desc: 'Modern audiovisual platform to explore and stream movies with an immersive cinematic design. Built with React and TypeScript, includes interactive catalog categorized by genres and trends, real-time search, and smooth media playback.',
       p3Subtitle: 'Comprehensive System for Hair Salon & Aesthetics Studio',
       p3Desc: 'Editorial and minimalist web platform for hair salons and beauty studios. Integrates interactive beauty service catalog, dynamic real-time appointment booking engine, service cost estimator, and professional staff profiles.',
+      p4Subtitle: 'Official Web Platform for Event & Festival DJ',
+      p4Desc: 'High-impact modern web platform engineered for a professional event, wedding, and festival DJ. Features interactive live music sets player, event photo archive, and dynamic online date booking coordinator with WhatsApp integration.',
     },
     skills: {
       title: 'Technical Skills',
@@ -313,6 +317,14 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         ...p,
         subtitle: t.projects.p3Subtitle,
         description: t.projects.p3Desc,
+        status: t.projects.statusProcess,
+      };
+    }
+    if (p.id === '04') {
+      return {
+        ...p,
+        subtitle: t.projects.p4Subtitle,
+        description: t.projects.p4Desc,
         status: t.projects.statusProcess,
       };
     }

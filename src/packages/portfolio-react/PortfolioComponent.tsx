@@ -218,6 +218,8 @@ const getCategoryLabel = (category: string, lang: 'es' | 'en') => {
     case 'Estructura Web': return 'Web Structure';
     case 'Estilos Web': return 'Web Styling';
     case 'Control de Versiones': return 'Version Control';
+    case 'Diseño UI/UX': return 'UI/UX Design';
+    case 'Diseño Gráfico': return 'Graphic Design';
     default: return category;
   }
 };
@@ -325,7 +327,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
         ...p,
         subtitle: t.projects.p4Subtitle,
         description: t.projects.p4Desc,
-        status: t.projects.statusProcess,
+        status: t.projects.statusLive,
       };
     }
     return p;
@@ -698,6 +700,7 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                               src={p.screenshot} 
                               alt={p.title}
                               loading="lazy"
+                              decoding="async"
                               className="project-preview-scroll-img w-full h-full object-cover" 
                             />
                             
@@ -788,13 +791,13 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                 {technologiesRow1.map((tech) => (
                   <div key={tech.name} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
                     <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
-                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_4px_12px_rgba(245,158,11,0.25)]">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" decoding="async" />
                       </div>
                       <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
                         {tech.name}
                       </span>
-                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                      <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-mono mt-1.5 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60 text-center truncate max-w-full">
                         {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
@@ -807,13 +810,13 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                 {technologiesRow1.map((tech, idx) => (
                   <div key={`tech-row1-dup-${idx}`} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
                     <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
-                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_4px_12px_rgba(245,158,11,0.25)]">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" decoding="async" />
                       </div>
                       <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
                         {tech.name}
                       </span>
-                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                      <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-mono mt-1.5 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60 text-center truncate max-w-full">
                         {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
@@ -830,13 +833,13 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                 {technologiesRow2.map((tech) => (
                   <div key={tech.name} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
                     <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
-                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_4px_12px_rgba(245,158,11,0.25)]">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" decoding="async" />
                       </div>
                       <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
                         {tech.name}
                       </span>
-                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                      <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-mono mt-1.5 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60 text-center truncate max-w-full">
                         {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
@@ -849,13 +852,13 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
                 {technologiesRow2.map((tech, idx) => (
                   <div key={`tech-row2-dup-${idx}`} className="border-beam-card group cursor-default w-36 sm:w-44 flex-shrink-0">
                     <div className="border-beam-inner flex flex-col items-center justify-center p-4 sm:p-5">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-transform duration-200 group-hover:scale-110">
-                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center p-1 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_4px_12px_rgba(245,158,11,0.25)]">
+                        <img src={tech.iconSvg} alt={tech.name} className="w-full h-full object-contain" loading="lazy" decoding="async" />
                       </div>
                       <span className="mt-2.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#D97706] dark:group-hover:text-[#FBBF24] transition-colors text-center truncate max-w-full">
                         {tech.name}
                       </span>
-                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 text-center">
+                      <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-mono mt-1.5 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60 text-center truncate max-w-full">
                         {getCategoryLabel(tech.category, currentLang)}
                       </span>
                     </div>
@@ -1056,10 +1059,11 @@ export const PortfolioComponent: React.FC<PortfolioBridgeProps> = memo(({
               <div className="w-56 sm:w-64 md:w-72 max-w-full mb-6 relative group/illus">
                 <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-orange-500/10 rounded-3xl blur-2xl opacity-60 group-hover/illus:opacity-100 transition-opacity"></div>
                 <img 
-                  src="contact-illustration.png" 
+                  src="contact-illustration.webp" 
                   alt="Ilustración 3D de ingeniería y colaboración" 
                   className="w-full h-auto object-contain relative z-10 rounded-2xl shadow-xl hover:scale-105 transition-transform duration-500" 
                   loading="lazy" 
+                  decoding="async"
                 />
               </div>
 

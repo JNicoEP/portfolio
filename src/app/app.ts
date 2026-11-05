@@ -36,7 +36,7 @@ export class App implements OnInit {
       subtitle: 'Sistema Institucional con BD & Aula Virtual con Roles',
       description: 'Sistema web integral para digitalizar la gestión escolar de la institución. Cuenta con arquitectura de base de datos relacional y autenticación con control de roles (directivos, docentes y alumnos), infografía escolar interactiva, proyectos estudiantiles y repositorio descargable de documentación.',
       link: 'https://escuela-mariano-ariza-rust.vercel.app/',
-      screenshot: 'projects/mariano-ariza.png',
+      screenshot: 'projects/mariano-ariza.webp',
       tags: ['JavaScript', 'PostgreSQL', 'Supabase', 'Vercel', 'RBAC'],
       status: 'EN LÍNEA',
       category: 'Gestión Educativa & Roles'
@@ -47,7 +47,7 @@ export class App implements OnInit {
       subtitle: 'Plataforma Web de Streaming de Películas',
       description: 'Plataforma audiovisual moderna para explorar y reproducir películas con diseño cinematográfico inmersivo. Desarrollada con React y TypeScript, incluye catálogo interactivo clasificado por géneros y tendencias, buscador en tiempo real y reproductor multimedia fluido.',
       link: 'https://luvanna.netlify.app/',
-      screenshot: 'projects/luvanna.png',
+      screenshot: 'projects/luvanna.webp',
       tags: ['React', 'TypeScript', 'Tailwind CSS', 'Streaming API', 'SPA'],
       status: 'EN LÍNEA',
       category: 'Multimedia & Streaming'
@@ -58,7 +58,7 @@ export class App implements OnInit {
       subtitle: 'Sistema Integral para Centro de Peluquería & Estética',
       description: 'Plataforma web con diseño editorial y minimalista para peluqueria. Integra catálogo interactivo de servicios estéticos, módulo dinámico de agenda y reserva de turnos online en tiempo real, cotizador y perfiles profesionales.',
       link: 'https://lumiiere.vercel.app/',
-      screenshot: 'projects/lumiiere.png',
+      screenshot: 'projects/lumiiere.webp',
       tags: ['Angular', 'TypeScript', 'Tailwind CSS', 'Booking Engine', 'Responsive UI'],
       status: 'EN PROCESO',
       category: 'Turnos Online & Estética'
@@ -68,10 +68,10 @@ export class App implements OnInit {
       title: 'DJ Gabo Mosevich',
       subtitle: 'Plataforma Web Oficial para DJ de Eventos & Festivales',
       description: 'Plataforma web de alto impacto visual desarrollada para DJ profesional de eventos, bodas y festivales. Cuenta con reproductor interactivo de sets y sesiones en vivo, archivo fotográfico de eventos y módulo dinámico de coordinación de fechas online con integración a WhatsApp.',
-      link: 'https://gabomosevich.dj',
-      screenshot: 'projects/dj-gabo.png',
+      link: 'https://djgabo.com.ar/',
+      screenshot: 'projects/dj-gabo.webp',
       tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Audio API', 'Event Booking'],
-      status: 'EN PROCESO',
+      status: 'EN LÍNEA',
       category: 'Entretenimiento & Eventos'
     }
   ];
@@ -135,6 +135,16 @@ export class App implements OnInit {
       name: 'Tailwind CSS',
       category: 'Estilos / UI',
       iconSvg: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg'
+    },
+    {
+      name: 'Figma',
+      category: 'Diseño UI/UX',
+      iconSvg: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg'
+    },
+    {
+      name: 'Canva',
+      category: 'Diseño Gráfico',
+      iconSvg: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg'
     },
     {
       name: 'HTML5',
